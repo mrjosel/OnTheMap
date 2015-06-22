@@ -16,22 +16,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pa4-0V-L0H">
-                                <rect key="frame" x="134" y="74" width="332" height="265"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8c-ti-hLF">
+                                <rect key="frame" x="126" y="79" width="348" height="205"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Udacity" translatesAutoresizingMaskIntoConstraints="NO" id="42M-fw-Khc">
+                                        <rect key="frame" x="115" y="24" width="118" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="4Uz-ZB-ME1"/>
+                                            <constraint firstAttribute="width" constant="118" id="L2n-tx-Xd3"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkT-4E-CL7">
+                                        <rect key="frame" x="16" y="152" width="316" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="42M-fw-Khc" firstAttribute="top" secondItem="K8c-ti-hLF" secondAttribute="top" constant="24" id="1TW-GL-UIl"/>
+                                    <constraint firstAttribute="width" constant="348" id="1UV-Zl-TBe"/>
+                                    <constraint firstAttribute="centerX" secondItem="EkT-4E-CL7" secondAttribute="centerX" id="Dxu-Qc-SCK"/>
+                                    <constraint firstAttribute="height" constant="205" id="Ed8-iz-RCA"/>
+                                    <constraint firstItem="EkT-4E-CL7" firstAttribute="top" secondItem="42M-fw-Khc" secondAttribute="bottom" id="erp-30-B70"/>
+                                    <constraint firstAttribute="centerX" secondItem="42M-fw-Khc" secondAttribute="centerX" id="wEk-6a-Pbb"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstItem="pa4-0V-L0H" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="54" id="EcN-jh-2es"/>
-                            <constraint firstAttribute="centerX" secondItem="pa4-0V-L0H" secondAttribute="centerX" id="rPl-PV-9t7"/>
+                            <constraint firstItem="K8c-ti-hLF" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="59" id="Izn-1K-UhQ"/>
+                            <constraint firstAttribute="centerX" secondItem="K8c-ti-hLF" secondAttribute="centerX" id="wuo-Ix-ayr"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="udacityIconImageView" destination="pa4-0V-L0H" id="bhn-oo-bAf"/>
+                        <outlet property="loginLabel" destination="EkT-4E-CL7" id="tBH-Qn-qHl"/>
+                        <outlet property="topvView" destination="K8c-ti-hLF" id="th6-yQ-iqV"/>
+                        <outlet property="udacityIconImageView" destination="42M-fw-Khc" id="THl-UT-bfI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="Udacity" width="256" height="256"/>
+    </resources>
 </document>

@@ -10,23 +10,21 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    var gradient = CAGradientLayer()
+    //Outlets
     @IBOutlet weak var udacityIconImageView: UIImageView!
+    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var topvView: UIView!
     
+    //vars and lets
     let lightOrange = UIColor(red: 1.125, green: 0.625, blue: 0.125, alpha: 1.0)
+    var gradient = CAGradientLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //Udacity Orange Fade
-        gradient.frame = view.bounds
-        gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
-        view.layer.insertSublayer(gradient, atIndex: 0)
-        
-        //Udacity Image
-        udacityIconImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        udacityIconImageView.image = UIImage(named: "Udacity")
+        //Configure the UI
+        self.configureUI()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +32,23 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func configureUI() {
+        //Udacity Orange Fade
+        gradient.frame = view.bounds
+        gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
+        view.layer.insertSublayer(gradient, atIndex: 0)
+        topvView.backgroundColor = UIColor.clearColor()
+        
+        //Udacity Image
+        udacityIconImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        udacityIconImageView.image = UIImage(named: "Udacity")
+        
+        //Login Label
+        loginLabel.textAlignment = NSTextAlignment.Center
+        loginLabel.font = UIFont(name: "Roboto-Thin", size: 30.0)
+        loginLabel.textColor = UIColor.whiteColor()
+        loginLabel.text = "Login to Udacity"
+    }
 
 }
 
