@@ -9,10 +9,24 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    var gradient = CAGradientLayer()
+    @IBOutlet weak var udacityIconImageView: UIImageView!
+    
+    let lightOrange = UIColor(red: 1.125, green: 0.625, blue: 0.125, alpha: 1.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Udacity Orange Fade
+        gradient.frame = view.bounds
+        gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
+        view.layer.insertSublayer(gradient, atIndex: 0)
+        
+        //Udacity Image
+        udacityIconImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        udacityIconImageView.image = UIImage(named: "Udacity")
     }
 
     override func didReceiveMemoryWarning() {
