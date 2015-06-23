@@ -15,7 +15,6 @@ extension LoginViewController {
     func configureUI() {
         //Perform all default UI configuration
         
-        //Udacity Orange Fade
         let lightOrange = UIColor(red: 1.125, green: 0.625, blue: 0.125, alpha: 1.0)
         var gradient = CAGradientLayer()
         gradient.frame = view.bounds
@@ -30,24 +29,11 @@ extension LoginViewController {
         
         //Login textFields, buttons
         bottomView.backgroundColor = UIColor.clearColor()
-        let textFieldOrange = makeOrange()
         
-        //set up usernameTextField appearence
-        usernameTextField.delegate = loginTextFieldDelegate
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        usernameTextField.font = UIFont(name: "Roboto-Regular", size: 17.0)
-        usernameTextField.backgroundColor = textFieldOrange
-        usernameTextField.textColor = UIColor.whiteColor()
-        usernameTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)  //indents text
-        
-        //set up passwordTextField appearence
-        passwordTextField.delegate = loginTextFieldDelegate
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        passwordTextField.font = UIFont(name: "Roboto-Regular", size: 17.0)
-        passwordTextField.backgroundColor = textFieldOrange
-        passwordTextField.textColor = UIColor.whiteColor()
-        passwordTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)  //indents text
-        
+        //set up textField appearence
+        setupTextFieldProperties(usernameTextField, placeholder: "Email")
+        setupTextFieldProperties(passwordTextField, placeholder: "Password")
+
         //Udacity Image
         udacityIconImageView.contentMode = UIViewContentMode.ScaleAspectFill
         udacityIconImageView.image = UIImage(named: "Udacity")
@@ -61,6 +47,18 @@ extension LoginViewController {
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
+    }
+    
+    func setupTextFieldProperties(textField: UITextField, placeholder: String) -> Void {
+        //common properties for each textField
+        let textFieldOrange = makeOrange()
+        textField.delegate = loginTextFieldDelegate
+        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        textField.font = UIFont(name: "Roboto-Regular", size: 17.0)
+        textField.backgroundColor = textFieldOrange
+        textField.textColor = UIColor.whiteColor()
+        textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)  //indents text
+
     }
     
     func makeOrange() -> UIColor {
