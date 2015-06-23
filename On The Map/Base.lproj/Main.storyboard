@@ -26,8 +26,8 @@
                                             <constraint firstAttribute="width" constant="118" id="L2n-tx-Xd3"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkT-4E-CL7">
-                                        <rect key="frame" x="16" y="152" width="316" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkT-4E-CL7">
+                                        <rect key="frame" x="153" y="152" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kH2-rR-eca">
                                 <rect key="frame" x="126" y="292" width="348" height="205"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="au8-W3-dMo">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="au8-W3-dMo">
                                         <rect key="frame" x="49" y="24" width="250" height="44"/>
                                         <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -57,7 +57,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJ7-9U-Zxf" customClass="BorderedButton" customModule="On_The_Map" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJ7-9U-Zxf" customClass="BorderedButton" customModule="On_The_Map" customModuleProvider="target">
                                         <rect key="frame" x="49" y="128" width="250" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="uCB-Tf-P7x"/>
@@ -66,7 +66,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DcQ-gF-itT">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DcQ-gF-itT">
                                         <rect key="frame" x="49" y="76" width="250" height="44"/>
                                         <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -80,8 +80,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="zJ7-9U-Zxf" firstAttribute="top" secondItem="DcQ-gF-itT" secondAttribute="bottom" constant="8" symbolic="YES" id="7cW-ux-yWO"/>
                                     <constraint firstAttribute="width" constant="348" id="Kls-Tj-7eW"/>
+                                    <constraint firstItem="zJ7-9U-Zxf" firstAttribute="centerX" secondItem="kH2-rR-eca" secondAttribute="centerX" id="OTi-aO-fOO"/>
+                                    <constraint firstAttribute="bottom" secondItem="zJ7-9U-Zxf" secondAttribute="bottom" constant="33" id="SCs-hA-glk"/>
+                                    <constraint firstItem="zJ7-9U-Zxf" firstAttribute="leading" secondItem="DcQ-gF-itT" secondAttribute="leading" id="bkD-r9-iLZ"/>
                                     <constraint firstAttribute="height" constant="205" id="dWq-m0-OQh"/>
+                                    <constraint firstItem="zJ7-9U-Zxf" firstAttribute="trailing" secondItem="DcQ-gF-itT" secondAttribute="trailing" id="ogN-Sm-eY7"/>
+                                    <constraint firstItem="DcQ-gF-itT" firstAttribute="top" secondItem="au8-W3-dMo" secondAttribute="bottom" constant="8" symbolic="YES" id="sK3-tQ-dtT"/>
+                                    <constraint firstItem="zJ7-9U-Zxf" firstAttribute="leading" secondItem="au8-W3-dMo" secondAttribute="leading" id="vQb-XY-7nQ"/>
                                 </constraints>
                             </view>
                         </subviews>
