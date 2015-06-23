@@ -29,6 +29,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // get keybard notifications
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
     }
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
+        //remove keyboard notifications
         self.removeKeyboardDismissRecognizer()
         self.unsubscribeToKeyboardNotifications()
     }
