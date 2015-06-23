@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B71B679A1B38AD160010F2DD /* LoginTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71B67991B38AD160010F2DD /* LoginTextFieldDelegate.swift */; };
+		B71B679E1B39FA8C0010F2DD /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71B679D1B39FA8C0010F2DD /* ParseClient.swift */; };
+		B71B67A01B39FAFF0010F2DD /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71B679F1B39FAFF0010F2DD /* ParseConstants.swift */; };
+		B71B67A31B39FC6C0010F2DD /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71B67A21B39FC6C0010F2DD /* UdacityClient.swift */; };
+		B71B67A51B39FC900010F2DD /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71B67A41B39FC900010F2DD /* UdacityConstants.swift */; };
 		B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */; };
 		B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C991B388D3E0090BBDF /* LoginViewController.swift */; };
 		B7EF5C9D1B388D3E0090BBDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5C9B1B388D3E0090BBDF /* Main.storyboard */; };
@@ -33,6 +37,10 @@
 
 /* Begin PBXFileReference section */
 		B71B67991B38AD160010F2DD /* LoginTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextFieldDelegate.swift; sourceTree = "<group>"; };
+		B71B679D1B39FA8C0010F2DD /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
+		B71B679F1B39FAFF0010F2DD /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
+		B71B67A21B39FC6C0010F2DD /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
+		B71B67A41B39FC900010F2DD /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
 		B7EF5C921B388D3E0090BBDF /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7EF5C961B388D3E0090BBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +76,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B71B679B1B39FA570010F2DD /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				B71B67A11B39FC540010F2DD /* Udacity */,
+				B71B679C1B39FA730010F2DD /* Parse */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		B71B679C1B39FA730010F2DD /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				B71B679D1B39FA8C0010F2DD /* ParseClient.swift */,
+				B71B679F1B39FAFF0010F2DD /* ParseConstants.swift */,
+			);
+			name = Parse;
+			sourceTree = "<group>";
+		};
+		B71B67A11B39FC540010F2DD /* Udacity */ = {
+			isa = PBXGroup;
+			children = (
+				B71B67A21B39FC6C0010F2DD /* UdacityClient.swift */,
+				B71B67A41B39FC900010F2DD /* UdacityConstants.swift */,
+			);
+			name = Udacity;
+			sourceTree = "<group>";
+		};
 		B7EF5C891B388D3E0090BBDF = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +164,7 @@
 		B7EF5CB71B388D570090BBDF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B71B679B1B39FA570010F2DD /* Clients */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -274,8 +310,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71B67A31B39FC6C0010F2DD /* UdacityClient.swift in Sources */,
 				B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */,
+				B71B67A01B39FAFF0010F2DD /* ParseConstants.swift in Sources */,
 				B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */,
+				B71B679E1B39FA8C0010F2DD /* ParseClient.swift in Sources */,
+				B71B67A51B39FC900010F2DD /* UdacityConstants.swift in Sources */,
 				B71B679A1B38AD160010F2DD /* LoginTextFieldDelegate.swift in Sources */,
 				B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */,
 				B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */,

@@ -50,7 +50,14 @@ class LoginViewController: UIViewController {
         //Configure the UI
         self.configureUI()
     }
+    
+    @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {
+    }
+    
+    @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
+    }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
