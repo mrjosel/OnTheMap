@@ -44,7 +44,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kH2-rR-eca">
-                                <rect key="frame" x="126" y="292" width="348" height="205"/>
+                                <rect key="frame" x="126" y="292" width="348" height="252"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="au8-W3-dMo">
                                         <rect key="frame" x="49" y="24" width="250" height="44"/>
@@ -77,26 +77,36 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qz5-NS-vfa">
+                                        <rect key="frame" x="49" y="189" width="250" height="30"/>
+                                        <state key="normal" title="Sign-up">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="zJ7-9U-Zxf" firstAttribute="top" secondItem="DcQ-gF-itT" secondAttribute="bottom" constant="8" symbolic="YES" id="7cW-ux-yWO"/>
+                                    <constraint firstItem="qz5-NS-vfa" firstAttribute="leading" secondItem="zJ7-9U-Zxf" secondAttribute="leading" id="E1d-r5-TRP"/>
                                     <constraint firstAttribute="width" constant="348" id="Kls-Tj-7eW"/>
+                                    <constraint firstItem="qz5-NS-vfa" firstAttribute="top" secondItem="zJ7-9U-Zxf" secondAttribute="bottom" constant="17" id="LFk-eC-Bw2"/>
                                     <constraint firstItem="zJ7-9U-Zxf" firstAttribute="centerX" secondItem="kH2-rR-eca" secondAttribute="centerX" id="OTi-aO-fOO"/>
-                                    <constraint firstAttribute="bottom" secondItem="zJ7-9U-Zxf" secondAttribute="bottom" constant="33" id="SCs-hA-glk"/>
+                                    <constraint firstAttribute="height" constant="252" id="QD6-xt-cIa"/>
+                                    <constraint firstItem="au8-W3-dMo" firstAttribute="top" secondItem="kH2-rR-eca" secondAttribute="top" constant="24" id="QJw-GG-HmR"/>
                                     <constraint firstItem="zJ7-9U-Zxf" firstAttribute="leading" secondItem="DcQ-gF-itT" secondAttribute="leading" id="bkD-r9-iLZ"/>
-                                    <constraint firstAttribute="height" constant="205" id="dWq-m0-OQh"/>
                                     <constraint firstItem="zJ7-9U-Zxf" firstAttribute="trailing" secondItem="DcQ-gF-itT" secondAttribute="trailing" id="ogN-Sm-eY7"/>
                                     <constraint firstItem="DcQ-gF-itT" firstAttribute="top" secondItem="au8-W3-dMo" secondAttribute="bottom" constant="8" symbolic="YES" id="sK3-tQ-dtT"/>
                                     <constraint firstItem="zJ7-9U-Zxf" firstAttribute="leading" secondItem="au8-W3-dMo" secondAttribute="leading" id="vQb-XY-7nQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="qz5-NS-vfa" secondAttribute="bottom" constant="33" id="vm8-9W-No2"/>
+                                    <constraint firstItem="qz5-NS-vfa" firstAttribute="trailing" secondItem="zJ7-9U-Zxf" secondAttribute="trailing" id="yxu-O7-5It"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="K8c-ti-hLF" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="59" id="Izn-1K-UhQ"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="kH2-rR-eca" secondAttribute="bottom" constant="103" id="WSa-4L-iVL"/>
                             <constraint firstAttribute="centerX" secondItem="kH2-rR-eca" secondAttribute="centerX" id="av7-p8-1re"/>
+                            <constraint firstItem="kH2-rR-eca" firstAttribute="top" secondItem="K8c-ti-hLF" secondAttribute="bottom" constant="8" id="fRE-0a-kaA"/>
                             <constraint firstAttribute="centerX" secondItem="K8c-ti-hLF" secondAttribute="centerX" id="wuo-Ix-ayr"/>
                         </constraints>
                     </view>
@@ -105,6 +115,7 @@
                         <outlet property="loginButton" destination="zJ7-9U-Zxf" id="ET1-Uq-35J"/>
                         <outlet property="loginLabel" destination="EkT-4E-CL7" id="tBH-Qn-qHl"/>
                         <outlet property="passwordTextField" destination="DcQ-gF-itT" id="uea-5g-tJb"/>
+                        <outlet property="signUpButton" destination="qz5-NS-vfa" id="1OH-5G-qhS"/>
                         <outlet property="topvView" destination="K8c-ti-hLF" id="th6-yQ-iqV"/>
                         <outlet property="udacityIconImageView" destination="42M-fw-Khc" id="THl-UT-bfI"/>
                         <outlet property="usernameTextField" destination="au8-W3-dMo" id="DAJ-o4-hKv"/>

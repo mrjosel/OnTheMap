@@ -23,13 +23,19 @@ extension LoginViewController {
         view.layer.insertSublayer(gradient, atIndex: 0)
         topvView.backgroundColor = UIColor.clearColor()
         
+        //Sign-up button
+        signUpButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        signUpButton.setTitle("Don't have an account? Sign Up.", forState: UIControlState.Normal)
+        signUpButton.titleLabel?.font = UIFont(name: "Roboto-Medium", size: 17.0)
+        
         //Login textFields, buttons
         bottomView.backgroundColor = UIColor.clearColor()
         let textFieldOrange = makeOrange()
         
         //set up usernameTextField appearence
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         usernameTextField.delegate = loginTextFieldDelegate
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        usernameTextField.font = UIFont(name: "Roboto-Regular", size: 17.0)
         usernameTextField.backgroundColor = textFieldOrange
         usernameTextField.textColor = UIColor.whiteColor()
         usernameTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)  //indents text
@@ -37,6 +43,7 @@ extension LoginViewController {
         //set up passwordTextField appearence
         passwordTextField.delegate = loginTextFieldDelegate
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        passwordTextField.font = UIFont(name: "Roboto-Regular", size: 17.0)
         passwordTextField.backgroundColor = textFieldOrange
         passwordTextField.textColor = UIColor.whiteColor()
         passwordTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)  //indents text
@@ -47,7 +54,7 @@ extension LoginViewController {
         
         //Login Label
         loginLabel.textAlignment = NSTextAlignment.Center
-        loginLabel.font = UIFont(name: "Roboto-Thin", size: 30.0)
+        loginLabel.font = UIFont(name: "Roboto-Regular", size: 30.0)
         loginLabel.textColor = UIColor.whiteColor()
         loginLabel.text = "Login to Udacity"
         
