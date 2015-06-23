@@ -14,10 +14,31 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var udacityIconImageView: UIImageView!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var topvView: UIView!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var loginButton: BorderedButton!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
-    //vars and lets
-    let lightOrange = UIColor(red: 1.125, green: 0.625, blue: 0.125, alpha: 1.0)
-    var gradient = CAGradientLayer()
+    //for keyboard adjustments
+    var keyboardAdjusted = false
+    var lastKeyboardOffset : CGFloat = 0.0
+    var tapRecognizer: UITapGestureRecognizer? = nil
+    
+    let loginTextFieldDelegate = LoginTextFieldDelegate()
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.addKeyboardDismissRecognizer()
+        self.subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.removeKeyboardDismissRecognizer()
+        self.unsubscribeToKeyboardNotifications()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,24 +52,5 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func configureUI() {
-        //Udacity Orange Fade
-        gradient.frame = view.bounds
-        gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
-        view.layer.insertSublayer(gradient, atIndex: 0)
-        topvView.backgroundColor = UIColor.clearColor()
-        
-        //Udacity Image
-        udacityIconImageView.contentMode = UIViewContentMode.ScaleAspectFill
-        udacityIconImageView.image = UIImage(named: "Udacity")
-        
-        //Login Label
-        loginLabel.textAlignment = NSTextAlignment.Center
-        loginLabel.font = UIFont(name: "Roboto-Thin", size: 30.0)
-        loginLabel.textColor = UIColor.whiteColor()
-        loginLabel.text = "Login to Udacity"
-    }
-
 }
 

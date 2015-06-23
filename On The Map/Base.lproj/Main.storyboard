@@ -43,21 +43,69 @@
                                     <constraint firstAttribute="centerX" secondItem="42M-fw-Khc" secondAttribute="centerX" id="wEk-6a-Pbb"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kH2-rR-eca">
+                                <rect key="frame" x="126" y="292" width="348" height="205"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="au8-W3-dMo">
+                                        <rect key="frame" x="49" y="24" width="250" height="44"/>
+                                        <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="P2y-pi-9zj"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="prZ-CN-xd6"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJ7-9U-Zxf" customClass="BorderedButton" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="49" y="128" width="250" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="uCB-Tf-P7x"/>
+                                        </constraints>
+                                        <state key="normal" title="Login">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DcQ-gF-itT">
+                                        <rect key="frame" x="49" y="76" width="250" height="44"/>
+                                        <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="6ZZ-FN-OUh"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Yob-19-uln"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="348" id="Kls-Tj-7eW"/>
+                                    <constraint firstAttribute="height" constant="205" id="dWq-m0-OQh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="K8c-ti-hLF" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="59" id="Izn-1K-UhQ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="kH2-rR-eca" secondAttribute="bottom" constant="103" id="WSa-4L-iVL"/>
+                            <constraint firstAttribute="centerX" secondItem="kH2-rR-eca" secondAttribute="centerX" id="av7-p8-1re"/>
                             <constraint firstAttribute="centerX" secondItem="K8c-ti-hLF" secondAttribute="centerX" id="wuo-Ix-ayr"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomView" destination="kH2-rR-eca" id="AZ6-5F-JAo"/>
+                        <outlet property="loginButton" destination="zJ7-9U-Zxf" id="ET1-Uq-35J"/>
                         <outlet property="loginLabel" destination="EkT-4E-CL7" id="tBH-Qn-qHl"/>
+                        <outlet property="passwordTextField" destination="DcQ-gF-itT" id="uea-5g-tJb"/>
                         <outlet property="topvView" destination="K8c-ti-hLF" id="th6-yQ-iqV"/>
                         <outlet property="udacityIconImageView" destination="42M-fw-Khc" id="THl-UT-bfI"/>
+                        <outlet property="usernameTextField" destination="au8-W3-dMo" id="DAJ-o4-hKv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="106" y="323"/>
         </scene>
     </scenes>
     <resources>

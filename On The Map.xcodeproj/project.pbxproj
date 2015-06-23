@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B71B679A1B38AD160010F2DD /* LoginTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71B67991B38AD160010F2DD /* LoginTextFieldDelegate.swift */; };
 		B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */; };
 		B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C991B388D3E0090BBDF /* LoginViewController.swift */; };
 		B7EF5C9D1B388D3E0090BBDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5C9B1B388D3E0090BBDF /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 		B7EF5CC01B3897470090BBDF /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5CBD1B3897470090BBDF /* Roboto-Medium.ttf */; };
 		B7EF5CC11B3897470090BBDF /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5CBE1B3897470090BBDF /* Roboto-Regular.ttf */; };
 		B7EF5CC21B3897470090BBDF /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5CBF1B3897470090BBDF /* Roboto-Thin.ttf */; };
+		B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */; };
+		B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5CC81B38A9500090BBDF /* LoginVCExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B71B67991B38AD160010F2DD /* LoginTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextFieldDelegate.swift; sourceTree = "<group>"; };
 		B7EF5C921B388D3E0090BBDF /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7EF5C961B388D3E0090BBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +46,8 @@
 		B7EF5CBD1B3897470090BBDF /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "../../../../Downloads/on the map assets/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		B7EF5CBE1B3897470090BBDF /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../../Downloads/on the map assets/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		B7EF5CBF1B3897470090BBDF /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../../../../Downloads/on the map assets/Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		B7EF5CC81B38A9500090BBDF /* LoginVCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVCExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				B7EF5C991B388D3E0090BBDF /* LoginViewController.swift */,
+				B7EF5CC81B38A9500090BBDF /* LoginVCExtensions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -147,6 +154,8 @@
 		B7EF5CBC1B388DFD0090BBDF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */,
+				B71B67991B38AD160010F2DD /* LoginTextFieldDelegate.swift */,
 			);
 			name = View;
 			path = ..;
@@ -265,7 +274,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */,
 				B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */,
+				B71B679A1B38AD160010F2DD /* LoginTextFieldDelegate.swift in Sources */,
+				B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */,
 				B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +474,7 @@
 				B7EF5CB31B388D3E0090BBDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B7EF5CB41B388D3E0090BBDF /* Build configuration list for PBXNativeTarget "On The MapTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +483,7 @@
 				B7EF5CB61B388D3E0090BBDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
