@@ -107,17 +107,26 @@
                                     <constraint firstItem="qz5-NS-vfa" firstAttribute="trailing" secondItem="zJ7-9U-Zxf" secondAttribute="trailing" id="yxu-O7-5It"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hM-33-fjp">
+                                <rect key="frame" x="279" y="523" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.98039221759999995" green="0.7254902124" blue="0.17254902420000001" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="K8c-ti-hLF" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="59" id="Izn-1K-UhQ"/>
+                            <constraint firstItem="5hM-33-fjp" firstAttribute="top" secondItem="qz5-NS-vfa" secondAttribute="bottom" constant="12" id="Lvi-Iz-4bq"/>
                             <constraint firstAttribute="centerX" secondItem="kH2-rR-eca" secondAttribute="centerX" id="av7-p8-1re"/>
                             <constraint firstItem="kH2-rR-eca" firstAttribute="top" secondItem="K8c-ti-hLF" secondAttribute="bottom" constant="8" id="fRE-0a-kaA"/>
+                            <constraint firstAttribute="centerX" secondItem="5hM-33-fjp" secondAttribute="centerX" id="pVz-xY-dex"/>
                             <constraint firstAttribute="centerX" secondItem="K8c-ti-hLF" secondAttribute="centerX" id="wuo-Ix-ayr"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="kH2-rR-eca" id="AZ6-5F-JAo"/>
+                        <outlet property="debugLabel" destination="5hM-33-fjp" id="hJP-nP-cGj"/>
                         <outlet property="loginButton" destination="zJ7-9U-Zxf" id="ET1-Uq-35J"/>
                         <outlet property="loginLabel" destination="EkT-4E-CL7" id="tBH-Qn-qHl"/>
                         <outlet property="passwordTextField" destination="DcQ-gF-itT" id="uea-5g-tJb"/>

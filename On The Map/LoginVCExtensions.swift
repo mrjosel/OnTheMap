@@ -15,7 +15,7 @@ extension LoginViewController {
     func configureUI() {
         //Perform all default UI configuration
         
-        let lightOrange = UIColor(red: 1.125, green: 0.625, blue: 0.125, alpha: 1.0)
+        let lightOrange = makeOrange(255.0, gVal: 160.0, bVal: 32.0)
         var gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
@@ -26,6 +26,12 @@ extension LoginViewController {
         signUpButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         signUpButton.setTitle("Don't have an account? Sign Up.", forState: UIControlState.Normal)
         signUpButton.titleLabel?.font = UIFont(name: "Roboto-Medium", size: 17.0)
+        
+        //Debug Label
+        debugLabel.textAlignment = NSTextAlignment.Center
+        debugLabel.font = UIFont(name: "Roboto-Medium", size: 17.0)
+        debugLabel.textColor = UIColor.whiteColor()
+        debugLabel.hidden = true
         
         //Login textFields, buttons
         bottomView.backgroundColor = UIColor.clearColor()
@@ -49,9 +55,17 @@ extension LoginViewController {
         tapRecognizer?.numberOfTapsRequired = 1
     }
     
+    func enableLoginElements(enabled: Bool) -> Void {
+        //toggle user ability to use buttons/fields
+        self.usernameTextField.enabled = enabled
+        self.passwordTextField.enabled = enabled
+        self.loginButton.enabled = enabled
+        self.signUpButton.enabled = enabled
+    }
+    
     func setupTextFieldProperties(textField: UITextField, placeholder: String) -> Void {
         //common properties for each textField
-        let textFieldOrange = makeOrange()
+        let textFieldOrange = makeOrange(242, gVal: 192, bVal: 170)
         textField.delegate = loginTextFieldDelegate
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         textField.font = UIFont(name: "Roboto-Regular", size: 17.0)
@@ -61,11 +75,9 @@ extension LoginViewController {
 
     }
     
-    func makeOrange() -> UIColor {
-        //creates textfield orange color
-        let rVal: CGFloat = 242
-        let gVal: CGFloat = 192
-        let bVal: CGFloat = 170
+    func makeOrange(rVal: CGFloat, gVal: CGFloat, bVal: CGFloat) -> UIColor {
+        //creates textfield orange color based on traditional 0 - 255 RGB Values
+        //if any value is outside the range, UIColor initializers will handle adjusting the values
         
         let transRVal = rVal / 255
         let transGVal = gVal / 255

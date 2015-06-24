@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var debugLabel: UILabel!
     
     //for keyboard adjustments
     var keyboardAdjusted = false
@@ -52,9 +53,36 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.enableLoginElements(false)
+            self.debugLabel.text = "Logging in..."
+            self.debugLabel.hidden = false
+        })
+        UdacityClient.sharedInstance().getSessionID(usernameTextField.text, password: passwordTextField.text) {success, error in
+            if success {
+                println("Session ID = \(UdacityClient.sharedInstance().sessionID)")
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.debugLabel.text = "Login Successful.  Loading Map..."
+                    self.usernameTextField.text = ""
+                    self.passwordTextField.text = ""
+                    self.enableLoginElements(true)
+                })
+            } else {
+                if let error = error {
+                    println("Login Failed.  (Session ID)")
+                    var errorString = error.localizedDescription
+                    println(errorString)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.debugLabel.text = errorString
+                        self.enableLoginElements(true)
+                    })
+                }
+            }
+        }
     }
     
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
+        //TODO - Implement Sign Up Method
     }
 
     
