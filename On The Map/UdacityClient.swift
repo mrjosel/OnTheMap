@@ -11,6 +11,7 @@ import Foundation
 class UdacityClient: AnyObject {
     
     var sessionID: String?
+    var userID: String?
     
     func getSessionID(email: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
         //construct URL
@@ -36,23 +37,23 @@ class UdacityClient: AnyObject {
                 var parsedData = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! [String: AnyObject]
                 //Check for valid credentials
                 self.checkValidCredentials(parsedData) {success, error in
+                    //TODO LATER - POSSIBLE REMOVE?????
                     if success {    //successfully verified credentials
-                        let dataNotFound = NSError(domain: "parsing sessionID", code: 0, userInfo: [NSLocalizedDescriptionKey: "sessionID not found"])
                         if let session = parsedData[JSONBodyKeys.SESSION] as? [String: AnyObject] {
-                            if let id = session[JSONBodyKeys.ID] as? String {
+                            if let sessionID = session[JSONBodyKeys.ID] as? String {
                                 //Session ID Found, store in var, report success to completionHandler
-                                self.sessionID = id
+                                self.sessionID = sessionID
                                 completionHandler(success: true, error: nil)
                             } else {
-                                //No ID key/val pair in data
-                                completionHandler(success: false, error: dataNotFound)
+                                //No ID key/val pair in data, need to generate error
+                                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.ID) Not Found"))
                             }
                         } else {
-                            //no Session key/val pair in data
-                            completionHandler(success: false, error: dataNotFound)
+                            //no Session key/val pair in data, need to generate error
+                            completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.SESSION) Not Found"))
                         }
                     } else {
-                        //Login Credentials Failed
+                        //Login Credentials Failed.  Uses error from completionHandler
                         completionHandler(success: false, error: error)
                     }
                 }

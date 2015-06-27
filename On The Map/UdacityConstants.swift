@@ -36,6 +36,7 @@ extension UdacityClient {
     struct ParameterKeys {
         
         static let SESSION_ID = "session_id"
+        static let USER_ID = "key"  //documentaion refers to user_id while key uses key
         
     }
     

@@ -50,26 +50,48 @@ class LoginViewController: UIViewController {
         
         //Configure the UI
         self.configureUI()
+        
+        //DEBUG REMOVE AT COMPLETION
+        self.loginButtonTouchUpInside(self.loginButton)
     }
     
     @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {
+        //complete login (get SessionID and UserID, clear username/password, launch map and list views, handle errors if necessary)
+        
+        //notify user of login activity, disable editing to username/textfields
         dispatch_async(dispatch_get_main_queue(), {
             self.enableLoginElements(false)
             self.debugLabel.text = "Logging in..."
             self.debugLabel.hidden = false
         })
         UdacityClient.sharedInstance().getSessionID(usernameTextField.text, password: passwordTextField.text) {success, error in
-            if success {
+            if success {    //sessionID and userID found
                 println("Session ID = \(UdacityClient.sharedInstance().sessionID)")
+                println("User ID = \(UdacityClient.sharedInstance().userID)")
+                
+                //alert user, remove lock on username/password fields
                 dispatch_async(dispatch_get_main_queue(), {
                     self.debugLabel.text = "Login Successful.  Loading Map..."
-                    self.usernameTextField.text = ""
-                    self.passwordTextField.text = ""
                     self.enableLoginElements(true)
                 })
-            } else {
+                
+                //set map and list VCs in tabBarVC
+                let tabBarVC: UITabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+                let mapVC: MapViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+                let listVC: ListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
+                let VCArray = [mapVC, listVC]
+                tabBarVC.viewControllers = VCArray
+
+                //launch tabBarVC and clear out username/password fields when completed, enable login features
+                self.presentViewController(tabBarVC, animated: true) {
+                    dispatch_async(dispatch_get_main_queue(), {
+//                        self.usernameTextField.text = ""
+//                        self.passwordTextField.text = ""
+                        self.enableLoginElements(true)
+                    })
+                }
+            } else {    //failure retrieving userID and sessionID
                 if let error = error {
-                    println("Login Failed.  (Session ID)")
                     var errorString = error.localizedDescription
                     println(errorString)
                     dispatch_async(dispatch_get_main_queue(), {

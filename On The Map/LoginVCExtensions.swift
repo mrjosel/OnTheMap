@@ -15,6 +15,9 @@ extension LoginViewController {
     func configureUI() {
         //Perform all default UI configuration
         
+        //disable navbar
+        self.navigationController?.navigationBarHidden = true
+        
         let lightOrange = makeOrange(255.0, gVal: 160.0, bVal: 32.0)
         var gradient = CAGradientLayer()
         gradient.frame = view.bounds
@@ -53,6 +56,10 @@ extension LoginViewController {
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
+        
+        //DEBUG REMOVE AT COMPLETION
+        self.usernameTextField.text = "brianjosel@gmail.com"
+        self.passwordTextField.text = "Count45255"
     }
     
     func enableLoginElements(enabled: Bool) -> Void {
