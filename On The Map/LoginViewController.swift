@@ -74,22 +74,7 @@ class LoginViewController: UIViewController {
                     self.debugLabel.text = "Login Successful.  Loading Map..."
                     self.enableLoginElements(true)
                 })
-                
-                //set map and list VCs in tabBarVC
-                let tabBarVC: UITabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
-                let mapVC: MapViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
-                let listVC: ListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
-                let VCArray = [mapVC, listVC]
-                tabBarVC.viewControllers = VCArray
-
-                //launch tabBarVC and clear out username/password fields when completed, enable login features
-                self.presentViewController(tabBarVC, animated: true) {
-                    dispatch_async(dispatch_get_main_queue(), {
-//                        self.usernameTextField.text = ""
-//                        self.passwordTextField.text = ""
-                        self.enableLoginElements(true)
-                    })
-                }
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
                     var errorString = error.localizedDescription
