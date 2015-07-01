@@ -74,7 +74,9 @@ class LoginViewController: UIViewController {
                     self.debugLabel.text = "Login Successful.  Loading Map..."
                     self.enableLoginElements(true)
                 })
-                self.dismissViewControllerAnimated(true, completion: nil)
+//                self.dismissViewControllerAnimated(true, completion: nil)
+                let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+                self.presentViewController(tabBarVC, animated: true, completion: nil)
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
                     var errorString = error.localizedDescription

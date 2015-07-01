@@ -10,27 +10,30 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-
     
-    required init(coder aDecoder: NSCoder) {
-        //initialize tabBarButton
-        super.init(coder: aDecoder)
-        self.tabBarItem.image = UIImage(named: "Map")
-        self.tabBarItem.title = "Map"
-        self.tabBarItem.tag = 0
-    }
+    @IBOutlet weak var mapView: MKMapView!
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        println("mapViewVC")
-        // Do any additional setup after loading the view.
-        if let sessionID = UdacityClient.sharedInstance().sessionID {
-            //do nothing
-        } else {
-            let loginVC: LoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
-        }
-    }
+//    required init(coder aDecoder: NSCoder) {
+//        //initialize tabBarButton
+//        super.init(coder: aDecoder)
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.tabBarItem.image = UIImage(named: "Map")
+//            self.tabBarItem.title = "Map"
+//            self.tabBarItem.tag = 0
+//        })
+//        
+//    }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        // Do any additional setup after loading the view.
+//        if let sessionID = UdacityClient.sharedInstance().sessionID {
+//            //do nothing
+//        } else {
+//            let loginVC: LoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+//            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
