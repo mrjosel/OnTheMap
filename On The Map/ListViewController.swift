@@ -18,7 +18,8 @@ class ListViewController: UIViewController {
         self.tabBarItem.tag = 1
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         println("listViewVC")
         // Do any additional setup after loading the view.
         if let sessionID = UdacityClient.sharedInstance().sessionID {

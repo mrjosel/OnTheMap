@@ -20,7 +20,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.tabBarItem.tag = 0
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         println("mapViewVC")
         // Do any additional setup after loading the view.
         if let sessionID = UdacityClient.sharedInstance().sessionID {
