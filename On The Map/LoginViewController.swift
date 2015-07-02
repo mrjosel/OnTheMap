@@ -51,8 +51,6 @@ class LoginViewController: UIViewController {
         //Configure the UI
         self.configureUI()
         
-        //DEBUG REMOVE AT COMPLETION
-        self.loginButtonTouchUpInside(self.loginButton)
     }
     
     @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {

@@ -57,9 +57,6 @@ extension LoginViewController {
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
         
-        //DEBUG REMOVE AT COMPLETION
-        self.usernameTextField.text = "brianjosel@gmail.com"
-        self.passwordTextField.text = "Count45255"
     }
     
     func enableLoginElements(enabled: Bool) -> Void {
