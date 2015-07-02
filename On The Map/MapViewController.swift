@@ -13,16 +13,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-//    required init(coder aDecoder: NSCoder) {
-//        //initialize tabBarButton
-//        super.init(coder: aDecoder)
-//        dispatch_async(dispatch_get_main_queue(), {
+    required init(coder aDecoder: NSCoder) {
+        //initialize tabBarButton
+        super.init(coder: aDecoder)
+        dispatch_async(dispatch_get_main_queue(), {
 //            self.tabBarItem.image = UIImage(named: "Map")
 //            self.tabBarItem.title = "Map"
 //            self.tabBarItem.tag = 0
-//        })
-//        
-//    }
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
+        })
+        
+    }
     
 //    override func viewDidAppear(animated: Bool) {
 //        super.viewDidAppear(animated)
@@ -34,6 +35,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
 //        }
 //    }
+    
+    func logout() -> Void {
+        //TODO - perform HTTP DELETE request
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

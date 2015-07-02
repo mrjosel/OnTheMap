@@ -12,16 +12,17 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var userTableView: UITableView!
     
-//    required init(coder aDecoder: NSCoder) {
-//        //initialize tabBarButton
-//        super.init(coder: aDecoder)
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.tabBarItem.image = UIImage(named: "List")
-//            self.tabBarItem.title = "List"
-//            self.tabBarItem.tag = 1
-//        })
-//        
-//    }
+    required init(coder aDecoder: NSCoder) {
+        //initialize tabBarButton
+        super.init(coder: aDecoder)
+        dispatch_async(dispatch_get_main_queue(), {
+            //            self.tabBarItem.image = UIImage(named: "List")
+            //            self.tabBarItem.title = "List"
+            //            self.tabBarItem.tag = 1
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
+        })
+        
+    }
     
 //    override func viewDidAppear(animated: Bool) {
 //        super.viewDidAppear(animated)
@@ -38,6 +39,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    func logout() -> Void {
+        //TODO - perform HTTP DELETE request
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

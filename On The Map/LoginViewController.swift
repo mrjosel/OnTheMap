@@ -72,11 +72,19 @@ class LoginViewController: UIViewController {
                 //alert user, remove lock on username/password fields
                 dispatch_async(dispatch_get_main_queue(), {
                     self.debugLabel.text = "Login Successful.  Loading Map..."
-                    self.enableLoginElements(true)
                 })
-//                self.dismissViewControllerAnimated(true, completion: nil)
+                
+                //display TabBarVC
                 let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
-                self.presentViewController(tabBarVC, animated: true, completion: nil)
+                self.presentViewController(tabBarVC, animated: true) {
+                //Following is executed when TabBarVC is dismissed
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.debugLabel.text = ""
+                        self.enableLoginElements(true)
+                        self.usernameTextField.text = ""
+                        self.passwordTextField.text = ""
+                    })
+                }
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
                     var errorString = error.localizedDescription
