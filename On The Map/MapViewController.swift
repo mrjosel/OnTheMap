@@ -39,6 +39,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //Set mapView delegate as self
+        self.mapView.delegate = self
+
     }
 
     override func didReceiveMemoryWarning() {
