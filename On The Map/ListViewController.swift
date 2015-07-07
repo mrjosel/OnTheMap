@@ -12,27 +12,26 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var userTableView: UITableView!
     
-    required init(coder aDecoder: NSCoder) {
-        //initialize tabBarButton
-        super.init(coder: aDecoder)
-        dispatch_async(dispatch_get_main_queue(), {
-            //            self.tabBarItem.image = UIImage(named: "List")
-            //            self.tabBarItem.title = "List"
-            //            self.tabBarItem.tag = 1
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
-        })
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //Set Login Button
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
     }
     
     func logout() -> Void {
-        //TODO - perform HTTP DELETE request
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        //Logout of Udacity Client
+        UdacityClient.sharedInstance().udacityLogout() { success, error in
+            if (success != nil) {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                //TODO - AlertVC with error
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -27,6 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func logout() -> Void {
+        //Logout of Udacity Client
         UdacityClient.sharedInstance().udacityLogout() { success, error in
             if (success != nil) {
                 dispatch_async(dispatch_get_main_queue(), {
