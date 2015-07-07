@@ -85,7 +85,6 @@
 		B71B679B1B39FA570010F2DD /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				B71B67A71B3B0B1D0010F2DD /* Common */,
 				B71B67A11B39FC540010F2DD /* Udacity */,
 				B71B679C1B39FA730010F2DD /* Parse */,
 			);
@@ -109,13 +108,6 @@
 				B71B67AA1B3B3D980010F2DD /* UdacityConvenience.swift */,
 			);
 			name = Udacity;
-			sourceTree = "<group>";
-		};
-		B71B67A71B3B0B1D0010F2DD /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Common;
 			sourceTree = "<group>";
 		};
 		B7EF5C891B388D3E0090BBDF = {

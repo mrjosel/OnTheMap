@@ -38,7 +38,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 var alertVC = UIAlertController(title: "Login Failed", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
                 
                 //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                let ok = UIAlertAction(title: "Go Back", style: UIAlertActionStyle.Default, handler: nil)
+                alertVC.addAction(ok)
+                
+                //display alert
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertVC, animated: true, completion: nil)
+                })
             }
         }
     }

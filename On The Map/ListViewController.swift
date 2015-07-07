@@ -34,6 +34,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 //create actions, OK dismisses alert
                 let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                alertVC.addAction(ok)
+                
+                //display alert
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertVC, animated: true, completion: nil)
+                })
             }
         }
     }
