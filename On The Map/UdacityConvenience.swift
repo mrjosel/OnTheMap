@@ -20,8 +20,8 @@ extension UdacityClient {
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = taskForPOSTMethod(method, request: request) {success, result, error in
-            if success == false {
-                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(error?.localizedDescription)"))
+            if !success {
+                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(error!.localizedDescription)"))
             } else {
                 //Check for valid credentials
                 self.checkValidCredentials(result as! [String: AnyObject]) {success, error in

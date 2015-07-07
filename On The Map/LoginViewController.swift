@@ -75,7 +75,7 @@ class LoginViewController: UIViewController {
                     //display TabBarVC
                     let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
                     self.presentViewController(tabBarVC, animated: true) {
-                        //Following is executed when TabBarVC is dismissed
+                        //Clear password and username
                         self.debugLabel.text = ""
                         self.enableLoginElements(true)
                         self.usernameTextField.text = ""
@@ -84,10 +84,26 @@ class LoginViewController: UIViewController {
                 })
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
-                    var errorString = error.localizedDescription
+                    var alertVC = UIAlertController(title: "Login Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (handler) in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default){ (handler) in
+                        println("cancelling")
+                        self.dismissViewControllerAnimated(true) {
+                            self.debugLabel.text = ""
+                            self.enableLoginElements(true)
+                            self.usernameTextField.text = ""
+                            self.passwordTextField.text = ""
+                            println("complete")
+                        }
+                    }
+                    alertVC.addAction(ok)
+                    alertVC.addAction(cancel)
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.debugLabel.text = errorString
+                        self.debugLabel.text = error.localizedDescription
                         self.enableLoginElements(true)
+                        self.presentViewController(alertVC, animated: true, completion: nil)
                     })
                 }
             }
