@@ -84,6 +84,8 @@ class LoginViewController: UIViewController {
                 })
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
+                    
+                    //create UIAlertVC
                     var alertVC = UIAlertController(title: "Login Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
                     
                     //create actions, OK does nothing, Cancel essentially "cleans slate"
@@ -97,9 +99,12 @@ class LoginViewController: UIViewController {
                             self.passwordTextField.text = ""
                         })
                     }
+                    
+                    //add actions to alertVC
                     alertVC.addAction(ok)
                     alertVC.addAction(cancel)
                     dispatch_async(dispatch_get_main_queue(), {
+                        //show error, disable login elements, present alertVC
                         self.debugLabel.text = error.localizedDescription
                         self.enableLoginElements(true)
                         self.presentViewController(alertVC, animated: true, completion: nil)
