@@ -13,55 +13,92 @@ class UdacityClient: AnyObject {
     var sessionID: String?
     var userID: String?
     
-    func getSessionID(email: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
+    func clearIDs() -> Void {
+        //Clear out IDs after logging out
+        sessionID = nil
+        userID = nil
+    }
+    
+    func taskForPOSTMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+        
         //construct URL
-        let urlString = Constants.BASE_URL + Constants.API + Methods.SESSION
+        let urlString = Constants.BASE_URL + Constants.API + method
         let url = NSURL(string: urlString)
         
         //create session
         let session = NSURLSession.sharedSession()
         
-        //create and configure request
-        let request = NSMutableURLRequest(URL: url!)
+        //finish configuration
+        request.URL = url!
         request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
         
         //start request
         let task = session.dataTaskWithRequest(request) {data, response, parsingError in
             if let error = parsingError {
-                completionHandler(success: false, error: error)
+                completionHandler(success: false, result: nil, error: error)
             } else {
-                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                var parsedData = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! [String: AnyObject]
-                //Check for valid credentials
-                self.checkValidCredentials(parsedData) {success, error in
-                    //TODO LATER - POSSIBLE REMOVE?????
-                    if success {    //successfully verified credentials
-                        if let session = parsedData[JSONBodyKeys.SESSION] as? [String: AnyObject] {
-                            if let sessionID = session[JSONBodyKeys.ID] as? String {
-                                //Session ID Found, store in var, report success to completionHandler
-                                self.sessionID = sessionID
-                                completionHandler(success: true, error: nil)
-                            } else {
-                                //No ID key/val pair in data, need to generate error
-                                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.ID) Not Found"))
-                            }
-                        } else {
-                            //no Session key/val pair in data, need to generate error
-                            completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.SESSION) Not Found"))
-                        }
-                    } else {
-                        //Login Credentials Failed.  Uses error from completionHandler
-                        completionHandler(success: false, error: error)
-                    }
-                }
+                self.parseJSON(data, completionHandler: completionHandler)
             }
         }
         task.resume()
+        return task
     }
     
+    func taskForDELETEMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+        //construct URL
+        let urlString = Constants.BASE_URL + Constants.API + method
+        let url = NSURL(string: urlString)
+        
+        //create session
+        let session = NSURLSession.sharedSession()
+        
+        //finish configuration
+        request.URL = url!
+        request.HTTPMethod = "DELETE"
+        
+        //find cookie and add to request
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+            if cookie.name == "XSRF-TOKEN" {
+                xsrfCookie = cookie
+            }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
+        } else {
+            println("xsrfCookie casting failed")
+            completionHandler(success: false, result: nil, error: self.errorHandle("Logout", errorString: "Error: Cookie Not Found"))
+        }
+        
+        //start request
+        let task = session.dataTaskWithRequest(request) {data, response, parsingError in
+            if let error = parsingError {
+                completionHandler(success: false, result: nil, error: error)
+            } else {
+                self.parseJSON(data, completionHandler: completionHandler)
+            }
+        }
+        task.resume()
+        return task
+    }
+    
+    func parseJSON(data: NSData, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> Void {
+        //error for pointer
+        var parsingError: NSError? = nil
+        
+        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+        var parsedData: AnyObject! = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        
+        if let error = parsingError {
+            completionHandler(success: false, result: nil, error: self.errorHandle("parseJSON", errorString: "JSON Parsing Error"))
+        } else {
+            completionHandler(success: true, result: parsedData, error: nil)
+        }
+
+    }
+
     class func sharedInstance() -> UdacityClient {
         //create shared instance
         

@@ -13,34 +13,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    required init(coder aDecoder: NSCoder) {
-        //initialize tabBarButton
-        super.init(coder: aDecoder)
-        dispatch_async(dispatch_get_main_queue(), {
-//            self.tabBarItem.image = UIImage(named: "Map")
-//            self.tabBarItem.title = "Map"
-//            self.tabBarItem.tag = 0
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
-        })
-        
-    }
-    
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        // Do any additional setup after loading the view.
-//        if let sessionID = UdacityClient.sharedInstance().sessionID {
-//            //do nothing
-//        } else {
-//            let loginVC: LoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-//            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
-//        }
-//    }
-    
-    func logout() -> Void {
-        //TODO - perform HTTP DELETE request
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +20,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Set mapView delegate as self
         self.mapView.delegate = self
+        
+        //Set Login Button
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
 
+    }
+    
+    func logout() -> Void {
+        UdacityClient.sharedInstance().udacityLogout() { success, error in
+            if (success != nil) {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                //TODO - AlertVC with error
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

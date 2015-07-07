@@ -34,6 +34,7 @@ class LoginViewController: UIViewController {
         // get keybard notifications
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -68,23 +69,23 @@ class LoginViewController: UIViewController {
             if success {    //sessionID and userID found
                 println("Session ID = \(UdacityClient.sharedInstance().sessionID)")
                 println("User ID = \(UdacityClient.sharedInstance().userID)")
-                
+
                 //alert user, remove lock on username/password fields
                 dispatch_async(dispatch_get_main_queue(), {
                     self.debugLabel.text = "Login Successful.  Loading Map..."
                 })
                 
-                //display TabBarVC
-                let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
-                self.presentViewController(tabBarVC, animated: true) {
-                //Following is executed when TabBarVC is dismissed
-                    dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(dispatch_get_main_queue(), {
+                    //display TabBarVC
+                    let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+                    self.presentViewController(tabBarVC, animated: true) {
+                        //Following is executed when TabBarVC is dismissed
                         self.debugLabel.text = ""
                         self.enableLoginElements(true)
                         self.usernameTextField.text = ""
                         self.passwordTextField.text = ""
-                    })
-                }
+                    }
+                })
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
                     var errorString = error.localizedDescription

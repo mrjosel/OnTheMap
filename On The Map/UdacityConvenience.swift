@@ -9,6 +9,46 @@
 import Foundation
 
 extension UdacityClient {
+    
+    func getSessionID(email: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
+        let method = Methods.SESSION
+        
+        //create and configure request
+        let request = NSMutableURLRequest() //URL completed in POST method
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = taskForPOSTMethod(method, request: request) {success, result, error in
+            if success == false {
+                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(error?.localizedDescription)"))
+            } else {
+                //Check for valid credentials
+                self.checkValidCredentials(result as! [String: AnyObject]) {success, error in
+                    //TODO LATER - POSSIBLE REMOVE?????
+                    if success {    //successfully verified credentials
+                        if let session = result?.valueForKey(JSONBodyKeys.SESSION) as? [String: AnyObject] {
+                            if let sessionID = session[JSONBodyKeys.ID] as? String {
+                                //Session ID Found, store in var, report success to completionHandler
+                                self.sessionID = sessionID
+                                completionHandler(success: true, error: nil)
+                            } else {
+                                //No ID key/val pair in data, need to generate error
+                                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.ID) Not Found"))
+                            }
+                        } else {
+                            //no Session key/val pair in data, need to generate error
+                            completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.SESSION) Not Found"))
+                        }
+                    } else {
+                        //Login Credentials Failed.  Uses error from completionHandler
+                        completionHandler(success: false, error: error)
+                    }
+                }
+            }
+        }
+    }
+    
     func checkValidCredentials(JSONData: [String:AnyObject], completionHandler: (valid: Bool, error: NSError?) -> Void) -> Void {
         //Check if login credentials are valid
         
@@ -50,6 +90,30 @@ extension UdacityClient {
         }
     }
     
+    func udacityLogout(completionHandler: (success: Bool!, error: NSError?) -> Void) -> Void {
+        let task = taskForDELETEMethod(UdacityClient.Methods.SESSION, request: NSMutableURLRequest()) {success, result, error in
+            if let error = error {
+                //TODO - Make Alert VC to display error
+                println("error found")
+                completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: error.localizedDescription))
+            } else {
+                if let session = result?.valueForKey(JSONBodyKeys.SESSION) as? [String: AnyObject] {
+                    if let expiration = session[JSONBodyKeys.EXPIRATION] as? String {
+                        //clear IDs, report success
+                        self.clearIDs()
+                        completionHandler(success: true, error: nil)
+                    } else {
+                        completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: "Error: \(JSONBodyKeys.EXPIRATION) does not exist"))
+                    }
+                } else {
+                    //TODO - Make Alert VC to display error
+                    println("session not found")
+                    completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: "Error: \(JSONBodyKeys.SESSION) does not exist"))
+                }
+            }
+        }
+    }
+
     func errorHandle(domain: String, errorString: String) -> NSError {
         //Create specialized errors in cases of elements not existing in successfully retrieved JSON data
         return NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "\(errorString)"])

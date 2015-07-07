@@ -24,17 +24,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        // Do any additional setup after loading the view.
-////        if let sessionID = UdacityClient.sharedInstance().sessionID {
-////            //do nothing
-////        } else {
-////            let loginVC: LoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-////            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
-////        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
