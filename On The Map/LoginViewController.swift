@@ -89,8 +89,12 @@ class LoginViewController: UIViewController {
                     var alertVC = UIAlertController(title: "Login Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
                     
                     //create actions, OK does nothing, Cancel essentially "cleans slate"
-                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                    let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default) { (handler) in
+                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.debugLabel.text = ""
+                        })
+                    }
+                    let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default) { handler in
                         //remove all login info and begin again
                         dispatch_async(dispatch_get_main_queue(), {
                             self.debugLabel.text = ""
@@ -104,8 +108,8 @@ class LoginViewController: UIViewController {
                     alertVC.addAction(ok)
                     alertVC.addAction(cancel)
                     dispatch_async(dispatch_get_main_queue(), {
-                        //show error, disable login elements, present alertVC
-                        self.debugLabel.text = error.localizedDescription
+                        //print error, disable login elements, present alertVC
+                        println(error.localizedDescription)
                         self.enableLoginElements(true)
                         self.presentViewController(alertVC, animated: true, completion: nil)
                     })

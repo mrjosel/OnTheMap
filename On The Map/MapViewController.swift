@@ -34,7 +34,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 })
             } else {
-                //TODO - AlertVC with error
+                //create UIAlertVC
+                var alertVC = UIAlertController(title: "Login Failed", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                
+                //create actions, OK dismisses alert
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
             }
         }
     }
