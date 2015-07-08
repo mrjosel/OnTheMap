@@ -119,7 +119,32 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
-        //TODO - Implement Sign Up Method
+        //TODO - Implement Sign Up Method 
+        UdacityClient.sharedInstance().udacitySignUp(self) {success, error in
+            if let success = success {
+                if success {
+                    self.debugLabel.text = "Successfully Signed up for Udacity!"
+                } else {
+                    //create UIAlertVC
+                    var alertVC = UIAlertController(title: "Sign-Up Failed", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    //create actions, OK does nothing, Cancel essentially "cleans slate"
+                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.debugLabel.text = ""
+                        })
+                    }
+                    //add actions to alertVC
+                    alertVC.addAction(ok)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        //print error, disable login elements, present alertVC
+                        println(error!.localizedDescription)
+                        self.enableLoginElements(true)
+                        self.presentViewController(alertVC, animated: true, completion: nil)
+                    })
+                }
+            }
+        }
     }
 
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UdacityClient {
     
@@ -88,6 +89,22 @@ extension UdacityClient {
                 completionHandler(valid: false, error: errorHandle("checkValidCredentials", errorString: "Error: \(JSONBodyKeys.ACCOUNT) does not exist"))
             }
         }
+    }
+    
+    func udacitySignUp(hostViewController: UIViewController, completionHandler: (success: Bool!, error: NSError?) -> Void) -> Void {
+        
+        let signupURL = NSURL(string: "\(UdacityClient.Constants.BASE_URL)\(UdacityClient.Constants.SIGN_UP)")
+        let request = NSURLRequest(URL: signupURL!)
+        let signupVC = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("SignUpWebVC") as! UdacitySignUpWebViewController
+        signupVC.urlRequest = request
+        signupVC.completionHandler = completionHandler
+        
+        let webNavController = UINavigationController()
+        webNavController.pushViewController(signupVC, animated: false)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            hostViewController.presentViewController(webNavController, animated: true, completion: nil)
+        })
     }
     
     func udacityLogout(completionHandler: (success: Bool!, error: NSError?) -> Void) -> Void {
