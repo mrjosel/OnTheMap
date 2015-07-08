@@ -92,16 +92,22 @@ extension UdacityClient {
     }
     
     func udacitySignUp(hostViewController: UIViewController, completionHandler: (success: Bool!, error: NSError?) -> Void) -> Void {
+        //method for signup
         
+        //create signup  URL, make request
         let signupURL = NSURL(string: "\(UdacityClient.Constants.BASE_URL)\(UdacityClient.Constants.SIGN_UP)")
         let request = NSURLRequest(URL: signupURL!)
+        
+        //create webviewVC, add URL and Request
         let signupVC = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("SignUpWebVC") as! UdacitySignUpWebViewController
         signupVC.urlRequest = request
         signupVC.completionHandler = completionHandler
         
+        //create NavCtrler, have NavCtrler push webView when present
         let webNavController = UINavigationController()
         webNavController.pushViewController(signupVC, animated: false)
         
+        //present NavCtrler
         dispatch_async(dispatch_get_main_queue(), {
             hostViewController.presentViewController(webNavController, animated: true, completion: nil)
         })
