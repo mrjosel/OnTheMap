@@ -13,6 +13,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    //Array of studentLocation objects
     var studentLocations = [ParseStudentLocation]()
     
     override func viewDidLoad() {
@@ -25,22 +26,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Set Login Button
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
-        
-        ParseClient.sharedInstance().getStudentLocations() {sucess, result, error in
-            if !sucess {
-                println(error)
-            } else {
-                if let result = result as? [String: AnyObject] {
-                    var studentLocationsDict = result[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
-                    for studentLocation in studentLocationsDict {
-                        self.studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
-                    }
-                    println(self.studentLocations.count)
-                    println("\(self.studentLocations[78].firstName) \(self.studentLocations[78].lastName)")
-                }
-            }
-        }
-
     }
     
     func logout() -> Void {

@@ -12,6 +12,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var userTableView: UITableView!
     
+    //Array of studentLocation objects
+    var studentLocations = [ParseStudentLocation]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
