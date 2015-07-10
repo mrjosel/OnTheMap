@@ -21,6 +21,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     
+    //Array of studentLocations
+    var studentLocations: [ParseStudentLocation] = []
+    
     //for keyboard adjustments
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
@@ -74,6 +77,28 @@ class LoginViewController: UIViewController {
                     
                     //display TabBarVC
                     let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+                    let mapVC = tabBarVC.viewControllers![0].viewControllers![0] as! MapViewController
+                    let listVC = tabBarVC.viewControllers![1].viewControllers![0] as! ListViewController
+                    
+                    //Get student locations
+                    ParseClient.sharedInstance().getStudentLocations() {sucess, result, error in
+                        if !sucess {
+                            println(error)
+                        } else {
+                            if let result = result as? [String: AnyObject] {
+                                var studentLocationsDict = result[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
+                                for studentLocation in studentLocationsDict {
+                                    self.studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
+                                    self.studentLocations.sort({ $0.lastName < $1.lastName })
+                                    
+                                    mapVC.studentLocations = self.studentLocations
+                                    listVC.studentLocations = self.studentLocations
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
                     self.presentViewController(tabBarVC, animated: true) {
                         //Clear password and username
                         self.debugLabel.text = ""
