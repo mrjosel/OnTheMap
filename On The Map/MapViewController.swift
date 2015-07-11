@@ -58,10 +58,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     }
     
+    //create view for annotation
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
+        //reuse ID and pinView
         let reuseId = "pin"
-        
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
         
         if pinView == nil {
@@ -103,7 +104,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.presentViewController(alertVC, animated: true, completion: nil)
                 })
             } else {
-                println("refreshed")
                 self.mapView.reloadInputViews()
                 //create UIAlertVC
                 var alertVC = UIAlertController(title: "Refreshed", message: "User Data Refreshed", preferredStyle: UIAlertControllerStyle.Alert)

@@ -12,12 +12,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var userTableView: UITableView!
     
-    override func viewWillAppear(animated: Bool) {
-        for (var i = 0; i < ParseClient.sharedInstance().studentLocations.count; i++) {
-            println("\(i).  \(ParseClient.sharedInstance().studentLocations[i].mediaURL)")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,7 +37,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.presentViewController(alertVC, animated: true, completion: nil)
                 })
             } else {
-                println("refreshed")
                 self.userTableView.reloadData()
                 //create UIAlertVC
                 var alertVC = UIAlertController(title: "Refreshed", message: "User Data Refreshed", preferredStyle: UIAlertControllerStyle.Alert)
@@ -90,6 +83,20 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //launch website of studentLocation mediaURL
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let app = UIApplication.sharedApplication()
+        var urlString = ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL!
+        
+        //fix url if no http:// exists
+        if urlString.lowercaseString.rangeOfString("http") == nil {
+            urlString = "http://" + urlString
+        }
+        //create URL and launch
+        let url = NSURL(string: urlString)
+        app.openURL(url!)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
