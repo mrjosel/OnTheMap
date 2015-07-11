@@ -89,7 +89,7 @@ extension InformationPostingViewController {
     func keyboardWillShow(notification: NSNotification) {
         
         if keyboardAdjusted == false {
-            lastKeyboardOffset = getKeyboardHeight(notification) / 2
+            lastKeyboardOffset = getKeyboardHeight(notification) 
             self.view.superview?.frame.origin.y -= lastKeyboardOffset
             keyboardAdjusted = true
         }
