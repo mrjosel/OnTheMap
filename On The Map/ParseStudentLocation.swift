@@ -37,3 +37,12 @@ struct ParseStudentLocation {       //Struct for Student Location objects
         updatedAt   =   parsedJSONdata[ParseClient.ParameterKeys.UPDATED_AT]    as? String
     }
 }
+
+extension ParseStudentLocation: Printable {
+    
+    var description: String {
+        get {
+            return ("\(lastName), \(firstName)")
+        }
+    }
+}

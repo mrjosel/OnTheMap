@@ -34,8 +34,6 @@ class LoginViewController: UIViewController {
         // get keybard notifications
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
-        
-        println(ParseClient.sharedInstance().studentLocations.count)
     }
     
     override func viewWillDisappear(animated: Bool) {

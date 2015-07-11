@@ -19,6 +19,44 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //Set Login Button
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        
+        for (var i = 0; i < ParseClient.sharedInstance().studentLocations.count; i++) {
+            println("\(i).  \(ParseClient.sharedInstance().studentLocations[i])")
+        }
+    }
+    
+    func refresh() -> Void {
+        ParseClient.sharedInstance().getStudentLocations() { success, result, error in
+            if let error = error {
+                //create UIAlertVC
+                var alertVC = UIAlertController(title: "Refresh Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                
+                //create actions, OK dismisses alert
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                alertVC.addAction(ok)
+                
+                //display alert
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertVC, animated: true, completion: nil)
+                })
+            } else {
+                println("refreshed")
+                self.userTableView.reloadData()
+                //create UIAlertVC
+                var alertVC = UIAlertController(title: "Refreshed", message: "User Data Refreshed", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                //create actions, OK dismisses alert
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                alertVC.addAction(ok)
+                
+                //display alert
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertVC, animated: true, completion: nil)
+                })
+
+            }
+        }
     }
     
     func logout() -> Void {
@@ -59,6 +97,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UserTableCell") as! UITableViewCell
         cell.textLabel?.text = "\(ParseClient.sharedInstance().studentLocations[indexPath.row].lastName!), \(ParseClient.sharedInstance().studentLocations[indexPath.row].firstName!)"
+        cell.imageView?.image = UIImage(named: "Pin")
         return cell
     }
     
