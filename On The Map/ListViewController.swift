@@ -12,6 +12,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var userTableView: UITableView!
     
+    override func viewWillAppear(animated: Bool) {
+        for (var i = 0; i < ParseClient.sharedInstance().studentLocations.count; i++) {
+            println("\(i).  \(ParseClient.sharedInstance().studentLocations[i].mediaURL)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,10 +26,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Set Login Button
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
-        
-        for (var i = 0; i < ParseClient.sharedInstance().studentLocations.count; i++) {
-            println("\(i).  \(ParseClient.sharedInstance().studentLocations[i])")
-        }
     }
     
     func refresh() -> Void {

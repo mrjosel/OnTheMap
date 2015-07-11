@@ -38,7 +38,7 @@ extension ParseClient {
         static let LAT = "latitude"
         static let LON = "longitude"
         static let MAP_STRING = "mapString"
-        static let MEDIA_URL = "mediaUrl"
+        static let MEDIA_URL = "mediaURL"
         static let OBJECT_ID = "objectId"
         static let UNIQUE_KEY = "uniqueKey"
         static let UPDATED_AT = "updatedAt"     //not required as per Parse documentation supplied by course

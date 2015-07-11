@@ -30,12 +30,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //create pin annotations for each studentLocation
         for studentLocation in ParseClient.sharedInstance().studentLocations {
-            println(studentLocation)
-            
-            //optional names and url, if user has nil for a name, value is forced to ""
-            var first: String?
-            var last: String?
-            var url: String?
             
             //set lat/lon values
             let lat = CLLocationDegrees(studentLocation.latitude!)
@@ -45,29 +39,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             
             //get names and URL
-            if let firstName = studentLocation.firstName {
-                first = firstName
-            } else {
-                first = ""
-            }
-            
-            if let lastName = studentLocation.lastName {
-                last = lastName
-            } else {
-                last = ""
-            }
-            
-            if let mediaURL = studentLocation.mediaUrl {
-                url = mediaURL
-            } else {
-                url = ""
-            }
+            let first = studentLocation.firstName
+            let last = studentLocation.lastName
+            let mediaURL = studentLocation.mediaURL
             
             //create the annotation
             var annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
             annotation.title = "\(first) \(last)"
-            annotation.subtitle = url
+            annotation.subtitle = mediaURL
             
             //add annotation to annotations array
             annotations.append(annotation)
@@ -76,6 +56,36 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         //load completed annotations array to the map
         self.mapView.addAnnotations(annotations)
 
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinColor = .Red
+            pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    
+    // This delegate method is implemented to respond to taps. It opens the system browser
+    // to the URL specified in the annotationViews subtitle property.
+    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if control == annotationView.rightCalloutAccessoryView {
+            let app = UIApplication.sharedApplication()
+            app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+        }
     }
     
     func refresh() -> Void {
