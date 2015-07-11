@@ -30,10 +30,11 @@ extension InformationPostingViewController {
         self.bottomLabel.textColor = blue
         self.bottomLabel.font = UIFont(name: "Roboto-Thin", size: 25.0)
         
-        //top and bottom view color
+        //view colors
         let grey = makeColor(225, gVal: 225, bVal: 225)
         self.topView.backgroundColor = grey
         self.bottomView.backgroundColor = grey
+        self.view.backgroundColor = blue
         
         //searchField configurations
         self.searchField.delegate = self

@@ -14,7 +14,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var midLabel: UILabel!
-    @IBOutlet weak var midView: UIView!
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var bottomView: UIView!
