@@ -14,8 +14,8 @@ struct ParseStudentLocation {       //Struct for Student Location objects
     var createdAt:  String?      //not required as per documentaion
     var firstName:  String?
     var lastName:   String?
-    var latitude:   Float?
-    var longitude:  Float?
+    var latitude:   Double?
+    var longitude:  Double?
     var mapString:  String?
     var mediaUrl:   String?
     var objectID:   String?
@@ -28,8 +28,8 @@ struct ParseStudentLocation {       //Struct for Student Location objects
         createdAt   =   parsedJSONdata[ParseClient.ParameterKeys.CREATED_AT]    as? String
         firstName   =   parsedJSONdata[ParseClient.ParameterKeys.FIRST_NAME]    as? String
         lastName    =   parsedJSONdata[ParseClient.ParameterKeys.LAST_NAME]     as? String
-        latitude    =   parsedJSONdata[ParseClient.ParameterKeys.LAT]           as? Float
-        longitude   =   parsedJSONdata[ParseClient.ParameterKeys.LON]           as? Float
+        latitude    =   parsedJSONdata[ParseClient.ParameterKeys.LAT]           as? Double
+        longitude   =   parsedJSONdata[ParseClient.ParameterKeys.LON]           as? Double
         mapString   =   parsedJSONdata[ParseClient.ParameterKeys.MAP_STRING]    as? String
         mediaUrl    =   parsedJSONdata[ParseClient.ParameterKeys.MEDIA_URL]     as? String
         objectID    =   parsedJSONdata[ParseClient.ParameterKeys.OBJECT_ID]     as? String
