@@ -12,8 +12,10 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var studyingLabel: UILabel!
+    @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var midLabel: UILabel!
     @IBOutlet weak var midView: UIView!
+    @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var findLocationButton: BorderedButton!
@@ -22,6 +24,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
     var tapRecognizer: UITapGestureRecognizer? = nil
+    
+    let blue = UIColor(red: 0.254902, green: 0.458824, blue: 0.643137, alpha: 1)
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,6 +53,16 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
         
         //search button
         findLocationButton.themeBorderedButton("search")
+        
+        //textLabels
+        self.topLabel.textColor = blue
+        self.topLabel.font = UIFont(name: "Roboto-Thin", size: 25.0)
+        
+        self.midLabel.textColor = blue
+        self.midLabel.font = UIFont(name: "Roboto-Medium", size: 25.0)
+        
+        self.bottomLabel.textColor = blue
+        self.bottomLabel.font = UIFont(name: "Roboto-Thin", size: 25.0)
         
         //searchField configurations
         self.searchField.delegate = self
