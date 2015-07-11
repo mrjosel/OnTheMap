@@ -53,6 +53,9 @@ extension LoginViewController {
         loginLabel.textColor = UIColor.whiteColor()
         loginLabel.text = "Login to Udacity"
         
+        //Login Button
+        loginButton.themeBorderedButton("login")
+        
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
@@ -73,7 +76,7 @@ extension LoginViewController {
     func setupTextFieldProperties(textField: UITextField, placeholder: String) -> Void {
         //common properties for each textField
         let textFieldOrange = makeOrange(242, gVal: 192, bVal: 170)
-        textField.delegate = loginTextFieldDelegate
+        textField.delegate = self
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         textField.font = UIFont(name: "Roboto-Regular", size: 17.0)
         textField.backgroundColor = textFieldOrange

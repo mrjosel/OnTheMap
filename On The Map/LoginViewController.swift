@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //Outlets
     @IBOutlet weak var udacityIconImageView: UIImageView!
@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
     var lastKeyboardOffset : CGFloat = 0.0
     var tapRecognizer: UITapGestureRecognizer? = nil
     
-    let loginTextFieldDelegate = LoginTextFieldDelegate()
+    let loginTextFieldDelegate = self
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -162,6 +162,11 @@ class LoginViewController: UIViewController {
         }
     }
 
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //hides keyboard when user hits enter
+        textField.resignFirstResponder()
+        return true
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

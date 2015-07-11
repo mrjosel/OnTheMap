@@ -18,7 +18,7 @@ class BorderedButton: UIButton {
     let lighterOrange = UIColor(red: 1.0, green:0.35, blue:0.2, alpha: 1.0)
     let titleLabelFontSize : CGFloat = 17.0
     let borderedButtonHeight : CGFloat = 44.0
-    let borderedButtonCornerRadius : CGFloat = 4.0
+    var borderedButtonCornerRadius : CGFloat! //= 4.0
     let phoneBorderedButtonExtraPadding : CGFloat = 14.0
     
     var backingColor : UIColor? = nil
@@ -26,25 +26,37 @@ class BorderedButton: UIButton {
     
     // MARK: - Initialization
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.themeBorderedButton()
-    }
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        self.themeBorderedButton()
+//    }
+//    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        self.themeBorderedButton()
+//    }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.themeBorderedButton()
-    }
-    
-    func themeBorderedButton() -> Void {
+    func themeBorderedButton(functionString: String) -> Void {
+        switch functionString {
+        case "login":
+            self.highlightedBackingColor = darkerOrange
+            self.backingColor = lighterOrange
+            self.backgroundColor = lighterOrange
+            self.borderedButtonCornerRadius = 4.0
+            self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        default:
+            self.highlightedBackingColor = UIColor.whiteColor()
+            self.backingColor = UIColor.whiteColor()
+            self.backgroundColor = UIColor.whiteColor()
+            self.borderedButtonCornerRadius = 10.0
+            self.setTitleColor(UIColor(red: 0.254902, green: 0.458824, blue: 0.643137, alpha: 1), forState: .Normal)
+        }
         let userInterfaceIdiom = UIDevice.currentDevice().userInterfaceIdiom
         self.layer.masksToBounds = true
         self.layer.cornerRadius = borderedButtonCornerRadius
-        self.highlightedBackingColor = darkerOrange
-        self.backingColor = lighterOrange
-        self.backgroundColor = lighterOrange
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: titleLabelFontSize)
+        
     }
     
     // MARK: - Setters

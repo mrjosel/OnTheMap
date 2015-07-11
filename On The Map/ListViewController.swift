@@ -17,9 +17,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         // Do any additional setup after loading the view.
         
-        //Set Login Button
+        //set Title
+        self.navigationItem.title = "On The Map"
+        
+        //Set Logout, postLocation, and refresh buttons
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        let infoPostButton = UIBarButtonItem(image: UIImage(named: "Pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "postLocation")
+        self.navigationItem.rightBarButtonItems = [refreshButton, infoPostButton]
+
     }
     
     func refresh() -> Void {
@@ -52,6 +58,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
             }
         }
+    }
+    
+    func postLocation() {
+        let infoPostVC = self.storyboard?.instantiateViewControllerWithIdentifier("InformationPostingViewController") as! InformationPostingViewController
+        self.presentViewController(infoPostVC, animated: true, completion: nil)
     }
     
     func logout() -> Void {
