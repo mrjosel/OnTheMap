@@ -21,9 +21,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
     
-    //Array of studentLocations
-    var studentLocations: [ParseStudentLocation] = []
-    
     //for keyboard adjustments
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
@@ -38,6 +35,7 @@ class LoginViewController: UIViewController {
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
         
+        println(ParseClient.sharedInstance().studentLocations.count)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -70,43 +68,34 @@ class LoginViewController: UIViewController {
         })
         UdacityClient.sharedInstance().getSessionID(usernameTextField.text, password: passwordTextField.text) {success, error in
             if success {    //sessionID and userID found
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    //alert user
-                    self.debugLabel.text = "Login Successful.  Loading Map..."
-                    
-                    //display TabBarVC
-                    let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
-                    let mapVC = tabBarVC.viewControllers![0].viewControllers![0] as! MapViewController
-                    let listVC = tabBarVC.viewControllers![1].viewControllers![0] as! ListViewController
-                    
-                    //Get student locations
-                    ParseClient.sharedInstance().getStudentLocations() {sucess, result, error in
-                        if !sucess {
-                            println(error)
-                        } else {
-                            if let result = result as? [String: AnyObject] {
-                                var studentLocationsDict = result[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
-                                for studentLocation in studentLocationsDict {
-                                    self.studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
-                                    self.studentLocations.sort({ $0.lastName < $1.lastName })
-                                    
-                                    mapVC.studentLocations = self.studentLocations
-                                    listVC.studentLocations = self.studentLocations
-                                    
-                                }
+                
+                //Get student locations
+                ParseClient.sharedInstance().getStudentLocations() {sucess, result, error in
+                    if !sucess {
+                        println(error)
+                    } else {
+                        if let result = result as? [String: AnyObject] {
+                            var studentLocationsDict = result[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
+                            for studentLocation in studentLocationsDict {
+                                ParseClient.sharedInstance().studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
+                                ParseClient.sharedInstance().studentLocations.sort({ $0.lastName < $1.lastName })
                             }
+                            dispatch_async(dispatch_get_main_queue(), {
+                                //display TabBarVC
+                                let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+                                //alert user
+                                self.debugLabel.text = "Login Successful.  Loading Map..."
+                                self.presentViewController(tabBarVC, animated: true) {
+                                    //Clear password and username
+                                    self.debugLabel.text = ""
+                                    self.enableLoginElements(true)
+                                    self.usernameTextField.text = ""
+                                    self.passwordTextField.text = ""
+                                }
+                            })
                         }
                     }
-                    
-                    self.presentViewController(tabBarVC, animated: true) {
-                        //Clear password and username
-                        self.debugLabel.text = ""
-                        self.enableLoginElements(true)
-                        self.usernameTextField.text = ""
-                        self.passwordTextField.text = ""
-                    }
-                })
+                }
             } else {    //failure retrieving userID and sessionID
                 if let error = error {
                     

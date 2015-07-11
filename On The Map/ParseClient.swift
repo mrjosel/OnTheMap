@@ -11,6 +11,8 @@ import Foundation
 
 class ParseClient: AnyObject {
     
+    var studentLocations: [ParseStudentLocation] = []
+    
     func getStudentLocations(completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> Void {
         
         //error
