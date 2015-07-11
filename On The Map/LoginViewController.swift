@@ -161,12 +161,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        //hides keyboard when user hits enter
-        textField.resignFirstResponder()
-        return true
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -25,8 +25,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     var lastKeyboardOffset : CGFloat = 0.0
     var tapRecognizer: UITapGestureRecognizer? = nil
     
-    let blue = UIColor(red: 0.254902, green: 0.458824, blue: 0.643137, alpha: 1)
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -46,30 +44,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /* Configure tap recognizer */
-        self.tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
-        self.tapRecognizer?.numberOfTapsRequired = 1
-        
-        //search button
-        findLocationButton.themeBorderedButton("search")
-        
-        //textLabels
-        self.topLabel.textColor = blue
-        self.topLabel.font = UIFont(name: "Roboto-Thin", size: 25.0)
-        
-        self.midLabel.textColor = blue
-        self.midLabel.font = UIFont(name: "Roboto-Medium", size: 25.0)
-        
-        self.bottomLabel.textColor = blue
-        self.bottomLabel.font = UIFont(name: "Roboto-Thin", size: 25.0)
-        
-        //searchField configurations
-        self.searchField.delegate = self
-        self.searchField.text = "Enter Location Here"
-        self.searchField.textColor = UIColor.whiteColor()
-        self.searchField.font = UIFont(name: "Roboto-Medium", size: 17.0)
-
+        //configure UI
+        self.configureUI()
         // Do any additional setup after loading the view.
     }
 
@@ -82,70 +58,4 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-
-    func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.text == "Enter Location Here" {
-            textField.text = ""
-        }
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        if textField.text == "" {
-            textField.text = "Enter Location Here"
-        }
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    //-------------------------- The following methods all pertain to adjusting the view when the keyboar is present --------------------------
-    
-    func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    func unsubscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if keyboardAdjusted == false {
-            lastKeyboardOffset = getKeyboardHeight(notification) / 2
-            self.view.superview?.frame.origin.y -= lastKeyboardOffset
-            keyboardAdjusted = true
-        }
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        
-        if keyboardAdjusted == true {
-            self.view.superview?.frame.origin.y += lastKeyboardOffset
-            keyboardAdjusted = false
-        }
-    }
-    
-    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        return keyboardSize.CGRectValue().height
-    }
-    
-    func addKeyboardDismissRecognizer() {
-        self.view.addGestureRecognizer(tapRecognizer!)
-    }
-    
-    func removeKeyboardDismissRecognizer() {
-        self.view.removeGestureRecognizer(tapRecognizer!)
-    }
-    
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
-    }
-    
-    //-------------------------- End of keyboard view methods ---------------------------------------------------------------------------------
-
 }

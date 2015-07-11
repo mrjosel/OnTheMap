@@ -18,7 +18,7 @@ extension LoginViewController {
         //disable navbar
         self.navigationController?.navigationBarHidden = true
         
-        let lightOrange = makeOrange(255.0, gVal: 160.0, bVal: 32.0)
+        let lightOrange = makeColor(255.0, gVal: 160.0, bVal: 32.0)
         var gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
@@ -75,7 +75,7 @@ extension LoginViewController {
     
     func setupTextFieldProperties(textField: UITextField, placeholder: String) -> Void {
         //common properties for each textField
-        let textFieldOrange = makeOrange(242, gVal: 192, bVal: 170)
+        let textFieldOrange = makeColor(242, gVal: 192, bVal: 170)
         textField.delegate = self
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         textField.font = UIFont(name: "Roboto-Regular", size: 17.0)
@@ -85,8 +85,8 @@ extension LoginViewController {
 
     }
     
-    func makeOrange(rVal: CGFloat, gVal: CGFloat, bVal: CGFloat) -> UIColor {
-        //creates textfield orange color based on traditional 0 - 255 RGB Values
+    func makeColor(rVal: CGFloat, gVal: CGFloat, bVal: CGFloat) -> UIColor {
+        //creates color based on traditional 0 - 255 RGB Values
         //if any value is outside the range, UIColor initializers will handle adjusting the values
         
         let transRVal = rVal / 255
@@ -94,6 +94,13 @@ extension LoginViewController {
         let transBVal = bVal / 255
         
         return UIColor(red: transRVal, green: transGVal, blue: transBVal, alpha: 1.0)
+    }
+    
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //hides keyboard when user hits enter
+        textField.resignFirstResponder()
+        return true
     }
 
     //-------------------------- The following methods all pertain to adjusting the view when the keyboar is present --------------------------
