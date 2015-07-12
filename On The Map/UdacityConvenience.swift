@@ -11,6 +11,35 @@ import UIKit
 
 extension UdacityClient {
     
+    func getUserPublicData(userID: String?, completionHandler:(successs: Bool, error: NSError?) -> Void) {
+        //gets user data from Udacity
+        
+        //configure urlString
+        let urlString = Constants.BASE_URL + Constants.API + "/" + UdacityClient.sharedInstance().userID!
+        
+        taskForGETMethod(urlString){ success, result, error in
+            if let error = error {
+                //handle error
+                completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
+            } else {
+                //get first and last names
+                if let result = result as? [String: AnyObject] {
+                    if let userInfo = result[UdacityClient.UserKeys.USER] as? [String: AnyObject] {
+                        self.firstName = (userInfo[UdacityClient.UserKeys.FIRST_NAME] as! String)
+                        self.lastName = (userInfo[UdacityClient.UserKeys.LAST_NAME] as! String)
+                    } else {
+                        //handler error
+                        completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
+                    }
+                } else {
+                    
+                    completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
+                }
+            }
+        }
+        
+    }
+    
     func getSessionID(email: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
         let method = Methods.SESSION
         

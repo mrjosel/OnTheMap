@@ -10,13 +10,41 @@ import Foundation
 
 class UdacityClient: AnyObject {
     
+    //session and user ID
     var sessionID: String?
     var userID: String?
+    
+    //user's first and last name
+    var firstName: String?
+    var lastName: String?
     
     func clearIDs() -> Void {
         //Clear out IDs after logging out
         sessionID = nil
         userID = nil
+    }
+    
+    func taskForGETMethod(urlString: String, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+        
+        //construct URL
+        let url = NSURL(string: urlString)
+        
+        //create session
+        let session = NSURLSession.sharedSession()
+        
+        //create request
+        let request = NSMutableURLRequest(URL: url!)
+        
+        //start request
+        let task = session.dataTaskWithRequest(request) {data, response, parsingError in
+            if let error = parsingError {
+                completionHandler(success: false, result: nil, error: error)
+            } else {
+                self.parseJSON(data, completionHandler: completionHandler)
+            }
+        }
+        task.resume()
+        return task
     }
     
     func taskForPOSTMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {

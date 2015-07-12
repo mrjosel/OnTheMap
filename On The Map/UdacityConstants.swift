@@ -23,6 +23,13 @@ extension UdacityClient {
         static let SIGN_UP_SUCCESS = "/me#!/"
     }
     
+    //Keys for user info (partial list)
+    struct UserKeys {
+        static let FIRST_NAME = "first_name"
+        static let LAST_NAME = "last_name"
+        static let USER = "user"
+    }
+    
     //Available methods
     struct Methods {
         static let SESSION = "/session"
