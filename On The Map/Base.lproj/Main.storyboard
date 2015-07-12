@@ -379,29 +379,26 @@
                                     <constraint firstItem="3gx-3j-rRg" firstAttribute="top" secondItem="lmO-s2-dAX" secondAttribute="bottom" constant="9" id="czO-Uw-twp"/>
                                     <constraint firstItem="lmO-s2-dAX" firstAttribute="top" secondItem="vfG-Sv-gFB" secondAttribute="bottom" constant="9" id="giP-Qk-5th"/>
                                     <constraint firstAttribute="centerX" secondItem="vfG-Sv-gFB" secondAttribute="centerX" id="v6j-TA-IUH"/>
-                                    <constraint firstAttribute="width" constant="600" id="xBm-jT-8wh"/>
                                 </constraints>
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yn1-Po-tDG">
                                 <rect key="frame" x="0.0" y="204" width="600" height="396"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="396" id="E0E-sI-cd3"/>
-                                </constraints>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="16F-eW-lCt" secondAttribute="trailing" constant="-16" id="D9A-Kl-g7X"/>
                             <constraint firstItem="qct-Cb-Jv8" firstAttribute="leading" secondItem="cuF-Y4-cos" secondAttribute="leadingMargin" constant="-16" id="EsJ-gf-HJ6"/>
+                            <constraint firstItem="qct-Cb-Jv8" firstAttribute="top" secondItem="nXI-Bl-f59" secondAttribute="bottom" constant="213" id="Lt1-9c-T5M"/>
                             <constraint firstAttribute="centerX" secondItem="nXI-Bl-f59" secondAttribute="centerX" constant="-0.5" id="SwG-Cm-FVk"/>
                             <constraint firstItem="16F-eW-lCt" firstAttribute="top" secondItem="cuF-Y4-cos" secondAttribute="topMargin" id="T2v-sz-CVf"/>
+                            <constraint firstItem="yn1-Po-tDG" firstAttribute="top" secondItem="F4B-c3-SBd" secondAttribute="bottom" constant="184" id="aE0-vN-kRS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qct-Cb-Jv8" secondAttribute="trailing" constant="-16" id="eJg-z4-BZr"/>
-                            <constraint firstItem="h6J-SO-1br" firstAttribute="top" secondItem="yn1-Po-tDG" secondAttribute="bottom" id="kXj-im-VEQ"/>
-                            <constraint firstItem="yn1-Po-tDG" firstAttribute="trailing" secondItem="qct-Cb-Jv8" secondAttribute="trailing" id="m8m-zF-m5C"/>
                             <constraint firstItem="h6J-SO-1br" firstAttribute="top" secondItem="qct-Cb-Jv8" secondAttribute="bottom" id="mW6-xg-be2"/>
-                            <constraint firstItem="nXI-Bl-f59" firstAttribute="top" secondItem="16F-eW-lCt" secondAttribute="bottom" constant="58" id="psI-6e-CRm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yn1-Po-tDG" secondAttribute="trailing" constant="-16" id="pZy-VU-rOc"/>
+                            <constraint firstItem="yn1-Po-tDG" firstAttribute="leading" secondItem="qct-Cb-Jv8" secondAttribute="leading" id="snv-zi-US2"/>
+                            <constraint firstItem="yn1-Po-tDG" firstAttribute="bottom" secondItem="h6J-SO-1br" secondAttribute="top" id="whp-ek-X2O"/>
                             <constraint firstItem="16F-eW-lCt" firstAttribute="leading" secondItem="cuF-Y4-cos" secondAttribute="leadingMargin" constant="-16" id="zKs-3Q-9ls"/>
-                            <constraint firstItem="yn1-Po-tDG" firstAttribute="leading" secondItem="qct-Cb-Jv8" secondAttribute="leading" id="zQo-Iy-mqd"/>
                         </constraints>
                     </view>
                     <connections>

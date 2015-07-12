@@ -69,8 +69,10 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
             geoCoder.geocodeAddressString(searchString, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) in
                     
                     if error != nil {
-                        //TODO - Make Alert
-                        println("Geocode failed with error: \(error.localizedDescription)")
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var alertVC = self.makeAlert("Search Failed", error: error)
+                            self.presentViewController(alertVC, animated: true, completion: nil)
+                        })
                     } else {
                         let placemark = placemarks[0] as! CLPlacemark
                         let location = placemark.location
@@ -78,32 +80,19 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         //create the annotation
                         var annotation = MKPointAnnotation()
                         annotation.coordinate = location.coordinate
-//                        annotation.title = "\(first) \(last)"
-//                        annotation.subtitle = mediaURL
                         
                         //add annotation to annotations array and load array to the map
                         self.annotations.append(annotation)
                         self.mapView.addAnnotations(self.annotations)
                         
-                        //code for zooming in to pin
-                        var zoomRect = MKMapRectNull;
-                        let x = location.coordinate.latitude
-                        let y = location.coordinate.longitude
-                        let width = Double(self.mapView.frame.width)
-                        let height = Double(self.mapView.frame.height)
-                        let mapWindow = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
-                        
-//                        zoomRect = myLocationPointRect;
-//                        zoomRect = MKMapRectUnion(zoomRect, currentDestinationPointRect);
+                        //set zoom window
+                        let mapWindow = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500)
                         
                         dispatch_async(dispatch_get_main_queue(), {
                             self.mapView.hidden = false
                             self.mapView.setRegion(mapWindow, animated: true)
+                            self.resignFirstResponder()
                         })
-                        
-                        
-                        
-//                        self.showMap()
                 }
             })
         }
