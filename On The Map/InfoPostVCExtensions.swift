@@ -8,8 +8,13 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 extension InformationPostingViewController {
+    
+    struct InfoPostVCConstants {
+        static let defaultString = "Enter Location Here"
+    }
     
     func configureUI() {
         /* Configure tap recognizer */
@@ -20,7 +25,15 @@ extension InformationPostingViewController {
         let blue = makeColor(65, gVal: 117, bVal: 164)
         
         //search button
-        findLocationButton.themeBorderedButton("search")
+        self.findLocationButton.themeBorderedButton("search")
+        
+        //hide mapView initially
+        self.mapView.hidden = true
+        
+        //enable zoom, set self as delegate
+        self.mapView.zoomEnabled = true
+        self.mapView.delegate = self
+
         
         //textLabels
         self.topLabel.textColor = blue
@@ -38,33 +51,21 @@ extension InformationPostingViewController {
         
         //searchField configurations
         self.searchField.delegate = self
-        self.searchField.text = "Enter Location Here"
+        self.searchField.text = InfoPostVCConstants.defaultString
         self.searchField.textColor = UIColor.whiteColor()
         self.searchField.font = UIFont(name: "Roboto-Medium", size: 17.0)
     }
     
-    func makeColor(rVal: CGFloat, gVal: CGFloat, bVal: CGFloat) -> UIColor {
-        //creates color based on traditional 0 - 255 RGB Values
-        //if any value is outside the range, UIColor initializers will handle adjusting the values
-        
-        let transRVal = rVal / 255
-        let transGVal = gVal / 255
-        let transBVal = bVal / 255
-        
-        return UIColor(red: transRVal, green: transGVal, blue: transBVal, alpha: 1.0)
-    }
-    
-    
     //textField delegate methods
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.text == "Enter Location Here" {
+        if textField.text == InfoPostVCConstants.defaultString {
             textField.text = ""
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.text == "" {
-            textField.text = "Enter Location Here"
+            textField.text = InfoPostVCConstants.defaultString
         }
     }
     

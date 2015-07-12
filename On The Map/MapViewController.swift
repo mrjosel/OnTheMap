@@ -13,6 +13,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    //empty array of MKPointAnnotations
+    var annotations: [MKPointAnnotation] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Set mapView delegate as self
         self.mapView.delegate = self
+        self.mapView.zoomEnabled = true
         
         //set Title
         self.navigationItem.title = "On The Map"
@@ -29,9 +33,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
         let infoPostButton = UIBarButtonItem(image: UIImage(named: "Pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "postLocation")
         self.navigationItem.rightBarButtonItems = [refreshButton, infoPostButton]
-        
-        //empty array of MKPointAnnotations
-        var annotations: [MKPointAnnotation] = []
         
         //create pin annotations for each studentLocation
         for studentLocation in ParseClient.sharedInstance().studentLocations {
@@ -44,9 +45,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             
             //get names and URL
-            let first = studentLocation.firstName
-            let last = studentLocation.lastName
-            let mediaURL = studentLocation.mediaURL
+            let first = studentLocation.firstName!
+            let last = studentLocation.lastName!
+            let mediaURL = studentLocation.mediaURL!
             
             //create the annotation
             var annotation = MKPointAnnotation()
@@ -92,10 +93,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //fix url if no http:// exists
+        var urlString = annotationView.annotation.subtitle!
+        
+        if urlString.lowercaseString.rangeOfString("http") == nil {
+            urlString = "http://" + urlString
+        }
         
         if control == annotationView.rightCalloutAccessoryView {
             let app = UIApplication.sharedApplication()
-            app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+            app.openURL(NSURL(string: urlString)!)
         }
     }
     

@@ -85,18 +85,6 @@ extension LoginViewController {
 
     }
     
-    func makeColor(rVal: CGFloat, gVal: CGFloat, bVal: CGFloat) -> UIColor {
-        //creates color based on traditional 0 - 255 RGB Values
-        //if any value is outside the range, UIColor initializers will handle adjusting the values
-        
-        let transRVal = rVal / 255
-        let transGVal = gVal / 255
-        let transBVal = bVal / 255
-        
-        return UIColor(red: transRVal, green: transGVal, blue: transBVal, alpha: 1.0)
-    }
-    
-    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         //hides keyboard when user hits enter
         textField.resignFirstResponder()
