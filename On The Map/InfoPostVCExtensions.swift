@@ -27,6 +27,13 @@ extension InformationPostingViewController {
         //search button
         self.findLocationButton.themeBorderedButton("search")
         
+        //submit button
+        self.submitButton.themeBorderedButton("submit")
+        self.submitButton.hidden = true
+        
+        //hide urlField initially
+        self.urlField.hidden = true
+        
         //hide mapView initially
         self.mapView.hidden = true
         
@@ -47,6 +54,7 @@ extension InformationPostingViewController {
         let grey = makeColor(225, gVal: 225, bVal: 225)
         self.topView.backgroundColor = grey
         self.bottomView.backgroundColor = grey
+        self.view.bringSubviewToFront(self.bottomView)
         self.view.backgroundColor = blue
         
         //searchField configurations

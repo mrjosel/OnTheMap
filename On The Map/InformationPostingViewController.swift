@@ -18,8 +18,10 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBOutlet weak var midLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var findLocationButton: BorderedButton!
+    @IBOutlet weak var submitButton: BorderedButton!
     @IBOutlet weak var mapView: MKMapView!
     
     //for keyboard adjustments
@@ -61,19 +63,28 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     @IBAction func findOnTheMap(sender: BorderedButton) {
         //geocode search string
-        if self.searchField.text != InfoPostVCConstants.defaultString {
+        if self.searchField.text != InfoPostVCConstants.defaultString { //else, do nothing
             
+            //Create geocoder, start search
             let geoCoder = CLGeocoder()
             let searchString = self.searchField.text
-            
             geoCoder.geocodeAddressString(searchString, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) in
                     
-                    if error != nil {
+                    if let error = error {
+                        //create alert
+                        var alertVC = UIAlertController(title: "Search Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                        //create okAction, add to alertVC
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
+                            self.searchField.text = InfoPostVCConstants.defaultString
+                        }
+                        alertVC.addAction(okAction)
+                        
                         dispatch_async(dispatch_get_main_queue(), {
-                            var alertVC = self.makeAlert("Search Failed", error: error)
+                            //display alert
                             self.presentViewController(alertVC, animated: true, completion: nil)
                         })
                     } else {
+                        //get location from placemarks
                         let placemark = placemarks[0] as! CLPlacemark
                         let location = placemark.location
                         
@@ -88,15 +99,28 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         //set zoom window
                         let mapWindow = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500)
                         
+                        //display map, make all UI changes
                         dispatch_async(dispatch_get_main_queue(), {
+                            self.resignFirstResponder()
                             self.mapView.hidden = false
                             self.mapView.setRegion(mapWindow, animated: true)
-                            self.resignFirstResponder()
+                            self.topView.backgroundColor = self.makeColor(65, gVal: 117, bVal: 164)
+                            self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+                            self.bottomView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+                            self.findLocationButton.hidden = true
+                            self.submitButton.hidden = false
+                            self.urlField.hidden = false
                         })
                 }
             })
         }
     }
+    
+    @IBAction func submitLocation(sender: BorderedButton) {
+        //TODO - implement
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     //create view for annotation
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {

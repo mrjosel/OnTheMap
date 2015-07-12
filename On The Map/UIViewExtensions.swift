@@ -22,14 +22,4 @@ extension UIViewController {
         
         return UIColor(red: transRVal, green: transGVal, blue: transBVal, alpha: 1.0)
     }
-    
-    func makeAlert(headline: String?, error: NSError?) -> UIAlertController {
-        var alertVC = UIAlertController(title: headline, message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        //create actions, OK dismisses alert, additional actions made outside function
-        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alertVC.addAction(ok)
-        
-        return alertVC
-    }
 }
