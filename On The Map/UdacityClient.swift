@@ -24,7 +24,7 @@ class UdacityClient: AnyObject {
         userID = nil
     }
     
-    func taskForGETMethod(urlString: String, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+    func taskForGETMethod(urlString: String, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
         
         //construct URL
         let url = NSURL(string: urlString)
@@ -47,7 +47,13 @@ class UdacityClient: AnyObject {
         return task
     }
     
-    func taskForPOSTMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+    func taskForPOSTMethod(method: String, body: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+        
+        //create and configure request
+        let request = NSMutableURLRequest() //URL completed in POST method
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = body
         
         //construct URL
         let urlString = Constants.BASE_URL + Constants.API + method
@@ -73,7 +79,7 @@ class UdacityClient: AnyObject {
         return task
     }
     
-    func taskForDELETEMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+    func taskForDELETEMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
         //construct URL
         let urlString = Constants.BASE_URL + Constants.API + method
         let url = NSURL(string: urlString)
@@ -112,7 +118,7 @@ class UdacityClient: AnyObject {
         return task
     }
     
-    func parseJSON(data: NSData, completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> Void {
+    func parseJSON(data: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> Void {
         //error for pointer
         var parsingError: NSError? = nil
         

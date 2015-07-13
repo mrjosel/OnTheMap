@@ -11,6 +11,40 @@ import UIKit
 
 extension UdacityClient {
     
+    func completeLogin(email: String, password: String, completionHandler:(success: Bool, error: NSError?) -> Void) {
+        // Use email and password to POST and get JSON data
+        let method = Methods.SESSION
+        let httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        //POST Method
+        let task = taskForPOSTMethod(method, body: httpBody!) {success, result, error in
+            if success {
+                // successfully retrieved JSON data, cast it to [String: AnyObject]
+                if let validJSONData = result as? [String: AnyObject] {
+                    //check valid credentials
+                    self.checkValidCredentials(validJSONData) {success, error in
+                        if success {
+                            //get sessionID and userID
+                            self.getSessionID(validJSONData) {success, error in
+                                if success {
+                                    completionHandler(success: true, error: nil)
+                                } else {
+                                    completionHandler(success: false, error: error)
+                                }
+                            }
+                        } else {
+                            completionHandler(success: false, error: error)
+                        }
+                    }
+                } else {
+                    completionHandler(success: false, error: self.errorHandle("casting validJSONData", errorString: "Error: Failed to Cast JSON Data"))
+                }
+            } else {
+                completionHandler(success: false, error: error)
+            }
+        }
+    }
+    
     func getUserPublicData(userID: String?, completionHandler:(successs: Bool, error: NSError?) -> Void) {
         //gets user data from Udacity
         
@@ -40,42 +74,20 @@ extension UdacityClient {
         
     }
     
-    func getSessionID(email: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
-        let method = Methods.SESSION
-        
-        //create and configure request
-        let request = NSMutableURLRequest() //URL completed in POST method
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = taskForPOSTMethod(method, request: request) {success, result, error in
-            if !success {
-                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(error!.localizedDescription)"))
+    func getSessionID(JSONData: [String: AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
+        //parse JSON data to get sessionID
+        if let session = JSONData[JSONBodyKeys.SESSION] as? [String: AnyObject] {
+            if let sessionID = session[JSONBodyKeys.ID] as? String {
+                //Session ID Found, store in var, report success to completionHandler
+                self.sessionID = sessionID
+                completionHandler(success: true, error: nil)
             } else {
-                //Check for valid credentials
-                self.checkValidCredentials(result as! [String: AnyObject]) {success, error in
-                    //TODO LATER - POSSIBLE REMOVE?????
-                    if success {    //successfully verified credentials
-                        if let session = result?.valueForKey(JSONBodyKeys.SESSION) as? [String: AnyObject] {
-                            if let sessionID = session[JSONBodyKeys.ID] as? String {
-                                //Session ID Found, store in var, report success to completionHandler
-                                self.sessionID = sessionID
-                                completionHandler(success: true, error: nil)
-                            } else {
-                                //No ID key/val pair in data, need to generate error
-                                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.ID) Not Found"))
-                            }
-                        } else {
-                            //no Session key/val pair in data, need to generate error
-                            completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.SESSION) Not Found"))
-                        }
-                    } else {
-                        //Login Credentials Failed.  Uses error from completionHandler
-                        completionHandler(success: false, error: error)
-                    }
-                }
+                //No ID key/val pair in data, need to generate error
+                completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.ID) Not Found"))
             }
+        } else {
+            //no Session key/val pair in data, need to generate error
+            completionHandler(success: false, error: self.errorHandle("getSessionID", errorString: "Error: \(JSONBodyKeys.SESSION) Not Found"))
         }
     }
     
