@@ -54,7 +54,7 @@ extension LoginViewController {
         loginLabel.text = "Login to Udacity"
         
         //Login Button
-        loginButton.themeBorderedButton("login")
+        loginButton.themeBorderedButton()
         
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")

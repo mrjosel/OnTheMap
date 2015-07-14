@@ -31,6 +31,7 @@
 		B7EF5CC21B3897470090BBDF /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5CBF1B3897470090BBDF /* Roboto-Thin.ttf */; };
 		B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */; };
 		B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5CC81B38A9500090BBDF /* LoginVCExtensions.swift */; };
+		B7F957A51B55BB1700B3A4E5 /* InfoPostBorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F957A41B55BB1700B3A4E5 /* InfoPostBorderedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		B7EF5CBF1B3897470090BBDF /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../../../../Downloads/on the map assets/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		B7EF5CC81B38A9500090BBDF /* LoginVCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVCExtensions.swift; sourceTree = "<group>"; };
+		B7F957A41B55BB1700B3A4E5 /* InfoPostBorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostBorderedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */,
+				B7F957A41B55BB1700B3A4E5 /* InfoPostBorderedButton.swift */,
 			);
 			name = View;
 			path = ..;
@@ -351,6 +354,7 @@
 				B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */,
 				B71B67A01B39FAFF0010F2DD /* ParseConstants.swift in Sources */,
 				B71B67AB1B3B3D980010F2DD /* UdacityConvenience.swift in Sources */,
+				B7F957A51B55BB1700B3A4E5 /* InfoPostBorderedButton.swift in Sources */,
 				B71C354F1B518FF9004C95D0 /* InformationPostingViewController.swift in Sources */,
 				B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */,
 				B71B679E1B39FA8C0010F2DD /* ParseClient.swift in Sources */,

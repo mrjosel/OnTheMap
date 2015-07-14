@@ -72,6 +72,7 @@ class TabParentViewController: UIViewController {
         
         UdacityClient.sharedInstance().udacityLogout() { success, error in
             if success {
+                println("no success")
                 dispatch_async(dispatch_get_main_queue(), {
                     //Clear student locations array and sessionID/userID
                     ParseClient.sharedInstance().studentLocations = []

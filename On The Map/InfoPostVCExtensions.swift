@@ -21,10 +21,10 @@ extension InformationPostingViewController {
         let blue = makeColor(65, gVal: 117, bVal: 164)
         
         //search button
-        self.findLocationButton.themeBorderedButton("search")
+        self.findLocationButton.themeBorderedButton()
         
         //submit button
-        self.submitButton.themeBorderedButton("submit")
+        self.submitButton.themeBorderedButton()
         self.submitButton.hidden = true
         
         //hide urlField initially

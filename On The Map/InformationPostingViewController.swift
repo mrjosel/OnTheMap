@@ -20,8 +20,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var findLocationButton: BorderedButton!
-    @IBOutlet weak var submitButton: BorderedButton!
+    @IBOutlet weak var findLocationButton: InfoPostBorderedButton!
+    @IBOutlet weak var submitButton: InfoPostBorderedButton!
     @IBOutlet weak var mapView: MKMapView!
     
     //for keyboard adjustments

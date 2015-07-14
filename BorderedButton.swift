@@ -26,35 +26,25 @@ class BorderedButton: UIButton {
     
     // MARK: - Initialization
     
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        self.themeBorderedButton()
-//    }
-//    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        self.themeBorderedButton()
-//    }
-    
-    func themeBorderedButton(functionString: String) -> Void {
-        switch functionString {
-        case "login":
+    func themeBorderedButton() -> Void {
+//        switch functionString {
+//        case "login":
             self.highlightedBackingColor = darkerOrange
             self.backingColor = lighterOrange
             self.backgroundColor = lighterOrange
             self.borderedButtonCornerRadius = 4.0
             self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        default:
-            self.highlightedBackingColor = UIColor.whiteColor()
-            self.backingColor = UIColor.whiteColor()
-            self.backgroundColor = UIColor.whiteColor()
-            self.borderedButtonCornerRadius = 10.0
-            self.setTitleColor(UIColor(red: 0.254902, green: 0.458824, blue: 0.643137, alpha: 1), forState: .Normal)
-        }
+//        default:
+//            self.highlightedBackingColor = UIColor.whiteColor()
+//            self.backingColor = UIColor.whiteColor()
+//            self.backgroundColor = UIColor.whiteColor()
+//            self.borderedButtonCornerRadius = 10.0
+//            self.setTitleColor(UIColor(red: 0.254902, green: 0.458824, blue: 0.643137, alpha: 1), forState: .Normal)
+//        }
         let userInterfaceIdiom = UIDevice.currentDevice().userInterfaceIdiom
         self.layer.masksToBounds = true
         self.layer.cornerRadius = borderedButtonCornerRadius
-//        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: titleLabelFontSize)
         
     }

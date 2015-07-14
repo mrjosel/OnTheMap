@@ -61,6 +61,7 @@ extension UIViewController {
         } else {
             //is map or listVC
             handler = nil
+            let hostVC = hostVC as! TabParentViewController
         }
         
         //create action
@@ -70,7 +71,7 @@ extension UIViewController {
         alertVC.addAction(ok)
         dispatch_async(dispatch_get_main_queue(), {
             //present alertVC
-            self.presentViewController(alertVC, animated: true, completion: nil)
+            hostVC.presentViewController(alertVC, animated: true, completion: nil)
         })
     }
 }
