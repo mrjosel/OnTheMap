@@ -65,110 +65,37 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         UdacityClient.sharedInstance().completeLogin(self.usernameTextField.text, password: self.passwordTextField.text) { success, error in
             if success {
-                //get Parse data
-                //present next VC
-                println("SessionID = \(UdacityClient.sharedInstance().sessionID!)")
-                println("UserID = \(UdacityClient.sharedInstance().sessionID!)")
-                
+                //get all studentObjects
+                dispatch_async(dispatch_get_main_queue(), {
+                    //alert user 
+                    self.debugLabel.text = "Login Succesful, Getting User Data..."
+                })
+                ParseClient.sharedInstance().getStudentLocations() {success, error in
+                    if success {
+                        //complete login
+                        self.completeLogin()
+                    } else {
+                        //alert user
+                        self.makeAlert(self, title: "Get User Data Failure", error: error!)
+                    }
+                }
             } else {
-                //create alert
-                //display alert
+                //alert user
+                self.makeAlert(self, title: "Login Failure", error: error!)
             }
         }
-//        UdacityClient.sharedInstance().getSessionID(usernameTextField.text, password: passwordTextField.text) {success, error in
-//            if success {    //sessionID and userID found
-//                
-//                //Get student locations
-//                ParseClient.sharedInstance().getStudentLocations() {sucess, result, error in
-//                    if !sucess {
-//                        println(error)
-//                    } else {
-//                        if let result = result as? [String: AnyObject] {
-//                            var studentLocationsDict = result[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
-//                            for studentLocation in studentLocationsDict {
-//                                ParseClient.sharedInstance().studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
-//                                ParseClient.sharedInstance().studentLocations.sort({ $0.lastName < $1.lastName })
-//                            }
-//                            dispatch_async(dispatch_get_main_queue(), {
-//                                //display TabBarVC
-//                                let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
-//                                //alert user
-//                                self.debugLabel.text = "Login Successful.  Loading Map..."
-//                                self.presentViewController(tabBarVC, animated: true) {
-//                                    //Clear password and username
-//                                    self.debugLabel.text = ""
-//                                    self.enableLoginElements(true)
-//                                    self.usernameTextField.text = ""
-//                                    self.passwordTextField.text = ""
-//                                }
-//                            })
-//                        }
-//                    }
-//                }
-//            } else {    //failure retrieving userID and sessionID
-//                if let error = error {
-//                    
-//                    //create UIAlertVC
-//                    var alertVC = UIAlertController(title: "Login Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-//                    
-//                    //create actions, OK does nothing, Cancel essentially "cleans slate"
-//                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
-//                        dispatch_async(dispatch_get_main_queue(), {
-//                            self.debugLabel.text = ""
-//                        })
-//                    }
-//                    let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default) { handler in
-//                        //remove all login info and begin again
-//                        dispatch_async(dispatch_get_main_queue(), {
-//                            self.debugLabel.text = ""
-//                            self.enableLoginElements(true)
-//                            self.usernameTextField.text = ""
-//                            self.passwordTextField.text = ""
-//                        })
-//                    }
-//                    
-//                    //add actions to alertVC
-//                    alertVC.addAction(ok)
-//                    alertVC.addAction(cancel)
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        //print error, disable login elements, present alertVC
-//                        println(error.localizedDescription)
-//                        self.enableLoginElements(true)
-//                        self.presentViewController(alertVC, animated: true, completion: nil)
-//                    })
-//                }
-//            }
-//        }
     }
     
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
         //signup for Udacity
         
         UdacityClient.sharedInstance().udacitySignUp(self) {success, error in
-            if let success = success {
-                if success {
-                    //show user its been a success
-                    self.debugLabel.text = "Successfully Signed up for Udacity!"
-                } else {
-                    //alert user that some kind of error occurred
-                    //create UIAlertVC
-                    var alertVC = UIAlertController(title: "Sign-Up Failed", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    //create actions, OK dismissess alert
-                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.debugLabel.text = ""
-                        })
-                    }
-                    //add actions to alertVC
-                    alertVC.addAction(ok)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        //print error, disable login elements, present alertVC
-                        println(error!.localizedDescription)
-                        self.enableLoginElements(true)
-                        self.presentViewController(alertVC, animated: true, completion: nil)
-                    })
-                }
+            if success {
+                //show user its been a success
+                self.debugLabel.text = "Successfully Signed up for Udacity!"
+            } else {
+                //alert user
+                self.makeAlert(self, title: "Sign-Up Failure", error: error!)
             }
         }
     }

@@ -13,7 +13,7 @@ class UdacitySignUpWebViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     
     var urlRequest: NSURLRequest? = nil
-    var completionHandler : ((success: Bool!, error: NSError?) -> Void)? = nil
+    var completionHandler : ((success: Bool, error: NSError?) -> Void)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()

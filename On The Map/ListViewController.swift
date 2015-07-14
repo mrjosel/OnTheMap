@@ -12,6 +12,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var userTableView: UITableView!
     
+    //rightBarButtonItems
+    var refreshButton: UIBarButtonItem?
+    var infoPostButton: UIBarButtonItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,40 +26,21 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //Set Logout, postLocation, and refresh buttons
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
-        let infoPostButton = UIBarButtonItem(image: UIImage(named: "Pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "postLocation")
-        self.navigationItem.rightBarButtonItems = [refreshButton, infoPostButton]
+        refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        infoPostButton = UIBarButtonItem(image: UIImage(named: "Pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "postLocation")
+        self.navigationItem.rightBarButtonItems = [refreshButton!, infoPostButton!]
 
     }
     
     func refresh() -> Void {
-        ParseClient.sharedInstance().getStudentLocations() { success, result, error in
+        ParseClient.sharedInstance().getStudentLocations() { success, error in
             if let error = error {
-                //create UIAlertVC
-                var alertVC = UIAlertController(title: "Refresh Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                
-                //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                alertVC.addAction(ok)
-                
-                //display alert
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertVC, animated: true, completion: nil)
-                })
+                self.makeAlert(self, title: "Refresh Failed", error: error)
             } else {
+                //reload data
                 self.userTableView.reloadData()
                 //create UIAlertVC
-                var alertVC = UIAlertController(title: "Refreshed", message: "User Data Refreshed", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                alertVC.addAction(ok)
-                
-                //display alert
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertVC, animated: true, completion: nil)
-                })
-
+                self.makeAlert(self, title: "List Refreshed", error: nil)
             }
         }
     }
@@ -65,30 +50,37 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.presentViewController(infoPostVC, animated: true, completion: nil)
     }
     
+    //Logout of App
     func logout() -> Void {
-        //Logout of Udacity Client
+        
+        //disable Logout button while logging out
+        self.enableNavButtons(false)
+        
+        //execute logout method
         UdacityClient.sharedInstance().udacityLogout() { success, error in
-            if (success != nil) {
+            if success {
                 dispatch_async(dispatch_get_main_queue(), {
-                    //Clear student locations array
+                    //Clear student locations array and sessionID/userID
                     ParseClient.sharedInstance().studentLocations = []
+                    UdacityClient.sharedInstance().clearIDs()
                     //dismissVC
                     self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 })
             } else {
-                //create UIAlertVC
-                var alertVC = UIAlertController(title: "Login Failed", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                
-                //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                alertVC.addAction(ok)
-                
-                //display alert
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertVC, animated: true, completion: nil)
-                })
+                //alert user of failure
+                self.makeAlert(self, title: "Logout Failed", error: error!)
+                self.enableNavButtons(true)
             }
         }
+    }
+    
+    func enableNavButtons(enable: Bool) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.navigationItem.leftBarButtonItem!.enabled = enable
+            self.refreshButton?.enabled = enable
+            self.infoPostButton?.enabled = enable
+            self.tabBarController?.tabBar.userInteractionEnabled = enable
+        })
     }
 
     override func didReceiveMemoryWarning() {

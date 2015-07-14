@@ -33,6 +33,9 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     var coords: CLLocationCoordinate2D?
     var annotations: [MKPointAnnotation] = []
     
+    //default string for searchField
+    let defaultString = "Enter Location Here"
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -63,7 +66,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     @IBAction func findOnTheMap(sender: BorderedButton) {
         //geocode search string
-        if self.searchField.text != InfoPostVCConstants.defaultString { //else, do nothing
+        if self.searchField.text != self.defaultString { //else, do nothing
             
             //Create geocoder, start search
             let geoCoder = CLGeocoder()
@@ -75,7 +78,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         var alertVC = UIAlertController(title: "Search Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
                         //create okAction, add to alertVC
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
-                            self.searchField.text = InfoPostVCConstants.defaultString
+                            self.searchField.text = self.defaultString
                         }
                         alertVC.addAction(okAction)
                         
@@ -141,23 +144,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         
         return pinView
     }
-    
-    
-    
-//    func showMap() {
-//        
-//        let addressDict = [
-//            kABPersonAddressCityKey as NSString: "guys",
-//            kABPersonAddressStateKey: "lol",
-//            kABPersonAddressZIPKey: "wut"
-//        ]
-//        
-//        let place = MKPlacemark(coordinate: coords!, addressDictionary: addressDict)
-//        let mapItem = MKMapItem(placemark: place)
-//        let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-//        
-//        self.mapView.hidden = false
-//    }
     
     @IBAction func cancel(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)

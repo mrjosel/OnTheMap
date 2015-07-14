@@ -12,10 +12,6 @@ import MapKit
 
 extension InformationPostingViewController {
     
-    struct InfoPostVCConstants {
-        static let defaultString = "Enter Location Here"
-    }
-    
     func configureUI() {
         /* Configure tap recognizer */
         self.tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
@@ -59,21 +55,21 @@ extension InformationPostingViewController {
         
         //searchField configurations
         self.searchField.delegate = self
-        self.searchField.text = InfoPostVCConstants.defaultString
+        self.searchField.text = self.defaultString
         self.searchField.textColor = UIColor.whiteColor()
         self.searchField.font = UIFont(name: "Roboto-Medium", size: 17.0)
     }
     
     //textField delegate methods
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.text == InfoPostVCConstants.defaultString {
+        if textField.text == self.defaultString {
             textField.text = ""
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.text == "" {
-            textField.text = InfoPostVCConstants.defaultString
+            textField.text = self.defaultString
         }
     }
     

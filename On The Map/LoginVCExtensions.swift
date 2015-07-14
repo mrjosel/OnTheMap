@@ -85,10 +85,22 @@ extension LoginViewController {
 
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        //hides keyboard when user hits enter
-        textField.resignFirstResponder()
-        return true
+    func completeLogin() -> Void {
+        //finish login procedure
+        dispatch_async(dispatch_get_main_queue(), {
+            //display TabBarVC
+            let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+            println(tabBarVC)
+            //alert user
+            self.debugLabel.text = "Loading Map..."
+            self.presentViewController(tabBarVC, animated: true) {
+                //Clear password and username
+                self.debugLabel.text = ""
+                self.enableLoginElements(true)
+                self.usernameTextField.text = ""
+                self.passwordTextField.text = ""
+            }
+        })
     }
 
     //-------------------------- The following methods all pertain to adjusting the view when the keyboar is present --------------------------

@@ -16,6 +16,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //empty array of MKPointAnnotations
     var annotations: [MKPointAnnotation] = []
     
+    //rightBarButtonItems
+    var refreshButton: UIBarButtonItem?
+    var infoPostButton: UIBarButtonItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,9 +34,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Set Logout, postLocation, and refresh buttons
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
-        let infoPostButton = UIBarButtonItem(image: UIImage(named: "Pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "postLocation")
-        self.navigationItem.rightBarButtonItems = [refreshButton, infoPostButton]
+        refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        infoPostButton = UIBarButtonItem(image: UIImage(named: "Pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "postLocation")
+        self.navigationItem.rightBarButtonItems = [refreshButton!, infoPostButton!]
         
         //create pin annotations for each studentLocation
         for studentLocation in ParseClient.sharedInstance().studentLocations {
@@ -107,61 +111,49 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func refresh() -> Void {
-        ParseClient.sharedInstance().getStudentLocations() { success, result, error in
+        ParseClient.sharedInstance().getStudentLocations() { success, error in
             if let error = error {
                 //create UIAlertVC
-                var alertVC = UIAlertController(title: "Refresh Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                
-                //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                alertVC.addAction(ok)
-                
-                //display alert
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertVC, animated: true, completion: nil)
-                })
+                self.makeAlert(self, title: "Refresh Failed", error: error)
             } else {
                 self.mapView.reloadInputViews()
-                //create UIAlertVC
-                var alertVC = UIAlertController(title: "Refreshed", message: "User Data Refreshed", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                alertVC.addAction(ok)
-                
-                //display alert
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertVC, animated: true, completion: nil)
-                })
-                
+                self.makeAlert(self, title: "Map Refreshed", error: nil)
             }
         }
     }
     
     func logout() -> Void {
         //Logout of Udacity Client
+        
+        //disable Logout button while logging out
+        self.enableNavButtons(false)
+        
         UdacityClient.sharedInstance().udacityLogout() { success, error in
-            if (success != nil) {
+            if success {
                 dispatch_async(dispatch_get_main_queue(), {
-                    //Clear student locations array
+                    //Clear student locations array and sessionID/userID
                     ParseClient.sharedInstance().studentLocations = []
+                    UdacityClient.sharedInstance().sessionID = nil
+                    UdacityClient.sharedInstance().userID = nil
                     //dismissVC
                     self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 })
             } else {
-                //create UIAlertVC
-                var alertVC = UIAlertController(title: "Login Failed", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                
-                //create actions, OK dismisses alert
-                let ok = UIAlertAction(title: "Go Back", style: UIAlertActionStyle.Default, handler: nil)
-                alertVC.addAction(ok)
-                
-                //display alert
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertVC, animated: true, completion: nil)
-                })
+                //alert user of failure
+                self.makeAlert(self, title: "Logout Failed", error: error!)
+                self.enableNavButtons(true)
             }
         }
+    }
+    
+    func enableNavButtons(enable: Bool) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.navigationItem.leftBarButtonItem!.enabled = enable
+            self.refreshButton?.enabled = enable
+            self.infoPostButton?.enabled = enable
+            self.tabBarController?.tabBar.userInteractionEnabled = enable
+
+        })
     }
 
     override func didReceiveMemoryWarning() {

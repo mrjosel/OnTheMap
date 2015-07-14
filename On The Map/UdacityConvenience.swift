@@ -130,9 +130,9 @@ extension UdacityClient {
                 completionHandler(valid: false, error: errorHandle("checkValidCredentials", errorString: "Error: \(JSONBodyKeys.ACCOUNT) does not exist"))
             }
         }
-    }
+    }   
     
-    func udacitySignUp(hostViewController: UIViewController, completionHandler: (success: Bool!, error: NSError?) -> Void) -> Void {
+    func udacitySignUp(hostViewController: UIViewController, completionHandler: (success: Bool, error: NSError?) -> Void) -> Void {
         //method for signup
         
         //create signup  URL, make request
@@ -154,7 +154,7 @@ extension UdacityClient {
         })
     }
     
-    func udacityLogout(completionHandler: (success: Bool!, error: NSError?) -> Void) -> Void {
+    func udacityLogout(completionHandler: (success: Bool, error: NSError?) -> Void) -> Void {
         let task = taskForDELETEMethod(UdacityClient.Methods.SESSION, request: NSMutableURLRequest()) {success, result, error in
             if let error = error {
                 //TODO - Make Alert VC to display error

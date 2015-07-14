@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class ParseClient: AnyObject {
@@ -14,7 +15,7 @@ class ParseClient: AnyObject {
     var studentLocations: [ParseStudentLocation] = []
     
     //method to get student locations
-    func getStudentLocations(completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> Void {
+    func getStudentLocations(completionHandler: (success: Bool, error: NSError?) -> Void) -> Void {
         
         //error
         var parsingError: NSError? = nil
@@ -32,10 +33,11 @@ class ParseClient: AnyObject {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if let error = error {
-                completionHandler(success: false, result: nil, error: error)
+                completionHandler(success: false, error: error)
             } else {
                 if let parsedJSONdata = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as? [String: AnyObject] {
-                    completionHandler(success: true, result: parsedJSONdata, error: nil)
+                    self.makeStudentLocationObjectsFromData(parsedJSONdata)
+                    completionHandler(success: true, error: nil)
                 }
             }
         }
@@ -77,6 +79,17 @@ class ParseClient: AnyObject {
             println(NSString(data: data, encoding: NSUTF8StringEncoding))
         }
         task.resume()
+    }
+    
+    func makeStudentLocationObjectsFromData(parsedJSONData: [String: AnyObject]) {
+        //get array of studentLocation dicts
+        var studentLocationsDict = parsedJSONData[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
+        
+        //create studentLocation object for every dict in array, append to sharedInstance variable, then sort by last name
+        for studentLocation in studentLocationsDict {
+            ParseClient.sharedInstance().studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
+            ParseClient.sharedInstance().studentLocations.sort({ $0.lastName < $1.lastName })
+        }
     }
     
     class func sharedInstance() -> ParseClient {
