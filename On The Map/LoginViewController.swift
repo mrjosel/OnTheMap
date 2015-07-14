@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //Outlets
     @IBOutlet weak var udacityIconImageView: UIImageView!
@@ -25,8 +25,6 @@ class LoginViewController: UIViewController {
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
     var tapRecognizer: UITapGestureRecognizer? = nil
-    
-    let loginTextFieldDelegate = LoginTextFieldDelegate()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,36 +60,43 @@ class LoginViewController: UIViewController {
             self.debugLabel.text = "Logging in..."
             self.debugLabel.hidden = false
         })
-        UdacityClient.sharedInstance().getSessionID(usernameTextField.text, password: passwordTextField.text) {success, error in
-            if success {    //sessionID and userID found
-                println("Session ID = \(UdacityClient.sharedInstance().sessionID)")
-                println("User ID = \(UdacityClient.sharedInstance().userID)")
-                
-                //alert user, remove lock on username/password fields
+        
+        UdacityClient.sharedInstance().completeLogin(self.usernameTextField.text, password: self.passwordTextField.text) { success, error in
+            if success {
+                //get all studentObjects
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.debugLabel.text = "Login Successful.  Loading Map..."
-                    self.enableLoginElements(true)
+                    //alert user 
+                    self.debugLabel.text = "Login Succesful, Getting User Data..."
                 })
-//                self.dismissViewControllerAnimated(true, completion: nil)
-                let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
-                self.presentViewController(tabBarVC, animated: true, completion: nil)
-            } else {    //failure retrieving userID and sessionID
-                if let error = error {
-                    var errorString = error.localizedDescription
-                    println(errorString)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.debugLabel.text = errorString
-                        self.enableLoginElements(true)
-                    })
+                ParseClient.sharedInstance().getStudentLocations() {success, error in
+                    if success {
+                        //complete login
+                        self.completeLogin()
+                    } else {
+                        //alert user
+                        self.makeAlert(self, title: "Get User Data Failure", error: error!)
+                    }
                 }
+            } else {
+                //alert user
+                self.makeAlert(self, title: "Login Failure", error: error!)
             }
         }
     }
     
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
-        //TODO - Implement Sign Up Method
+        //signup for Udacity
+        
+        UdacityClient.sharedInstance().udacitySignUp(self) {success, error in
+            if success {
+                //show user its been a success
+                self.debugLabel.text = "Successfully Signed up for Udacity!"
+            } else {
+                //alert user
+                self.makeAlert(self, title: "Sign-Up Failure", error: error!)
+            }
+        }
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -8,51 +8,52 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListViewController: TabParentViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var userTableView: UITableView!
     
-//    required init(coder aDecoder: NSCoder) {
-//        //initialize tabBarButton
-//        super.init(coder: aDecoder)
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.tabBarItem.image = UIImage(named: "List")
-//            self.tabBarItem.title = "List"
-//            self.tabBarItem.tag = 1
-//        })
-//        
-//    }
-    
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        // Do any additional setup after loading the view.
-////        if let sessionID = UdacityClient.sharedInstance().sessionID {
-////            //do nothing
-////        } else {
-////            let loginVC: LoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-////            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
-////        }
-//    }
+    //overriding messageText for refresh method in super class
+    override var messageText: String { return "Table Refreshed"}
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+
+    }
+    
+    //launch website of studentLocation mediaURL
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let app = UIApplication.sharedApplication()
+        var urlString = ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL!
+        
+        //fix url if no http:// exists
+        if urlString.lowercaseString.rangeOfString("http") == nil {
+            urlString = "http://" + urlString
+        }
+        //create URL and launch
+        let url = NSURL(string: urlString)
+        app.openURL(url!)
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ParseClient.sharedInstance().studentLocations.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("UserTableCell") as! UITableViewCell
+        cell.textLabel?.text = "\(ParseClient.sharedInstance().studentLocations[indexPath.row].lastName!), \(ParseClient.sharedInstance().studentLocations[indexPath.row].firstName!)"
+        cell.imageView?.image = UIImage(named: "Pin")
+        return cell
+    }
+    
+    override func handler() {
+        //override function for super class refresh method
+        self.userTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "UserTableCell")
-        return cell
-    }
-    
-
 }

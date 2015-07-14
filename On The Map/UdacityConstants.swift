@@ -19,7 +19,15 @@ extension UdacityClient {
         //URLs
         static let BASE_URL = "https://www.udacity.com"
         static let API = "/api"
-        static let SIGN_IN = "account/auth#!/signin/"
+        static let SIGN_UP = "/account/auth#!/signup"
+        static let SIGN_UP_SUCCESS = "/me#!/"
+    }
+    
+    //Keys for user info (partial list)
+    struct UserKeys {
+        static let FIRST_NAME = "first_name"
+        static let LAST_NAME = "last_name"
+        static let USER = "user"
     }
     
     //Available methods

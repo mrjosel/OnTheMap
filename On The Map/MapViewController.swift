@@ -9,31 +9,15 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: TabParentViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-//    required init(coder aDecoder: NSCoder) {
-//        //initialize tabBarButton
-//        super.init(coder: aDecoder)
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.tabBarItem.image = UIImage(named: "Map")
-//            self.tabBarItem.title = "Map"
-//            self.tabBarItem.tag = 0
-//        })
-//        
-//    }
+    //empty array of MKPointAnnotations
+    var annotations: [MKPointAnnotation] = []
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        // Do any additional setup after loading the view.
-//        if let sessionID = UdacityClient.sharedInstance().sessionID {
-//            //do nothing
-//        } else {
-//            let loginVC: LoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-//            self.navigationController?.presentViewController(loginVC, animated: false, completion: nil)
-//        }
-//    }
+    //overriding messageText for refresh method in super class
+    override var messageText: String { return "Map Refreshed"}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +26,78 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Set mapView delegate as self
         self.mapView.delegate = self
+        self.mapView.zoomEnabled = true
+        
+        //create pin annotations for each studentLocation
+        for studentLocation in ParseClient.sharedInstance().studentLocations {
+            
+            //set lat/lon values
+            let lat = CLLocationDegrees(studentLocation.latitude!)
+            let lon = CLLocationDegrees(studentLocation.longitude!)
+            
+            //make coordinate object
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            
+            //get names and URL
+            let first = studentLocation.firstName!
+            let last = studentLocation.lastName!
+            let mediaURL = studentLocation.mediaURL!
+            
+            //create the annotation
+            var annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = "\(first) \(last)"
+            annotation.subtitle = mediaURL
+            
+            //add annotation to annotations array
+            annotations.append(annotation)
+        }
+        
+        //load completed annotations array to the map
+        self.mapView.addAnnotations(annotations)
 
+    }
+    
+    //create view for annotation
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        //reuse ID and pinView
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinColor = .Red
+            pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    
+    // This delegate method is implemented to respond to taps. It opens the system browser
+    // to the URL specified in the annotationViews subtitle property.
+    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //fix url if no http:// exists
+        var urlString = annotationView.annotation.subtitle!
+        
+        if urlString.lowercaseString.rangeOfString("http") == nil {
+            urlString = "http://" + urlString
+        }
+        
+        if control == annotationView.rightCalloutAccessoryView {
+            let app = UIApplication.sharedApplication()
+            app.openURL(NSURL(string: urlString)!)
+        }
+    }
+    
+    override func handler() {
+        //override function for super class refresh method
+        self.mapView.reloadInputViews()
     }
 
     override func didReceiveMemoryWarning() {

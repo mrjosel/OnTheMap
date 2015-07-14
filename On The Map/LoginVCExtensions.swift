@@ -18,7 +18,7 @@ extension LoginViewController {
         //disable navbar
         self.navigationController?.navigationBarHidden = true
         
-        let lightOrange = makeOrange(255.0, gVal: 160.0, bVal: 32.0)
+        let lightOrange = makeColor(255.0, gVal: 160.0, bVal: 32.0)
         var gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
@@ -53,6 +53,9 @@ extension LoginViewController {
         loginLabel.textColor = UIColor.whiteColor()
         loginLabel.text = "Login to Udacity"
         
+        //Login Button
+        loginButton.themeBorderedButton("login")
+        
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
@@ -69,8 +72,8 @@ extension LoginViewController {
     
     func setupTextFieldProperties(textField: UITextField, placeholder: String) -> Void {
         //common properties for each textField
-        let textFieldOrange = makeOrange(242, gVal: 192, bVal: 170)
-        textField.delegate = loginTextFieldDelegate
+        let textFieldOrange = makeColor(242, gVal: 192, bVal: 170)
+        textField.delegate = self
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         textField.font = UIFont(name: "Roboto-Regular", size: 17.0)
         textField.backgroundColor = textFieldOrange
@@ -79,15 +82,21 @@ extension LoginViewController {
 
     }
     
-    func makeOrange(rVal: CGFloat, gVal: CGFloat, bVal: CGFloat) -> UIColor {
-        //creates textfield orange color based on traditional 0 - 255 RGB Values
-        //if any value is outside the range, UIColor initializers will handle adjusting the values
-        
-        let transRVal = rVal / 255
-        let transGVal = gVal / 255
-        let transBVal = bVal / 255
-        
-        return UIColor(red: transRVal, green: transGVal, blue: transBVal, alpha: 1.0)
+    func completeLogin() -> Void {
+        //finish login procedure
+        dispatch_async(dispatch_get_main_queue(), {
+            //display TabBarVC
+            let tabBarVC = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarVC") as! UITabBarController
+            //alert user
+            self.debugLabel.text = "Loading Map..."
+            self.presentViewController(tabBarVC, animated: true) {
+                //Clear password and username
+                self.debugLabel.text = ""
+                self.enableLoginElements(true)
+                self.usernameTextField.text = ""
+                self.passwordTextField.text = ""
+            }
+        })
     }
 
     //-------------------------- The following methods all pertain to adjusting the view when the keyboar is present --------------------------
