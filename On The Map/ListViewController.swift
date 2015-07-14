@@ -22,37 +22,6 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
 
     }
     
-    override func handler() {
-        //override function for super class refresh method
-        self.userTableView.reloadData()
-    }
-    
-//    func refresh() -> Void {
-//        //refresh studentLocations
-//        
-//        //disable buttons while refreshing
-//        self.enableNavButtons(false)
-//        
-//        //get latest Student Locations
-//        ParseClient.sharedInstance().getStudentLocations() { success, error in
-//            if let error = error {
-//                //alert user
-//                self.makeAlert(self, title: "Refresh Failed", error: error)
-//            } else {
-//                //alert user
-//                self.makeAlert(self, title: "Table Refreshed", error: nil)
-//            }
-//            //enable buttons when finished
-//            self.enableNavButtons(true)
-//        }
-//    }
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //launch website of studentLocation mediaURL
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let app = UIApplication.sharedApplication()
@@ -78,5 +47,13 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    override func handler() {
+        //override function for super class refresh method
+        self.userTableView.reloadData()
+    }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }

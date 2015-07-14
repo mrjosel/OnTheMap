@@ -99,26 +99,6 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
         //override function for super class refresh method
         self.mapView.reloadInputViews()
     }
-    
-//    func refresh() -> Void {
-//        //refresh studentLocations
-//        
-//        //disable buttons while refreshing
-//        self.enableNavButtons(false)
-//        
-//        //get latest Student Locations
-//        ParseClient.sharedInstance().getStudentLocations() { success, error in
-//            if let error = error {
-//                //alert user
-//                self.makeAlert(self, title: "Refresh Failed", error: error)
-//            } else {
-//                //alert user
-//                self.makeAlert(self, title: "Map Refreshed", error: nil)
-//            }
-//            //enable buttons when finished
-//            self.enableNavButtons(true)
-//        }
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
