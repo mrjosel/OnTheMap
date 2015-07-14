@@ -15,6 +15,9 @@ class TabParentViewController: UIViewController {
     var refreshButton: UIBarButtonItem?
     var infoPostButton: UIBarButtonItem?
     
+    //dummy refresh string used in refresh method (overridden by sub classes)
+    var messageText: String { return "This is the Super Class messageText"}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,14 +51,18 @@ class TabParentViewController: UIViewController {
                 self.makeAlert(self, title: "Refresh Failed", error: error)
             } else {
                 //alert user
-                //TODO: PERFORM SPECIFIC METHOD HERE
-                self.makeAlert(self, title: "/*SPECIFIC STRING HERE*/", error: nil)
+                self.handler()
+                self.makeAlert(self, title: self.messageText, error: nil)
             }
             //enable buttons when finished
             self.enableNavButtons(true)
         }
     }
 
+    func handler() {
+        //dummy handler function
+        println("This is the Super Class Handler")
+    }
     
     func logout() -> Void {
         //Logout of Udacity Client

@@ -16,6 +16,9 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
     //empty array of MKPointAnnotations
     var annotations: [MKPointAnnotation] = []
     
+    //overriding messageText for refresh method in super class
+    override var messageText: String { return "Map Refreshed"}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -90,6 +93,11 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
             let app = UIApplication.sharedApplication()
             app.openURL(NSURL(string: urlString)!)
         }
+    }
+    
+    override func handler() {
+        //override function for super class refresh method
+        self.mapView.reloadInputViews()
     }
     
 //    func refresh() -> Void {

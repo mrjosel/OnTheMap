@@ -12,11 +12,19 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var userTableView: UITableView!
     
+    //overriding messageText for refresh method in super class
+    override var messageText: String { return "Table Refreshed"}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
 
+    }
+    
+    override func handler() {
+        //override function for super class refresh method
+        self.userTableView.reloadData()
     }
     
 //    func refresh() -> Void {
