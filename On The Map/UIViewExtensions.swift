@@ -64,7 +64,7 @@ extension UIViewController {
         }
         
         //create action
-        let ok = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: handler)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: handler)
         
         //add actions to alertVC
         alertVC.addAction(ok)

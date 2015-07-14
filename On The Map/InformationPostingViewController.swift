@@ -8,7 +8,7 @@
 
 import UIKit
 import MapKit
-import AddressBook
+//import AddressBook
 
 class InformationPostingViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
 
@@ -34,7 +34,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     var annotations: [MKPointAnnotation] = []
     
     //default string for searchField
-    let defaultString = "Enter Location Here"
+    let defaultString = "Enter City Here"
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -75,17 +75,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                     
                     if let error = error {
                         //create alert
-                        var alertVC = UIAlertController(title: "Search Failed", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                        //create okAction, add to alertVC
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { handler in
-                            self.searchField.text = self.defaultString
-                        }
-                        alertVC.addAction(okAction)
-                        
-                        dispatch_async(dispatch_get_main_queue(), {
-                            //display alert
-                            self.presentViewController(alertVC, animated: true, completion: nil)
-                        })
+                        self.makeAlert(self, title: "Can't Find Location", error: error)
                     } else {
                         //get location from placemarks
                         let placemark = placemarks[0] as! CLPlacemark
@@ -103,20 +93,25 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         let mapWindow = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500)
                         
                         //display map, make all UI changes
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.resignFirstResponder()
-                            self.mapView.hidden = false
-                            self.mapView.setRegion(mapWindow, animated: true)
-                            self.topView.backgroundColor = self.makeColor(65, gVal: 117, bVal: 164)
-                            self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-                            self.bottomView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
-                            self.findLocationButton.hidden = true
-                            self.submitButton.hidden = false
-                            self.urlField.hidden = false
-                        })
+                        self.locationFoundMode(mapWindow)
                 }
             })
         }
+    }
+    
+    func locationFoundMode(window: MKCoordinateRegion) {
+        //UI behavior once location is found
+        dispatch_async(dispatch_get_main_queue(), {
+            self.resignFirstResponder()
+            self.mapView.hidden = false
+            self.mapView.setRegion(window, animated: true)
+            self.topView.backgroundColor = self.makeColor(65, gVal: 117, bVal: 164)
+            self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            self.bottomView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+            self.findLocationButton.hidden = true
+            self.submitButton.hidden = false
+            self.urlField.hidden = false
+        })
     }
     
     @IBAction func submitLocation(sender: BorderedButton) {

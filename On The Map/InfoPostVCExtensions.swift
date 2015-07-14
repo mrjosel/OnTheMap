@@ -77,8 +77,6 @@ extension InformationPostingViewController {
         textField.resignFirstResponder()
         return true
     }
-
-    
     
     //-------------------------- The following methods all pertain to adjusting the view when the keyboar is present --------------------------
     
