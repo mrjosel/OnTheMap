@@ -101,9 +101,9 @@
 		B71B679B1B39FA570010F2DD /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				B7ADE7131B5854710037435D /* GenericClient.swift */,
 				B71B67A11B39FC540010F2DD /* Udacity */,
 				B71B679C1B39FA730010F2DD /* Parse */,
-				B7ADE7131B5854710037435D /* GenericClient.swift */,
 			);
 			name = Clients;
 			sourceTree = "<group>";

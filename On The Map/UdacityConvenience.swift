@@ -206,8 +206,8 @@ extension UdacityClient {
         }
     }
 
-    func errorHandle(domain: String, errorString: String) -> NSError {
-        //Create specialized errors in cases of elements not existing in successfully retrieved JSON data
-        return NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "\(errorString)"])
-    }
+//    func errorHandle(domain: String, errorString: String) -> NSError {
+//        //Create specialized errors in cases of elements not existing in successfully retrieved JSON data
+//        return NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "\(errorString)"])
+//    }
 }

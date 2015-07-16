@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UdacityClient: AnyObject {
+class UdacityClient: GenericClient {
     
     //session and user ID
     var sessionID: String?
@@ -118,20 +118,20 @@ class UdacityClient: AnyObject {
         return task
     }
     
-    func parseJSON(data: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> Void {
-        //error for pointer
-        var parsingError: NSError? = nil
-        
-        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-        var parsedData: AnyObject! = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-        
-        if let error = parsingError {
-            completionHandler(success: false, result: nil, error: self.errorHandle("parseJSON", errorString: "JSON Parsing Error"))
-        } else {
-            completionHandler(success: true, result: parsedData, error: nil)
-        }
-
-    }
+//    func parseJSON(data: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> Void {
+//        //error for pointer
+//        var parsingError: NSError? = nil
+//        
+//        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+//        var parsedData: AnyObject! = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+//        
+//        if let error = parsingError {
+//            completionHandler(success: false, result: nil, error: self.errorHandle("parseJSON", errorString: "JSON Parsing Error"))
+//        } else {
+//            completionHandler(success: true, result: parsedData, error: nil)
+//        }
+//
+//    }
 
     class func sharedInstance() -> UdacityClient {
         //create shared instance
