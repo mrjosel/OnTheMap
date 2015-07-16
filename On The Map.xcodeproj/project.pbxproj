@@ -20,6 +20,7 @@
 		B71C35531B52E4DC004C95D0 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C35521B52E4DC004C95D0 /* UIViewExtensions.swift */; };
 		B7510FF71B55326E00B29CD3 /* TabParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */; };
 		B7510FF91B554D1800B29CD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF81B554D1800B29CD3 /* ListViewController.swift */; };
+		B75607691B585E57008ABCFF /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75607681B585E57008ABCFF /* ParseConvenience.swift */; };
 		B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */; };
 		B7ADE7141B5854710037435D /* GenericClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE7131B5854710037435D /* GenericClient.swift */; };
 		B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */; };
@@ -60,6 +61,7 @@
 		B71C35521B52E4DC004C95D0 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabParentViewController.swift; sourceTree = "<group>"; };
 		B7510FF81B554D1800B29CD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		B75607681B585E57008ABCFF /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredPlaceholderTextField.swift; sourceTree = "<group>"; };
 		B7ADE7131B5854710037435D /* GenericClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericClient.swift; sourceTree = "<group>"; };
 		B7EF5C921B388D3E0090BBDF /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				B71B679D1B39FA8C0010F2DD /* ParseClient.swift */,
 				B71B679F1B39FAFF0010F2DD /* ParseConstants.swift */,
 				B71C354C1B502262004C95D0 /* ParseStudentLocation.swift */,
+				B75607681B585E57008ABCFF /* ParseConvenience.swift */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7510FF91B554D1800B29CD3 /* ListViewController.swift in Sources */,
+				B75607691B585E57008ABCFF /* ParseConvenience.swift in Sources */,
 				B7510FF71B55326E00B29CD3 /* TabParentViewController.swift in Sources */,
 				B70820411B3F3A9D00FB2535 /* MapViewController.swift in Sources */,
 				B71B67A31B39FC6C0010F2DD /* UdacityClient.swift in Sources */,

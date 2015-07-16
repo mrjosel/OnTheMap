@@ -40,6 +40,7 @@ class UdacityClient: GenericClient {
             if let error = parsingError {
                 completionHandler(success: false, result: nil, error: error)
             } else {
+                let data = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 self.parseJSON(data, completionHandler: completionHandler)
             }
         }
@@ -72,6 +73,7 @@ class UdacityClient: GenericClient {
             if let error = parsingError {
                 completionHandler(success: false, result: nil, error: error)
             } else {
+                let data = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 self.parseJSON(data, completionHandler: completionHandler)
             }
         }
@@ -111,6 +113,7 @@ class UdacityClient: GenericClient {
             if let error = parsingError {
                 completionHandler(success: false, result: nil, error: error)
             } else {
+                let data = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 self.parseJSON(data, completionHandler: completionHandler)
             }
         }

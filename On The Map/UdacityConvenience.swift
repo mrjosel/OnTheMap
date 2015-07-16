@@ -16,7 +16,7 @@ extension UdacityClient {
         let method = Methods.SESSION
         let httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
-        //POST Method
+        //execute one post method to get all required information as there are no specific methods for each
         let task = taskForPOSTMethod(method, body: httpBody!) {success, result, error in
             if success {
                 println("taskForPOST successful")
@@ -101,8 +101,9 @@ extension UdacityClient {
         
     }
     
+    //get SessionID from JSON
     func getSessionID(JSONData: [String: AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) {
-        //parse JSON data to get sessionID
+        //check if session present in data
         if let session = JSONData[JSONBodyKeys.SESSION] as? [String: AnyObject] {
             if let sessionID = session[JSONBodyKeys.ID] as? String {
                 //Session ID Found, store in var, report success to completionHandler
