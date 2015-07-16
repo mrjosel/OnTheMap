@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import MapKit
 
 class ParseClient: AnyObject {
     
@@ -36,6 +36,9 @@ class ParseClient: AnyObject {
                 completionHandler(success: false, error: error)
             } else {
                 if let parsedJSONdata = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as? [String: AnyObject] {
+                    //clear out student locations
+                    self.studentLocations = []
+                    //make studentLocations from data
                     self.makeStudentLocationObjectsFromData(parsedJSONdata)
                     completionHandler(success: true, error: nil)
                 }
@@ -44,12 +47,17 @@ class ParseClient: AnyObject {
         task.resume()
     }
     
-    func postStudentLocation(completionHandler: (success: Bool!, result: AnyObject?, error: NSError?) -> Void) -> Void {
+    func postStudentLocation(locationString: String, coordinate: CLLocationCoordinate2D, userURLstring: String, completionHandler: (success: Bool, /*result: AnyObject?,*/ error: NSError?) -> Void) -> Void {
         
         //parse uniqueKey = Udacity UserID, first name and last name of user
-        let uniqueKey = UdacityClient.sharedInstance().userID
-        let firstName = UdacityClient.sharedInstance().firstName
-        let lastName = UdacityClient.sharedInstance().lastName
+        let uniqueKey = UdacityClient.sharedInstance().userID!
+        let firstName = "Brain"//UdacityClient.sharedInstance().firstName
+        let lastName = "FLOZELL"//UdacityClient.sharedInstance().lastName
+        
+        //get lat and lon
+        let lat = coordinate.latitude
+        let lon = coordinate.longitude
+        
         
         //error
         var parsingError: NSError? = nil
@@ -66,17 +74,32 @@ class ParseClient: AnyObject {
         //post request
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        
-        request.HTTPBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"\(userURLstring)\",\"latitude\": \(lat), \"longitude\": \(lon)}".dataUsingEncoding(NSUTF8StringEncoding)
         
         //start session
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                return
+            if let requestError = error {
+                println("failed to get JSON")
+                completionHandler(success: false, error: requestError)
+            } else {
+                println("successful JSON")
+                if let parsedJSONdata = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as? [String: AnyObject] {
+                    if let error = parsedJSONdata["error"] as? String {
+                        println("parsed JSON has error")
+                        println(parsedJSONdata)
+                        completionHandler(success: false, error: NSError(domain: "invalid JSON", code: 0, userInfo: nil))
+                    } else if let createdAt = parsedJSONdata["createdAt"] as? String {
+                        println("we have a winner")
+                        println(createdAt)
+//                        println(parsedJSONdata)
+                        completionHandler(success: true, error: nil)
+                    }
+                } else {
+                    println("couldn't parse JSON")
+                    completionHandler(success: false, error: NSError(domain: "wut", code: 0, userInfo: nil))
+                }
             }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
         }
         task.resume()
     }

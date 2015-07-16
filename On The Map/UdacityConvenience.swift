@@ -11,7 +11,7 @@ import UIKit
 
 extension UdacityClient {
     
-    func completeLogin(email: String, password: String, completionHandler:(success: Bool, error: NSError?) -> Void) {
+    func allActions(email: String, password: String, completionHandler:(success: Bool, error: NSError?) -> Void) {
         // Use email and password to POST and get JSON data
         let method = Methods.SESSION
         let httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
@@ -19,27 +19,35 @@ extension UdacityClient {
         //POST Method
         let task = taskForPOSTMethod(method, body: httpBody!) {success, result, error in
             if success {
+                println("taskForPOST successful")
                 // successfully retrieved JSON data, cast it to [String: AnyObject]
                 if let validJSONData = result as? [String: AnyObject] {
+                    println("valid casting of JSON data")
                     //check valid credentials
                     self.checkValidCredentials(validJSONData) {success, error in
                         if success {
+                            println("verified credentials")
                             //get sessionID and userID
                             self.getSessionID(validJSONData) {success, error in
                                 if success {
+                                    println("successfull got sessionID")
                                     completionHandler(success: true, error: nil)
                                 } else {
+                                    println("failed to get sessionID")
                                     completionHandler(success: false, error: error)
                                 }
                             }
                         } else {
+                            println("failed to verify credentials")
                             completionHandler(success: false, error: error)
                         }
                     }
                 } else {
+                    println("failed to cast JSON")
                     completionHandler(success: false, error: self.errorHandle("casting validJSONData", errorString: "Error: Failed to Cast JSON Data"))
                 }
             } else {
+                println("taskForPOST failed")
                 completionHandler(success: false, error: error)
             }
         }

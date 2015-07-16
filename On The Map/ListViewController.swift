@@ -49,6 +49,7 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
     
     override func handler() {
         //override function for super class refresh method
+        println("list done did it")
         self.userTableView.reloadData()
     }
 

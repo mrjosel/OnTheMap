@@ -29,12 +29,16 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     var lastKeyboardOffset : CGFloat = 0.0
     var tapRecognizer: UITapGestureRecognizer? = nil
     
-    //coordinates and annotation for location search
+    //coordinates, locationString,  and annotation for location search
     var coords: CLLocationCoordinate2D?
     var annotations: [MKPointAnnotation] = []
+    var locationString: String?
     
     //default string for searchField
     let defaultString = "Enter City Here"
+    
+    //url String, is empty unless user makes an input
+    var urlString: String = ""
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -75,22 +79,28 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                     
                     if let error = error {
                         //create alert
-                        self.makeAlert(self, title: "Can't Find Location", error: error)
+                        println("error in geocoding")
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.makeAlert(self, title: "Can't Find Location", error: error)
+                        })
                     } else {
-                        //get location from placemarks
+                        println("successful geocoding")
+                        //get address and coordinate from placemarks
                         let placemark = placemarks[0] as! CLPlacemark
-                        let location = placemark.location
+                        self.coords = placemark.location.coordinate
+                        let addressDict = placemark.addressDictionary
+                        self.locationString = (placemark.addressDictionary["FormattedAddressLines"]![0]! as! String)
                         
                         //create the annotation
                         var annotation = MKPointAnnotation()
-                        annotation.coordinate = location.coordinate
+                        annotation.coordinate = self.coords!
                         
                         //add annotation to annotations array and load array to the map
                         self.annotations.append(annotation)
                         self.mapView.addAnnotations(self.annotations)
                         
                         //set zoom window
-                        let mapWindow = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500)
+                        let mapWindow = MKCoordinateRegionMakeWithDistance(self.coords!, 500, 500)
                         
                         //display map, make all UI changes
                         self.locationFoundMode(mapWindow)
@@ -114,9 +124,28 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         })
     }
     
+    //post new student location
     @IBAction func submitLocation(sender: BorderedButton) {
-        //TODO - implement
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        //get urlString, leave empty if user makes no input
+        if self.urlField.text != self.defaultString {
+            self.urlString = self.urlField.text
+        }
+
+        ParseClient.sharedInstance().postStudentLocation(self.locationString!, coordinate: self.coords!, userURLstring: self.urlString) {success, error in
+            if success {
+                println("successful post")
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.makeAlert(self, title: "Location Posted", error: nil)
+//                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                println("failed to post")
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.makeAlert(self, title: "Update Failed", error: error)
+                })
+            }
+        }
     }
     
     
@@ -140,8 +169,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         return pinView
     }
     
+    //Cancel Posting Location
     @IBAction func cancel(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 }

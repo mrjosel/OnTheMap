@@ -52,36 +52,40 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {
-//        //complete login (get SessionID and UserID, clear username/password, launch map and list views, handle errors if necessary)
-//        
-//        //notify user of login activity, disable editing to username/textfields
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.enableLoginElements(false)
-//            self.debugLabel.text = "Logging in..."
-//            self.debugLabel.hidden = false
-//        })
-//        
-//        UdacityClient.sharedInstance().completeLogin(self.usernameTextField.text, password: self.passwordTextField.text) { success, error in
-//            if success {
-//                //get all studentObjects
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    //alert user 
-//                    self.debugLabel.text = "Login Succesful, Getting User Data..."
-//                })
-//                ParseClient.sharedInstance().getStudentLocations() {success, error in
-//                    if success {
-//                        //complete login
+        //complete login (get SessionID and UserID, clear username/password, launch map and list views, handle errors if necessary)
+        
+        //notify user of login activity, disable editing to username/textfields
+        dispatch_async(dispatch_get_main_queue(), {
+            self.enableLoginElements(false)
+            self.debugLabel.text = "Logging in..."
+            self.debugLabel.hidden = false
+        })
+        
+        UdacityClient.sharedInstance().allActions(self.usernameTextField.text, password: self.passwordTextField.text) { success, error in
+            if success {
+                println("successful udacity actions")
+                //get all studentObjects
+                dispatch_async(dispatch_get_main_queue(), {
+                    //alert user 
+                    self.debugLabel.text = "Login Succesful, Getting User Data..."
+                })
+                ParseClient.sharedInstance().getStudentLocations() {success, error in
+                    if success {
+                        println("successful parseStudentObjects")
+                        //complete login
                         self.completeLogin()
-//                    } else {
-//                        //alert user
-//                        self.makeAlert(self, title: "Get User Data Failure", error: error!)
-//                    }
-//                }
-//            } else {
-//                //alert user
-//                self.makeAlert(self, title: "Login Failure", error: error!)
-//            }
-//        }
+                    } else {
+                        println("failed to get parse studentLocations")
+                        //alert user
+                        self.makeAlert(self, title: "Get User Data Failure", error: error!)
+                    }
+                }
+            } else {
+                println("failed udacity actions")
+                //alert user
+                self.makeAlert(self, title: "Login Failure", error: error!)
+            }
+        }
     }
     
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
@@ -89,9 +93,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         UdacityClient.sharedInstance().udacitySignUp(self) {success, error in
             if success {
+                println("successful signup")
                 //show user its been a success
                 self.debugLabel.text = "Successfully Signed up for Udacity!"
             } else {
+                println("failed to signup")
                 //alert user
                 self.makeAlert(self, title: "Sign-Up Failure", error: error!)
             }

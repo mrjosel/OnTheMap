@@ -28,30 +28,33 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
         self.mapView.delegate = self
         self.mapView.zoomEnabled = true
         
-        //create pin annotations for each studentLocation
-        for studentLocation in ParseClient.sharedInstance().studentLocations {
-            
-            //set lat/lon values
-            let lat = CLLocationDegrees(studentLocation.latitude!)
-            let lon = CLLocationDegrees(studentLocation.longitude!)
-            
-            //make coordinate object
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-            
-            //get names and URL
-            let first = studentLocation.firstName!
-            let last = studentLocation.lastName!
-            let mediaURL = studentLocation.mediaURL!
-            
-            //create the annotation
-            var annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            //add annotation to annotations array
-            annotations.append(annotation)
-        }
+        //create annotations array
+        self.makeAnnotationsArray()
+        
+//        //create pin annotations for each studentLocation
+//        for studentLocation in ParseClient.sharedInstance().studentLocations {
+//            
+//            //set lat/lon values
+//            let lat = CLLocationDegrees(studentLocation.latitude!)
+//            let lon = CLLocationDegrees(studentLocation.longitude!)
+//            
+//            //make coordinate object
+//            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+//            
+//            //get names and URL
+//            let first = studentLocation.firstName!
+//            let last = studentLocation.lastName!
+//            let mediaURL = studentLocation.mediaURL!
+//            
+//            //create the annotation
+//            var annotation = MKPointAnnotation()
+//            annotation.coordinate = coordinate
+//            annotation.title = "\(first) \(last)"
+//            annotation.subtitle = mediaURL
+//            
+//            //add annotation to annotations array
+//            annotations.append(annotation)
+//        }
         
         //load completed annotations array to the map
         self.mapView.addAnnotations(annotations)
@@ -97,7 +100,37 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
     
     override func handler() {
         //override function for super class refresh method
+        println("map done did it")
+        self.mapView.addAnnotations(annotations)
         self.mapView.reloadInputViews()
+    }
+    
+    func makeAnnotationsArray() {
+        //create pin annotations for each studentLocation
+        for studentLocation in ParseClient.sharedInstance().studentLocations {
+            
+            //set lat/lon values
+            let lat = CLLocationDegrees(studentLocation.latitude!)
+            let lon = CLLocationDegrees(studentLocation.longitude!)
+            
+            //make coordinate object
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            
+            //get names and URL
+            let first = studentLocation.firstName!
+            let last = studentLocation.lastName!
+            let mediaURL = studentLocation.mediaURL!
+            
+            //create the annotation
+            var annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = "\(first) \(last)"
+            annotation.subtitle = mediaURL
+            
+            //add annotation to annotations array
+            annotations.append(annotation)
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
