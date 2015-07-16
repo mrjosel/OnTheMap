@@ -19,6 +19,7 @@ extension UdacityClient {
         //URLs
         static let BASE_URL = "https://www.udacity.com"
         static let API = "/api"
+        static let USERS = "/users"
         static let SIGN_UP = "/account/auth#!/signup"
         static let SIGN_UP_SUCCESS = "/me#!/"
     }

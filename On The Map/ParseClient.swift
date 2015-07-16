@@ -53,8 +53,8 @@ class ParseClient: AnyObject {
         
         //parse uniqueKey = Udacity UserID, first name and last name of user
         let uniqueKey = UdacityClient.sharedInstance().userID!
-        let firstName = "Brain"//UdacityClient.sharedInstance().firstName
-        let lastName = "FLOZELL"//UdacityClient.sharedInstance().lastName
+        let firstName = UdacityClient.sharedInstance().firstName!
+        let lastName = UdacityClient.sharedInstance().lastName!
         
         //get lat and lon
         let lat = coordinate.latitude
@@ -90,7 +90,7 @@ class ParseClient: AnyObject {
                     if let error = parsedJSONdata["error"] as? String {
                         println("parsed JSON has error")
                         println(parsedJSONdata)
-                        completionHandler(success: false, error: NSError(domain: "invalid JSON", code: 0, userInfo: nil))
+                        completionHandler(success: false, error: NSError(domain: error, code: 0, userInfo: nil))
                     } else if let createdAt = parsedJSONdata["createdAt"] as? String {
                         println("we have a winner")
                         println(createdAt)

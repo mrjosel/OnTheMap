@@ -31,7 +31,15 @@ extension UdacityClient {
                             self.getSessionID(validJSONData) {success, error in
                                 if success {
                                     println("successfull got sessionID")
-                                    completionHandler(success: true, error: nil)
+                                    self.getUserPublicData(self.userID) {success, error in
+                                        if success {
+                                            println("successfully got user public data")
+                                            completionHandler(success: true, error: nil)
+                                        } else {
+                                            println("faild to get user public data")
+                                            completionHandler(success: false, error: error)
+                                        }
+                                    }
                                 } else {
                                     println("failed to get sessionID")
                                     completionHandler(success: false, error: error)
@@ -55,26 +63,37 @@ extension UdacityClient {
     
     func getUserPublicData(userID: String?, completionHandler:(successs: Bool, error: NSError?) -> Void) {
         //gets user data from Udacity
-        
+    
         //configure urlString
-        let urlString = Constants.BASE_URL + Constants.API + "/" + UdacityClient.sharedInstance().userID!
-        
+        let urlString = Constants.BASE_URL + Constants.API + Constants.USERS + "/" + UdacityClient.sharedInstance().userID!
+        println("test string = https://www.udacity.com/api/users/3903878747")
+        println("              \(urlString)")
         taskForGETMethod(urlString){ success, result, error in
             if let error = error {
                 //handle error
+                println("println failed to get data in user public data")
                 completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
             } else {
                 //get first and last names
+                println("successful data retrieval")
                 if let result = result as? [String: AnyObject] {
+                    println("successfully parsed result")
+                    println("USERKEY = \(UdacityClient.UserKeys.USER)")
+                    println("\n \(result) \n")
                     if let userInfo = result[UdacityClient.UserKeys.USER] as? [String: AnyObject] {
+                        println("successfully print parsed userInfo")
                         self.firstName = (userInfo[UdacityClient.UserKeys.FIRST_NAME] as! String)
                         self.lastName = (userInfo[UdacityClient.UserKeys.LAST_NAME] as! String)
+                        println("firstName = \(self.firstName)")
+                        println("firstName = \(self.lastName)")
+                        completionHandler(successs: success, error: nil)
                     } else {
                         //handler error
+                        println("failed to parse userInfo")
                         completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
                     }
                 } else {
-                    
+                    println("failed to parse result")
                     completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
                 }
             }
@@ -118,6 +137,7 @@ extension UdacityClient {
         } else {
             //error field not present in data
             if let account = JSONData[JSONBodyKeys.ACCOUNT] as? [String: AnyObject] {
+                println(account)
                 if let registered = account[JSONBodyKeys.REGISTERED] as? Int {
                     //checking if user is registered
                     if registered == 1 {
