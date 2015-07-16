@@ -38,9 +38,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     let defaultSearchString = "Enter City Here"
     let defaultURLString = "Enter URL Here"
     
-    //url String, is empty unless user makes an input
-    var urlString: String = ""
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -128,7 +125,11 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     //post new student location
     @IBAction func submitLocation(sender: BorderedButton) {
 
-        ParseClient.sharedInstance().postStudentLocation(self.locationString!, coordinate: self.coords!, userURLstring: self.urlString) {success, error in
+        //get lat and lon
+        let lat = coords!.latitude as Double
+        let lon = coords!.longitude as Double
+        
+        ParseClient.sharedInstance().postStudentLocation(self.locationString!, latitude: lat, longitude: lon, userURLstring: self.urlField.text) { success, error in
             if success {
                 println("successful post")
                 dispatch_async(dispatch_get_main_queue(), {

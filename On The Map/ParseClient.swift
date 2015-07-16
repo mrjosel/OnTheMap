@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import UIKit
-import MapKit
 
 class ParseClient: AnyObject {
     
@@ -49,17 +47,12 @@ class ParseClient: AnyObject {
         task.resume()
     }
     
-    func postStudentLocation(locationString: String, coordinate: CLLocationCoordinate2D, userURLstring: String, completionHandler: (success: Bool, /*result: AnyObject?,*/ error: NSError?) -> Void) -> Void {
+    func postStudentLocation(locationString: String, latitude: Double, longitude: Double, userURLstring: String, completionHandler: (success: Bool, /*result: AnyObject?,*/ error: NSError?) -> Void) -> Void {
         
         //parse uniqueKey = Udacity UserID, first name and last name of user
         let uniqueKey = UdacityClient.sharedInstance().userID!
         let firstName = UdacityClient.sharedInstance().firstName!
         let lastName = UdacityClient.sharedInstance().lastName!
-        
-        //get lat and lon
-        let lat = coordinate.latitude
-        let lon = coordinate.longitude
-        
         
         //error
         var parsingError: NSError? = nil
@@ -76,8 +69,8 @@ class ParseClient: AnyObject {
         //post request
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"\(userURLstring)\",\"latitude\": \(lat), \"longitude\": \(lon)}".dataUsingEncoding(NSUTF8StringEncoding)
-        
+        request.HTTPBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"\(userURLstring)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        println(userURLstring)
         //start session
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -94,7 +87,6 @@ class ParseClient: AnyObject {
                     } else if let createdAt = parsedJSONdata["createdAt"] as? String {
                         println("we have a winner")
                         println(createdAt)
-//                        println(parsedJSONdata)
                         completionHandler(success: true, error: nil)
                     }
                 } else {
