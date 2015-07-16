@@ -20,6 +20,7 @@
 		B71C35531B52E4DC004C95D0 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C35521B52E4DC004C95D0 /* UIViewExtensions.swift */; };
 		B7510FF71B55326E00B29CD3 /* TabParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */; };
 		B7510FF91B554D1800B29CD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF81B554D1800B29CD3 /* ListViewController.swift */; };
+		B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */; };
 		B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */; };
 		B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C991B388D3E0090BBDF /* LoginViewController.swift */; };
 		B7EF5C9D1B388D3E0090BBDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5C9B1B388D3E0090BBDF /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		B71C35521B52E4DC004C95D0 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabParentViewController.swift; sourceTree = "<group>"; };
 		B7510FF81B554D1800B29CD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredPlaceholderTextField.swift; sourceTree = "<group>"; };
 		B7EF5C921B388D3E0090BBDF /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7EF5C961B388D3E0090BBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */,
 				B7F957A41B55BB1700B3A4E5 /* InfoPostBorderedButton.swift */,
+				B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */,
 			);
 			name = View;
 			path = ..;
@@ -363,6 +366,7 @@
 				B71C35491B4D87DA004C95D0 /* UdacitySignUpWebViewController.swift in Sources */,
 				B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */,
 				B71C354D1B502262004C95D0 /* ParseStudentLocation.swift in Sources */,
+				B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */,
 				B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

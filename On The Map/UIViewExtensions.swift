@@ -55,7 +55,7 @@ extension UIViewController {
             let hostVC = hostVC as! InformationPostingViewController
             handler = { alert in
                     dispatch_async(dispatch_get_main_queue(), {
-                        hostVC.searchField.text = hostVC.defaultString
+                        hostVC.searchField.text = hostVC.defaultSearchString
                     })
                 }
         } else {

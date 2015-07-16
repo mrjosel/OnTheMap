@@ -17,8 +17,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var midLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
-    @IBOutlet weak var searchField: UITextField!
-    @IBOutlet weak var urlField: UITextField!
+    @IBOutlet weak var searchField: StoredPlaceholderTextField!
+    @IBOutlet weak var urlField: StoredPlaceholderTextField!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var findLocationButton: InfoPostBorderedButton!
     @IBOutlet weak var submitButton: InfoPostBorderedButton!
@@ -35,7 +35,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     var locationString: String?
     
     //default string for searchField
-    let defaultString = "Enter City Here"
+    let defaultSearchString = "Enter City Here"
+    let defaultURLString = "Enter URL Here"
     
     //url String, is empty unless user makes an input
     var urlString: String = ""
@@ -70,7 +71,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     @IBAction func findOnTheMap(sender: BorderedButton) {
         //geocode search string
-        if self.searchField.text != self.defaultString { //else, do nothing
+        if self.searchField.text != self.defaultSearchString { //else, do nothing
             
             //Create geocoder, start search
             let geoCoder = CLGeocoder()
@@ -126,11 +127,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     //post new student location
     @IBAction func submitLocation(sender: BorderedButton) {
-        
-        //get urlString, leave empty if user makes no input
-        if self.urlField.text != self.defaultString {
-            self.urlString = self.urlField.text
-        }
 
         ParseClient.sharedInstance().postStudentLocation(self.locationString!, coordinate: self.coords!, userURLstring: self.urlString) {success, error in
             if success {

@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import MapKit
+import QuartzCore
+
 
 extension InformationPostingViewController {
     
@@ -54,22 +56,31 @@ extension InformationPostingViewController {
         self.view.backgroundColor = blue
         
         //searchField configurations
-        self.searchField.delegate = self
-        self.searchField.text = self.defaultString
-        self.searchField.textColor = UIColor.whiteColor()
-        self.searchField.font = UIFont(name: "Roboto-Medium", size: 17.0)
+        self.setupTextFieldProperties(self.searchField, storedPlaceHolder: self.defaultSearchString)
+        self.setupTextFieldProperties(self.urlField, storedPlaceHolder: self.defaultURLString)
+    }
+    
+    func setupTextFieldProperties(textField: StoredPlaceholderTextField, storedPlaceHolder: String) -> Void {
+        
+        //configures textFields accordingly
+        textField.delegate = self
+        textField.storedPlaceHolder = storedPlaceHolder
+        textField.attributedPlaceholder = NSAttributedString(string: textField.storedPlaceHolder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        textField.textColor = UIColor.whiteColor()
+        textField.font = UIFont(name: "Roboto-Medium", size: 17.0)
+        textField.backgroundColor = UIColor.clearColor()
     }
     
     //textField delegate methods
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.text == self.defaultString {
-            textField.text = ""
-        }
+        textField.attributedPlaceholder = nil
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        if textField.text == "" {
-            textField.text = self.defaultString
+        
+        //method only applies to StoredPlaceholderTextFields
+        if let textField = textField as? StoredPlaceholderTextField {
+            textField.attributedPlaceholder = NSAttributedString(string: textField.storedPlaceHolder, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         }
     }
     
