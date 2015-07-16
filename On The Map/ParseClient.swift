@@ -38,8 +38,10 @@ class ParseClient: AnyObject {
                 if let parsedJSONdata = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as? [String: AnyObject] {
                     //clear out student locations
                     self.studentLocations = []
+                    println(self.studentLocations.count)
                     //make studentLocations from data
                     self.makeStudentLocationObjectsFromData(parsedJSONdata)
+                    println(self.studentLocations.count)
                     completionHandler(success: true, error: nil)
                 }
             }

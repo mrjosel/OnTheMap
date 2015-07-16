@@ -101,8 +101,11 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
     override func handler() {
         //override function for super class refresh method
         println("map done did it")
+        self.makeAnnotationsArray()
         self.mapView.addAnnotations(annotations)
-        self.mapView.reloadInputViews()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mapView.reloadInputViews()
+        })  
     }
     
     func makeAnnotationsArray() {
