@@ -73,8 +73,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
             //Create geocoder, start search
             let geoCoder = CLGeocoder()
             let searchString = self.searchField.text
-            geoCoder.geocodeAddressString(searchString, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) in
-                    
+            geoCoder.geocodeAddressString(searchString){ placemarks, error in
                     if let error = error {
                         //create alert
                         println("error in geocoding")
@@ -85,8 +84,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         println("successful geocoding")
                         //get address and coordinate from placemarks
                         let placemark = placemarks[0] as! CLPlacemark
-                        self.coords = placemark.location.coordinate
                         let addressDict = placemark.addressDictionary
+                        self.coords = placemark.location.coordinate
                         self.locationString = (placemark.addressDictionary["FormattedAddressLines"]![0]! as! String)
                         
                         //create the annotation
@@ -103,7 +102,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         //display map, make all UI changes
                         self.locationFoundMode(mapWindow)
                 }
-            })
+            }
         }
     }
     

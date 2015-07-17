@@ -21,6 +21,7 @@
 		B7510FF71B55326E00B29CD3 /* TabParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */; };
 		B7510FF91B554D1800B29CD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF81B554D1800B29CD3 /* ListViewController.swift */; };
 		B75607691B585E57008ABCFF /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75607681B585E57008ABCFF /* ParseConvenience.swift */; };
+		B756076B1B5897F1008ABCFF /* GeoCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756076A1B5897F1008ABCFF /* GeoCoder.swift */; };
 		B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */; };
 		B7ADE7141B5854710037435D /* GenericClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE7131B5854710037435D /* GenericClient.swift */; };
 		B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */; };
@@ -62,6 +63,7 @@
 		B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabParentViewController.swift; sourceTree = "<group>"; };
 		B7510FF81B554D1800B29CD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B75607681B585E57008ABCFF /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
+		B756076A1B5897F1008ABCFF /* GeoCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoCoder.swift; sourceTree = "<group>"; };
 		B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredPlaceholderTextField.swift; sourceTree = "<group>"; };
 		B7ADE7131B5854710037435D /* GenericClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericClient.swift; sourceTree = "<group>"; };
 		B7EF5C921B388D3E0090BBDF /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +205,7 @@
 		B7EF5CB71B388D570090BBDF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B756076A1B5897F1008ABCFF /* GeoCoder.swift */,
 				B71B679B1B39FA570010F2DD /* Clients */,
 			);
 			name = Model;
@@ -372,6 +375,7 @@
 				B71C35531B52E4DC004C95D0 /* UIViewExtensions.swift in Sources */,
 				B71B67A51B39FC900010F2DD /* UdacityConstants.swift in Sources */,
 				B71C35491B4D87DA004C95D0 /* UdacitySignUpWebViewController.swift in Sources */,
+				B756076B1B5897F1008ABCFF /* GeoCoder.swift in Sources */,
 				B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */,
 				B71C354D1B502262004C95D0 /* ParseStudentLocation.swift in Sources */,
 				B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */,
