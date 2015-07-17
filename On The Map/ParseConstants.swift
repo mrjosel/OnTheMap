@@ -28,11 +28,12 @@ extension ParseClient {
     
     struct ParameterKeys {
         
-        //initial key for all results
+        //basic keys
         static let RESULTS = "results"
+        static let ERROR = "error"
         
         //keys in Student Location Objects
-        static let CREATED_AT = "createdAt"     //not required as per Parse documentation supplied by course
+        static let CREATED_AT = "createdAt"
         static let FIRST_NAME = "firstName"
         static let LAST_NAME = "lastName"
         static let LAT = "latitude"
@@ -41,6 +42,6 @@ extension ParseClient {
         static let MEDIA_URL = "mediaURL"
         static let OBJECT_ID = "objectId"
         static let UNIQUE_KEY = "uniqueKey"
-        static let UPDATED_AT = "updatedAt"     //not required as per Parse documentation supplied by course
+        static let UPDATED_AT = "updatedAt"     
     }
 }

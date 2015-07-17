@@ -115,8 +115,8 @@
 			children = (
 				B71B679D1B39FA8C0010F2DD /* ParseClient.swift */,
 				B71B679F1B39FAFF0010F2DD /* ParseConstants.swift */,
-				B71C354C1B502262004C95D0 /* ParseStudentLocation.swift */,
 				B75607681B585E57008ABCFF /* ParseConvenience.swift */,
+				B71C354C1B502262004C95D0 /* ParseStudentLocation.swift */,
 			);
 			name = Parse;
 			sourceTree = "<group>";

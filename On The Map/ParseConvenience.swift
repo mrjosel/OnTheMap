@@ -25,14 +25,21 @@ extension ParseClient {
                 //get method suceeded
                 println("get method success")
                 if let parsedJSONdata = result as? [String:AnyObject] {
+                    //check for error field
                     println("json casting success")
-                    //clear out student locations
-                    self.studentLocations = []
-                    println(self.studentLocations.count)
-                    //make studentLocations from data
-                    self.makeStudentLocationObjectsFromData(parsedJSONdata)
-                    println(self.studentLocations.count)
-                    completionHandler(success: true, error: nil)
+                    if let errorString = parsedJSONdata[ParseClient.ParameterKeys.ERROR] as? String {
+                        //error found
+                        println("error found: \(errorString)")
+                        completionHandler(success: false, error: self.errorHandle("getStudentLocations", errorString: errorString))
+                    } else {
+                        //no error found, clear out student locations
+                        self.studentLocations = []
+                        println(self.studentLocations.count)
+                        //make studentLocations from data
+                        self.makeStudentLocationObjectsFromData(parsedJSONdata)
+                        println(self.studentLocations.count)
+                        completionHandler(success: true, error: nil)
+                    }
                 } else {
                     //casting failed
                     println("json casting failed")
@@ -49,54 +56,46 @@ extension ParseClient {
         let firstName = UdacityClient.sharedInstance().firstName!
         let lastName = UdacityClient.sharedInstance().lastName!
         
-        //error
-        var parsingError: NSError? = nil
-        
         //set URL
         let urlString = ParseClient.URLs.BASEURL + ParseClient.methods.STUDENT_LOCATION
-        let url = NSURL(string: urlString)
+
+        //set up httpBody
+        let httpBody: NSData = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"\(userURLstring)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".dataUsingEncoding(NSUTF8StringEncoding)!
         
-        //configure request
-        let request = NSMutableURLRequest(URL: url!)
-        request.addValue(ParseClient.Constants.APPLICATIONID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(ParseClient.Constants.APIKEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        //post request
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"\(userURLstring)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
-        println(userURLstring)
-        //start session
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if let requestError = error {
-                println("failed to get JSON")
-                completionHandler(success: false, error: requestError)
+        //start post method
+        let task = taskForPOSTMethod(urlString, httpBody: httpBody) { success, result, error in
+            if let error = error {
+                //post method failure
+                completionHandler(success: false, error: error)
             } else {
-                println("successful JSON")
-                if let parsedJSONdata = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as? [String: AnyObject] {
-                    if let error = parsedJSONdata["error"] as? String {
-                        println("parsed JSON has error")
-                        println(parsedJSONdata)
-                        completionHandler(success: false, error: NSError(domain: error, code: 0, userInfo: nil))
-                    } else if let createdAt = parsedJSONdata["createdAt"] as? String {
-                        println("we have a winner")
-                        println(createdAt)
-                        completionHandler(success: true, error: nil)
+                //successful post method, cast result as dict
+                if let parsedJSONdata = result as? [String: AnyObject] {
+                    //check for error
+                    if let errorString = parsedJSONdata[ParseClient.ParameterKeys.ERROR] as? String {
+                        //result has error
+                        completionHandler(success: false, error: self.errorHandle("postStudentLocation", errorString: errorString))
+                    } else {
+                        //no error, check for user info
+                        if let createdAt = parsedJSONdata[ParseClient.ParameterKeys.CREATED_AT] as? String {
+                            completionHandler(success: true, error: nil)
+                        } else {
+                            //createdAt field not found
+                            completionHandler(success: false, error: self.errorHandle("postStudentLocation", errorString: "Failed to Get Confirmation"))
+                        }
                     }
                 } else {
-                    println("couldn't parse JSON")
-                    completionHandler(success: false, error: NSError(domain: "wut", code: 0, userInfo: nil))
+                    //casting failed
+                    completionHandler(success: false, error: self.errorHandle("postStudentLocation", errorString: "Failed to Cast Data"))
                 }
             }
         }
-        task.resume()
     }
     
     func makeStudentLocationObjectsFromData(parsedJSONData: [String: AnyObject]) {
+        println("making studentLocation objects")
+        println(parsedJSONData)
         //get array of studentLocation dicts
         var studentLocationsDict = parsedJSONData[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
-        
         //create studentLocation object for every dict in array, append to sharedInstance variable, then sort by last name
         for studentLocation in studentLocationsDict {
             ParseClient.sharedInstance().studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))

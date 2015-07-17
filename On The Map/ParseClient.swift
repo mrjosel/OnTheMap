@@ -39,6 +39,36 @@ class ParseClient: GenericClient {
         return task
     }
     
+    func taskForPOSTMethod(urlString: String, httpBody: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+        println("in post method")
+        //construct URL
+        let url = NSURL(string: urlString)
+        
+        //create session
+        let session = NSURLSession.sharedSession()
+        
+        //create request
+        let request = NSMutableURLRequest(URL: url!)
+        request.addValue(ParseClient.Constants.APPLICATIONID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(ParseClient.Constants.APIKEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = httpBody
+        request.HTTPMethod = "POST"
+        
+        //start request
+        let task = session.dataTaskWithRequest(request) {data, response, parsingError in
+            if let error = parsingError {
+                println("could not get data")
+                completionHandler(success: false, result: nil, error: error)
+            } else {
+                println("successful get method")
+                self.parseJSON(data, completionHandler: completionHandler)
+            }
+        }
+        task.resume()
+        return task
+    }
+    
     class func sharedInstance() -> ParseClient {
         //create shared instance
         

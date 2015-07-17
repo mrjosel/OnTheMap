@@ -134,7 +134,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                 println("successful post")
                 dispatch_async(dispatch_get_main_queue(), {
                     self.makeAlert(self, title: "Location Posted", error: nil)
-//                    self.dismissViewControllerAnimated(true, completion: nil)
                 })
             } else {
                 println("failed to post")
