@@ -25,15 +25,15 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
     //launch website of studentLocation mediaURL
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let app = UIApplication.sharedApplication()
-        var urlString = ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL!
-        
-        //fix url if no http:// exists
-        if urlString.lowercaseString.rangeOfString("http") == nil {
-            urlString = "http://" + urlString
-        }
-        //create URL and launch
-        let url = NSURL(string: urlString)
-        app.openURL(url!)
+        println(ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL)
+        let urlString = ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL
+            println("urlString")
+            //create URL and launch
+        if let url = NSURL(string: urlString!) {
+                app.openURL(url)
+            } else {
+                self.makeAlert(self, title: "No URL", error: nil)
+            }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
