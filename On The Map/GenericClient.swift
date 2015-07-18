@@ -17,8 +17,10 @@ class GenericClient: AnyObject {
         var parsedData: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
         
         if let error = parsingError {
+            println("error parsing JSON")
             completionHandler(success: false, result: nil, error: self.errorHandle("parseJSON", errorString: "JSON Parsing Error"))
         } else {
+            println("successfully parsed JSON")
             completionHandler(success: true, result: parsedData, error: nil)
         }
         

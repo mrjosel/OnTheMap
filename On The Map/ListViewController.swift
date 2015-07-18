@@ -22,6 +22,10 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        println("ListVC appear")
+    }
+    
     //launch website of studentLocation mediaURL
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let app = UIApplication.sharedApplication()

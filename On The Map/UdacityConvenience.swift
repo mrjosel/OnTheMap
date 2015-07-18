@@ -184,22 +184,27 @@ extension UdacityClient {
     }
     
     func udacityLogout(completionHandler: (success: Bool, error: NSError?) -> Void) -> Void {
-        let task = taskForDELETEMethod(UdacityClient.Methods.SESSION, request: NSMutableURLRequest()) {success, result, error in
+        println("entering udacityLogout, DELETE method")
+        taskForDELETEMethod(UdacityClient.Methods.SESSION, request: NSMutableURLRequest()) {success, result, error in
             if let error = error {
-                //TODO - Make Alert VC to display error
-                println("error found")
+                //TODO: Make Alert VC to display error
+                println("DELETE error found")
                 completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: error.localizedDescription))
             } else {
+                println("no DELETE error")
                 if let session = result?.valueForKey(JSONBodyKeys.SESSION) as? [String: AnyObject] {
+                    println("session field found")
                     if let expiration = session[JSONBodyKeys.EXPIRATION] as? String {
+                        println("expiration field found")
                         //clear IDs, report success
                         self.clearIDs()
                         completionHandler(success: true, error: nil)
                     } else {
+                        println("expiration field not found")
                         completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: "Error: \(JSONBodyKeys.EXPIRATION) does not exist"))
                     }
                 } else {
-                    //TODO - Make Alert VC to display error
+                    //TODO: Make Alert VC to display error
                     println("session not found")
                     completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: "Error: \(JSONBodyKeys.SESSION) does not exist"))
                 }

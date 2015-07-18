@@ -40,7 +40,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        println("InfoPostVC appear")
         // get keybard notifications
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()

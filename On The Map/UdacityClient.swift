@@ -59,6 +59,7 @@ class UdacityClient: GenericClient {
         //construct URL
         let urlString = Constants.BASE_URL + Constants.API + method
         let url = NSURL(string: urlString)
+        println("POST URL = \(url!)")
         
         //create session
         let session = NSURLSession.sharedSession()
@@ -82,16 +83,20 @@ class UdacityClient: GenericClient {
     }
     
     func taskForDELETEMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
+        println("beginnging DELETE method")
         //construct URL
         let urlString = Constants.BASE_URL + Constants.API + method
         let url = NSURL(string: urlString)
-        
+        println("urlString = \(urlString)")
+        println("url = \(url)")
         //create session
         let session = NSURLSession.sharedSession()
         
         //finish configuration
         request.URL = url!
         request.HTTPMethod = "DELETE"
+        println("request = \(request)")
+
         
         //find cookie and add to request
         var xsrfCookie: NSHTTPCookie? = nil
@@ -102,17 +107,19 @@ class UdacityClient: GenericClient {
             }
         }
         if let xsrfCookie = xsrfCookie {
-            request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
-        } else {
-            println("xsrfCookie casting failed")
-            completionHandler(success: false, result: nil, error: self.errorHandle("Logout", errorString: "Error: Cookie Not Found"))
+            println("cookie found")
+            println(xsrfCookie)
+            request.addValue(/*xsrfCookie.value!*/nil, forHTTPHeaderField: "X-XSRF-Token")
         }
-        
+    
         //start request
         let task = session.dataTaskWithRequest(request) {data, response, parsingError in
+            println("beginning DELETE task")
             if let error = parsingError {
+                println("DELETE method failed")
                 completionHandler(success: false, result: nil, error: error)
             } else {
+                println("DELETE method successful")
                 let data = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 self.parseJSON(data, completionHandler: completionHandler)
             }

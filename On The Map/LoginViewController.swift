@@ -28,6 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        println("LoginVC appear")
         
         // get keybard notifications
         self.addKeyboardDismissRecognizer()

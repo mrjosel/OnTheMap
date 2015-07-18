@@ -18,6 +18,11 @@ class TabParentViewController: UIViewController {
     //dummy refresh string used in refresh method (overridden by sub classes)
     var messageText: String { return "This is the Super Class messageText"}
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        println("TabBarVC appear")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,13 +71,13 @@ class TabParentViewController: UIViewController {
     
     func logout() -> Void {
         //Logout of Udacity Client
-        
+        println("logging out")
         //disable Logout button while logging out
         self.enableNavButtons(false)
         
         UdacityClient.sharedInstance().udacityLogout() { success, error in
             if success {
-                println("no success")
+                println("logout success")
                 dispatch_async(dispatch_get_main_queue(), {
                     //Clear student locations array and sessionID/userID
                     ParseClient.sharedInstance().studentLocations = []
@@ -83,10 +88,13 @@ class TabParentViewController: UIViewController {
                 })
             } else {
                 //alert user of failure
+                println("no logout success")
                 self.makeAlert(self, title: "Logout Failed", error: error!)
+                println("after alert")
                 self.enableNavButtons(true)
             }
         }
+        println("exiting logout routine")
     }
     
     func enableNavButtons(enable: Bool) {

@@ -61,6 +61,10 @@ class MapViewController: TabParentViewController, MKMapViewDelegate {
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        println("MapVC appear")
+    }
+    
     //create view for annotation
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
