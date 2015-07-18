@@ -59,7 +59,6 @@ class UdacityClient: GenericClient {
         //construct URL
         let urlString = Constants.BASE_URL + Constants.API + method
         let url = NSURL(string: urlString)
-        println("POST URL = \(url!)")
         
         //create session
         let session = NSURLSession.sharedSession()
@@ -72,8 +71,10 @@ class UdacityClient: GenericClient {
         //start request
         let task = session.dataTaskWithRequest(request) {data, response, parsingError in
             if let error = parsingError {
+                //error posing
                 completionHandler(success: false, result: nil, error: error)
             } else {
+                //successfully posted
                 let data = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 self.parseJSON(data, completionHandler: completionHandler)
             }
@@ -83,20 +84,17 @@ class UdacityClient: GenericClient {
     }
     
     func taskForDELETEMethod(method: String, request: NSMutableURLRequest, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
-        println("beginnging DELETE method")
+
         //construct URL
         let urlString = Constants.BASE_URL + Constants.API + method
         let url = NSURL(string: urlString)
-        println("urlString = \(urlString)")
-        println("url = \(url)")
+
         //create session
         let session = NSURLSession.sharedSession()
         
         //finish configuration
         request.URL = url!
         request.HTTPMethod = "DELETE"
-        println("request = \(request)")
-
         
         //find cookie and add to request
         var xsrfCookie: NSHTTPCookie? = nil
@@ -107,19 +105,17 @@ class UdacityClient: GenericClient {
             }
         }
         if let xsrfCookie = xsrfCookie {
-            println("cookie found")
-            println(xsrfCookie)
-            request.addValue(/*xsrfCookie.value!*/nil, forHTTPHeaderField: "X-XSRF-Token")
+            //add cookie to request if found
+            request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
         }
     
         //start request
         let task = session.dataTaskWithRequest(request) {data, response, parsingError in
-            println("beginning DELETE task")
             if let error = parsingError {
-                println("DELETE method failed")
+                //failed DELETE
                 completionHandler(success: false, result: nil, error: error)
             } else {
-                println("DELETE method successful")
+                //successfull DELETE
                 let data = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 self.parseJSON(data, completionHandler: completionHandler)
             }
@@ -127,21 +123,6 @@ class UdacityClient: GenericClient {
         task.resume()
         return task
     }
-    
-//    func parseJSON(data: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> Void {
-//        //error for pointer
-//        var parsingError: NSError? = nil
-//        
-//        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-//        var parsedData: AnyObject! = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-//        
-//        if let error = parsingError {
-//            completionHandler(success: false, result: nil, error: self.errorHandle("parseJSON", errorString: "JSON Parsing Error"))
-//        } else {
-//            completionHandler(success: true, result: parsedData, error: nil)
-//        }
-//
-//    }
 
     class func sharedInstance() -> UdacityClient {
         //create shared instance

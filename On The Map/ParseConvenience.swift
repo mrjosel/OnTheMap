@@ -19,30 +19,24 @@ extension ParseClient {
         let task = taskForGETMethod(urlString) { success, result, error in
             if let error = error {
                 //get method failed
-                println("get method failed")
                 completionHandler(success: false, error: error)
             } else {
                 //get method suceeded
-                println("get method success")
                 if let parsedJSONdata = result as? [String:AnyObject] {
                     //check for error field
-                    println("json casting success")
                     if let errorString = parsedJSONdata[ParseClient.ParameterKeys.ERROR] as? String {
                         //error found
-                        println("error found: \(errorString)")
                         completionHandler(success: false, error: self.errorHandle("getStudentLocations", errorString: errorString))
                     } else {
                         //no error found, clear out student locations
                         self.studentLocations = []
-                        println(self.studentLocations.count)
+                        
                         //make studentLocations from data
                         self.makeStudentLocationObjectsFromData(parsedJSONdata)
-                        println(self.studentLocations.count)
                         completionHandler(success: true, error: nil)
                     }
                 } else {
                     //casting failed
-                    println("json casting failed")
                     completionHandler(success: false, error: self.errorHandle("getStudentLocations", errorString: "Casting Data Failed"))
                 }
             }
@@ -92,8 +86,6 @@ extension ParseClient {
     }
     
     func makeStudentLocationObjectsFromData(parsedJSONData: [String: AnyObject]) {
-        println("making studentLocation objects")
-        println(parsedJSONData)
         //get array of studentLocation dicts
         var studentLocationsDict = parsedJSONData[ParseClient.ParameterKeys.RESULTS] as! [[String: AnyObject]]
         //create studentLocation object for every dict in array, append to sharedInstance variable, then sort by last name
@@ -101,5 +93,10 @@ extension ParseClient {
             ParseClient.sharedInstance().studentLocations.append(ParseStudentLocation(parsedJSONdata: studentLocation))
             ParseClient.sharedInstance().studentLocations.sort({ $0.lastName < $1.lastName })
         }
+    }
+    
+    //method called by Udacity Logout, clears out studentLocations array
+    func clearStudentLocations() {
+        self.studentLocations = []
     }
 }

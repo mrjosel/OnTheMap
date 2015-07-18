@@ -25,7 +25,6 @@ extension UIViewController {
     
     func makeAlert(hostVC: UIViewController, title: String, error: NSError?) -> Void {
         //handler for OK button depending on VC
-        println("making alert")
         var handler: ((alert: UIAlertAction!) -> (Void))?
         var messageText: String!
         
@@ -40,7 +39,6 @@ extension UIViewController {
         
         //set OK button handler depending on VC
         if hostVC.isKindOfClass(LoginViewController){
-            println("is a LoginVC")
             let hostVC = hostVC as! LoginViewController
             //LoginVC
             handler = { alert in
@@ -53,7 +51,6 @@ extension UIViewController {
             }
             
         } else if hostVC.isKindOfClass(InformationPostingViewController){
-            println("is a InfoPostVC")
             //do infoPostVC suff
             let hostVC = hostVC as! InformationPostingViewController
             handler = { alert in
@@ -63,7 +60,6 @@ extension UIViewController {
                 }
         } else {
             //is map or listVC
-            println("map or ListVC")
             handler = nil
             let hostVC = hostVC as! TabParentViewController
         }
@@ -76,7 +72,11 @@ extension UIViewController {
         dispatch_async(dispatch_get_main_queue(), {
             //present alertVC
             hostVC.presentViewController(alertVC, animated: true, completion: nil)
-            println("alert out")
         })
+    }
+    
+    func errorHandle(domain: String, errorString: String) -> NSError {
+        //Create specialized errors in cases of elements not existing in successfully retrieved JSON data
+        return NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "\(errorString)"])
     }
 }

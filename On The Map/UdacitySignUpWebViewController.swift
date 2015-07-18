@@ -41,13 +41,12 @@ class UdacitySignUpWebViewController: UIViewController, UIWebViewDelegate {
     
     func webViewDidFinishLoad(webView: UIWebView) {
         //if success URL request retrieved, dismiss view
+        println(webView.request!.URL!.absoluteString!   )
         if(webView.request!.URL!.absoluteString! == "\(UdacityClient.Constants.BASE_URL)\(UdacityClient.Constants.SIGN_UP_SUCCESS)") {
             
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 self.completionHandler!(success: true, error: nil)
             })
-            //else - errors handled by Udacity web server through browser
-            //TODO - maybe add handle for lack of signal or poor signal?
         }
     }
     

@@ -40,7 +40,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        println("InfoPostVC appear")
+
         // get keybard notifications
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
@@ -76,12 +76,10 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
             geoCoder.geocodeAddressString(searchString){ placemarks, error in
                     if let error = error {
                         //create alert
-                        println("error in geocoding")
                         dispatch_async(dispatch_get_main_queue(), {
                             self.makeAlert(self, title: "Can't Find Location", error: error)
                         })
                     } else {
-                        println("successful geocoding")
                         //get address and coordinate from placemarks
                         let placemark = placemarks[0] as! CLPlacemark
                         let addressDict = placemark.addressDictionary
@@ -130,12 +128,12 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         
         ParseClient.sharedInstance().postStudentLocation(self.locationString!, latitude: lat, longitude: lon, userURLstring: self.urlField.text) { success, error in
             if success {
-                println("successful post")
+                //successful post
                 dispatch_async(dispatch_get_main_queue(), {
                     self.makeAlert(self, title: "Location Posted", error: nil)
                 })
             } else {
-                println("failed to post")
+                //post failed
                 dispatch_async(dispatch_get_main_queue(), {
                     self.makeAlert(self, title: "Update Failed", error: error)
                 })

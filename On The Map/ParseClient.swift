@@ -12,8 +12,9 @@ class ParseClient: GenericClient {
     
     var studentLocations: [ParseStudentLocation] = []
     
+    //method for GET
     func taskForGETMethod(urlString: String, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
-        println("in get method")
+        
         //construct URL
         let url = NSURL(string: urlString)
         
@@ -28,10 +29,10 @@ class ParseClient: GenericClient {
         //start request
         let task = session.dataTaskWithRequest(request) {data, response, parsingError in
             if let error = parsingError {
-                println("could not get data")
+                //error in GET
                 completionHandler(success: false, result: nil, error: error)
             } else {
-                println("successful get method")
+                //no error
                 self.parseJSON(data, completionHandler: completionHandler)
             }
         }
@@ -40,7 +41,7 @@ class ParseClient: GenericClient {
     }
     
     func taskForPOSTMethod(urlString: String, httpBody: NSData, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {
-        println("in post method")
+        
         //construct URL
         let url = NSURL(string: urlString)
         
@@ -58,10 +59,10 @@ class ParseClient: GenericClient {
         //start request
         let task = session.dataTaskWithRequest(request) {data, response, parsingError in
             if let error = parsingError {
-                println("could not get data")
+                //POST error
                 completionHandler(success: false, result: nil, error: error)
             } else {
-                println("successful get method")
+                //no error
                 self.parseJSON(data, completionHandler: completionHandler)
             }
         }

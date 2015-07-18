@@ -183,37 +183,30 @@ extension UdacityClient {
         })
     }
     
+    //logout of app using udacity API
     func udacityLogout(completionHandler: (success: Bool, error: NSError?) -> Void) -> Void {
-        println("entering udacityLogout, DELETE method")
         taskForDELETEMethod(UdacityClient.Methods.SESSION, request: NSMutableURLRequest()) {success, result, error in
             if let error = error {
-                //TODO: Make Alert VC to display error
-                println("DELETE error found")
+                //failed DELETE method
                 completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: error.localizedDescription))
             } else {
-                println("no DELETE error")
+                //successful DELETE method
                 if let session = result?.valueForKey(JSONBodyKeys.SESSION) as? [String: AnyObject] {
-                    println("session field found")
+                    //session found
                     if let expiration = session[JSONBodyKeys.EXPIRATION] as? String {
-                        println("expiration field found")
-                        //clear IDs, report success
+                        //expirmation found, clear IDs, studentLocation objects, report success
                         self.clearIDs()
+                        ParseClient.sharedInstance().clearStudentLocations()
                         completionHandler(success: true, error: nil)
                     } else {
-                        println("expiration field not found")
+                        //expiration not found
                         completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: "Error: \(JSONBodyKeys.EXPIRATION) does not exist"))
                     }
                 } else {
-                    //TODO: Make Alert VC to display error
-                    println("session not found")
+                    //session not found
                     completionHandler(success: false, error: self.errorHandle("udacityLogout", errorString: "Error: \(JSONBodyKeys.SESSION) does not exist"))
                 }
             }
         }
     }
-
-//    func errorHandle(domain: String, errorString: String) -> NSError {
-//        //Create specialized errors in cases of elements not existing in successfully retrieved JSON data
-//        return NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "\(errorString)"])
-//    }
 }
