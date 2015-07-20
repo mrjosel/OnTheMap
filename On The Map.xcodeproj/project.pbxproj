@@ -24,7 +24,6 @@
 		B756076D1B5AB3A3008ABCFF /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756076C1B5AB3A3008ABCFF /* FacebookClient.swift */; };
 		B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */; };
 		B7ADE7141B5854710037435D /* GenericClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE7131B5854710037435D /* GenericClient.swift */; };
-		B7E2091E1B5D56D30038754A /* FacebookLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2091D1B5D56D30038754A /* FacebookLoginButton.swift */; };
 		B7E209201B5D5E080038754A /* FacebookConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2091F1B5D5E080038754A /* FacebookConstants.swift */; };
 		B7E209231B5D60CC0038754A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E209221B5D60CC0038754A /* FBSDKCoreKit.framework */; };
 		B7E209251B5D67FA0038754A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E209241B5D67FA0038754A /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -71,7 +70,6 @@
 		B756076C1B5AB3A3008ABCFF /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredPlaceholderTextField.swift; sourceTree = "<group>"; };
 		B7ADE7131B5854710037435D /* GenericClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericClient.swift; sourceTree = "<group>"; };
-		B7E2091D1B5D56D30038754A /* FacebookLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginButton.swift; sourceTree = "<group>"; };
 		B7E2091F1B5D5E080038754A /* FacebookConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookConstants.swift; sourceTree = "<group>"; };
 		B7E209221B5D60CC0038754A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B7E209241B5D67FA0038754A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				B7EF5CC61B38A4A00090BBDF /* BorderedButton.swift */,
 				B7F957A41B55BB1700B3A4E5 /* InfoPostBorderedButton.swift */,
 				B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */,
-				B7E2091D1B5D56D30038754A /* FacebookLoginButton.swift */,
 			);
 			name = View;
 			path = ..;
@@ -400,7 +397,6 @@
 				B71B67A31B39FC6C0010F2DD /* UdacityClient.swift in Sources */,
 				B71C35511B51ABF4004C95D0 /* InfoPostVCExtensions.swift in Sources */,
 				B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */,
-				B7E2091E1B5D56D30038754A /* FacebookLoginButton.swift in Sources */,
 				B71B67A01B39FAFF0010F2DD /* ParseConstants.swift in Sources */,
 				B7E209201B5D5E080038754A /* FacebookConstants.swift in Sources */,
 				B71B67AB1B3B3D980010F2DD /* UdacityConvenience.swift in Sources */,

@@ -62,9 +62,8 @@ extension LoginViewController {
         loginButton.themeBorderedButton()
         
         //Facebook Button
-//        facebookLoginButton.themeBorderedButton()
         var facebookLoginButton: FBSDKLoginButton = FBSDKLoginButton()
-        facebookLoginButton.center = self.view.center
+        facebookLoginButton.frame = CGRect(x: 62.5, y: 552, width: 250.0, height: 44.0)
         self.view.addSubview(facebookLoginButton)
         
         /* Configure tap recognizer */
