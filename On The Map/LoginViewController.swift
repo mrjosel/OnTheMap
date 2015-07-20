@@ -20,6 +20,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
+    @IBOutlet weak var facebookLoginButton: BorderedButton!
     
     //for keyboard adjustments
     var keyboardAdjusted = false
@@ -32,6 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // get keybard notifications
         self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -86,6 +88,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.makeAlert(self, title: "Login Failure", error: error!)
             }
         }
+    }
+    
+    @IBAction func facebookLoginButtonTouchUpInside(sender: FacebookLoginButton) {
+        //TODO: IMPLEMENT
+        FacebookClient.sharedInstance().facebookLogin()
     }
     
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {

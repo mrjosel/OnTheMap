@@ -19,6 +19,8 @@ extension LoginViewController {
         self.navigationController?.navigationBarHidden = true
         
         let lightOrange = makeColor(255.0, gVal: 160.0, bVal: 32.0)
+        let facebookBlue = makeColor(58, gVal: 86, bVal: 164)
+        let facebookBlueHighlight = makeColor(35, gVal: 52, bVal: 104)
         var gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [lightOrange.CGColor, UIColor.orangeColor().CGColor]
@@ -55,6 +57,9 @@ extension LoginViewController {
         
         //Login Button
         loginButton.themeBorderedButton()
+        
+        //Facebook Button
+        facebookLoginButton.themeBorderedButton()
         
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
