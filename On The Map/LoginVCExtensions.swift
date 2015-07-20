@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 import QuartzCore
+import FBSDKCoreKit
+import FBSDKShareKit
+import FBSDKLoginKit
 
 extension LoginViewController {
     
@@ -59,7 +62,10 @@ extension LoginViewController {
         loginButton.themeBorderedButton()
         
         //Facebook Button
-        facebookLoginButton.themeBorderedButton()
+//        facebookLoginButton.themeBorderedButton()
+        var facebookLoginButton: FBSDKLoginButton = FBSDKLoginButton()
+        facebookLoginButton.center = self.view.center
+        self.view.addSubview(facebookLoginButton)
         
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")

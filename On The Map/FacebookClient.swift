@@ -7,9 +7,14 @@
 //
 
 import Foundation
+import FBSDKCoreKit
+import FBSDKShareKit
+import FBSDKLoginKit
 
 class FacebookClient: GenericClient {
+    
     func facebookLogin() {
+
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")

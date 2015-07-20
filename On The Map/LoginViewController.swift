@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKShareKit
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -20,8 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
-    @IBOutlet weak var facebookLoginButton: BorderedButton!
-    
+
     //for keyboard adjustments
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
@@ -50,7 +52,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         //Configure the UI
         self.configureUI()
-        
+
     }
     
     @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {
@@ -90,11 +92,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func facebookLoginButtonTouchUpInside(sender: FacebookLoginButton) {
-        //TODO: IMPLEMENT
-        FacebookClient.sharedInstance().facebookLogin()
-    }
-    
     @IBAction func signUpButtonTouchUpInside(sender: UIButton) {
         //signup for Udacity
         
@@ -110,7 +107,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

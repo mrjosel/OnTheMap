@@ -36,6 +36,19 @@
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-Regular.ttf</string>
 	</array>
+	<key>FacebookAppID</key>
+	<string>1584841671777524</string>
+	<key>FacebookDisplayName</key>
+	<string>Udacity Nanodegree Lesson 3</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1584841671777524</string>
+			</array>
+		</dict>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
