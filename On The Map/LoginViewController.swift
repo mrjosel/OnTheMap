@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKShareKit
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButtonDelegate {
     
     //Outlets
     @IBOutlet weak var udacityIconImageView: UIImageView!
@@ -53,6 +53,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //Configure the UI
         self.configureUI()
 
+        if let token = FBSDKAccessToken.currentAccessToken() {
+            println("has a token")
+            println(token.tokenString)
+            FacebookClient.sharedInstance().facebookLogin()
+        } else {
+            println("no token")
+        }
     }
     
     @IBAction func loginButtonTouchUpInside(sender: BorderedButton) {
@@ -75,11 +82,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 })
                 ParseClient.sharedInstance().getStudentLocations() {success, error in
                     if success {
-                        println("successful parseStudentObjects")
                         //complete login
                         self.completeLogin()
                     } else {
-                        println("failed to get parse studentLocations")
                         //alert user
                         self.makeAlert(self, title: "Get User Data Failure", error: error!)
                     }
@@ -106,6 +111,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.makeAlert(self, title: "Sign-Up Failure", error: error!)
             }
         }
+    }
+    
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        println("completed")
+        FacebookClient.sharedInstance().facebookLogin()
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        //TODO: IMPLEMENT
+        println("facebook logout")
     }
     
     override func didReceiveMemoryWarning() {

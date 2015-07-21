@@ -12,7 +12,7 @@ import Foundation
 extension FacebookClient {
     
     struct keys {
-        let APP_ID = "1584841671777524"//"365362206864879"
+        let APP_ID = /*"1584841671777524"*/"365362206864879"
         let SUFFIX = "onthemap"
     }
 }
