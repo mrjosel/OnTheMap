@@ -22,7 +22,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var debugLabel: UILabel!
-
+    @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
+    
     //for keyboard adjustments
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0

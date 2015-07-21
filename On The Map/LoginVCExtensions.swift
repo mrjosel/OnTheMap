@@ -61,10 +61,7 @@ extension LoginViewController {
         udacityLoginButton.themeBorderedButton()
         
         //Facebook Button
-        var facebookLoginButton: FBSDKLoginButton = FBSDKLoginButton()
         facebookLoginButton.delegate = self
-        facebookLoginButton.frame = CGRect(x: 62.5, y: 552, width: 250.0, height: 44.0)
-        self.view.addSubview(facebookLoginButton)
         
         /* Configure tap recognizer */
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
@@ -78,6 +75,7 @@ extension LoginViewController {
         self.passwordTextField.enabled = enabled
         self.udacityLoginButton.enabled = enabled
         self.signUpButton.enabled = enabled
+        self.facebookLoginButton.enabled = enabled
     }
     
     func setupTextFieldProperties(textField: UITextField, placeholder: String) -> Void {
