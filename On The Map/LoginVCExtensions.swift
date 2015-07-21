@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import QuartzCore
 import FBSDKCoreKit
-import FBSDKShareKit
 import FBSDKLoginKit
 
 extension LoginViewController {
@@ -59,7 +58,7 @@ extension LoginViewController {
         loginLabel.text = "Login to Udacity"
         
         //Login Button
-        loginButton.themeBorderedButton()
+        udacityLoginButton.themeBorderedButton()
         
         //Facebook Button
         var facebookLoginButton: FBSDKLoginButton = FBSDKLoginButton()
@@ -77,7 +76,7 @@ extension LoginViewController {
         //toggle user ability to use buttons/fields
         self.usernameTextField.enabled = enabled
         self.passwordTextField.enabled = enabled
-        self.loginButton.enabled = enabled
+        self.udacityLoginButton.enabled = enabled
         self.signUpButton.enabled = enabled
     }
     
@@ -91,6 +90,17 @@ extension LoginViewController {
         textField.textColor = UIColor.whiteColor()
         textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)  //indents text
 
+    }
+    
+    func getEmailPWfields() -> Void {
+        //gets email and password fields and saves to UdacityClient, ignores if fields are empty
+        if self.usernameTextField.text != "" {
+            UdacityClient.sharedInstance().email = self.usernameTextField.text
+        }
+        
+        if self.passwordTextField.text != "" {
+            UdacityClient.sharedInstance().password = self.passwordTextField.text
+        }
     }
     
     func completeLogin() -> Void {

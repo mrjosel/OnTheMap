@@ -10,6 +10,10 @@ import Foundation
 
 class UdacityClient: GenericClient {
     
+    //email and password
+    var email: String?
+    var password: String?
+    
     //session and user ID
     var sessionID: String?
     var userID: String?
@@ -22,6 +26,8 @@ class UdacityClient: GenericClient {
         //Clear out IDs after logging out
         sessionID = nil
         userID = nil
+        email = nil
+        password = nil
     }
     
     func taskForGETMethod(urlString: String, completionHandler: (success: Bool, result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionTask {

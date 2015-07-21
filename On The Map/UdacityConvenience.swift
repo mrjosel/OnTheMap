@@ -8,54 +8,62 @@
 
 import Foundation
 import UIKit
+import FBSDKCoreKit
 
 extension UdacityClient {
     
-    func allActions(email: String, password: String, completionHandler:(success: Bool, error: NSError?) -> Void) {
-        // Use email and password to POST and get JSON data
+    //complete Udacity login activity
+    func allActions(completionHandler:(success: Bool, error: NSError?) -> Void) {
+        
+        var httpBody: NSData!   //body for POST request
         let method = Methods.SESSION
-        let httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        //if token specified (facebook), use and ignore username/password
+        if let token = FacebookClient.sharedInstance().token {
+            let tokenString = token.tokenString
+            httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(tokenString)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        } else {
+            //body not specified, use username/password 
+            httpBody = "{\"udacity\": {\"username\": \"\(email!)\", \"password\": \"\(password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        }
         
         //execute one post method to get all required information as there are no specific methods for each
         let task = taskForPOSTMethod(method, body: httpBody!) {success, result, error in
             if success {
-                println("taskForPOST successful")
                 // successfully retrieved JSON data, cast it to [String: AnyObject]
                 if let validJSONData = result as? [String: AnyObject] {
-                    println("valid casting of JSON data")
                     //check valid credentials
                     self.checkValidCredentials(validJSONData) {success, error in
                         if success {
-                            println("verified credentials")
                             //get sessionID and userID
                             self.getSessionID(validJSONData) {success, error in
                                 if success {
-                                    println("successfull got sessionID")
+                                    //get public data
                                     self.getUserPublicData(self.userID) {success, error in
                                         if success {
-                                            println("successfully got user public data")
+                                            //done
                                             completionHandler(success: true, error: nil)
                                         } else {
-                                            println("faild to get user public data")
+                                            //failed to get user public data
                                             completionHandler(success: false, error: error)
                                         }
                                     }
                                 } else {
-                                    println("failed to get sessionID")
+                                    //failed to get sessionID
                                     completionHandler(success: false, error: error)
                                 }
                             }
                         } else {
-                            println("failed to verify credentials")
+                            //failed to verify credentials
                             completionHandler(success: false, error: error)
                         }
                     }
                 } else {
-                    println("failed to cast JSON")
+                    //failed to cast JSON
                     completionHandler(success: false, error: self.errorHandle("casting validJSONData", errorString: "Error: Failed to Cast JSON Data"))
                 }
             } else {
-                println("taskForPOST failed")
+                //task for POST failed
                 completionHandler(success: false, error: error)
             }
         }
@@ -66,34 +74,26 @@ extension UdacityClient {
     
         //configure urlString
         let urlString = Constants.BASE_URL + Constants.API + Constants.USERS + "/" + UdacityClient.sharedInstance().userID!
-        println("test string = https://www.udacity.com/api/users/3903878747")
-        println("              \(urlString)")
+
         taskForGETMethod(urlString){ success, result, error in
             if let error = error {
                 //handle error
-                println("println failed to get data in user public data")
                 completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
             } else {
                 //get first and last names
-                println("successful data retrieval")
                 if let result = result as? [String: AnyObject] {
-                    println("successfully parsed result")
-                    println("USERKEY = \(UdacityClient.UserKeys.USER)")
-                    println("\n \(result) \n")
+                    //casted result
                     if let userInfo = result[UdacityClient.UserKeys.USER] as? [String: AnyObject] {
-                        println("successfully print parsed userInfo")
+                        //got data, set names accordingly
                         self.firstName = (userInfo[UdacityClient.UserKeys.FIRST_NAME] as! String)
                         self.lastName = (userInfo[UdacityClient.UserKeys.LAST_NAME] as! String)
-                        println("firstName = \(self.firstName)")
-                        println("firstName = \(self.lastName)")
                         completionHandler(successs: success, error: nil)
                     } else {
                         //handler error
-                        println("failed to parse userInfo")
                         completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
                     }
                 } else {
-                    println("failed to parse result")
+                    //failed to parse result
                     completionHandler(successs: false, error: self.errorHandle("getUserPublicData", errorString: "Failed to Get User Data"))
                 }
             }
@@ -138,7 +138,7 @@ extension UdacityClient {
         } else {
             //error field not present in data
             if let account = JSONData[JSONBodyKeys.ACCOUNT] as? [String: AnyObject] {
-                println(account)
+                //got account info
                 if let registered = account[JSONBodyKeys.REGISTERED] as? Int {
                     //checking if user is registered
                     if registered == 1 {

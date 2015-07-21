@@ -8,7 +8,6 @@
 
 import UIKit
 import FBSDKCoreKit
-import FBSDKShareKit
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButtonDelegate {
@@ -18,7 +17,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var topvView: UIView!
     @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var loginButton: BorderedButton!
+    @IBOutlet weak var udacityLoginButton: BorderedButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
@@ -28,6 +27,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
     var tapRecognizer: UITapGestureRecognizer? = nil
+    
+    //email and password
+    var email: String?
+    var password: String?
+//    var tokenString: String?
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,16 +53,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        println(self.passwordTextField.text)
         
         //Configure the UI
         self.configureUI()
 
         if let token = FBSDKAccessToken.currentAccessToken() {
-            println("has a token")
-            println(token.tokenString)
-            FacebookClient.sharedInstance().facebookLogin()
-        } else {
-            println("no token")
+            //facebook token present, get token string and login
+//            tokenString = token.tokenString
+            FacebookClient.sharedInstance().token = token
+            self.loginButtonTouchUpInside(udacityLoginButton)
         }
     }
     
@@ -72,9 +76,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
             self.debugLabel.hidden = false
         })
         
-        UdacityClient.sharedInstance().allActions(self.usernameTextField.text, password: self.passwordTextField.text) { success, error in
+        self.getEmailPWfields()
+        
+        UdacityClient.sharedInstance().allActions() { success, error in
             if success {
-                println("successful udacity actions")
                 //get all studentObjects
                 dispatch_async(dispatch_get_main_queue(), {
                     //alert user 
@@ -90,7 +95,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
                     }
                 }
             } else {
-                println("failed udacity actions")
                 //alert user
                 self.makeAlert(self, title: "Login Failure", error: error!)
             }
@@ -114,13 +118,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        println("completed")
-        FacebookClient.sharedInstance().facebookLogin()
+        //execute the following when FBSDKLoginButton successfully logs in
+        FacebookClient.sharedInstance().token = FBSDKAccessToken.currentAccessToken()
+        self.loginButtonTouchUpInside(udacityLoginButton)
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        //TODO: IMPLEMENT
-        println("facebook logout")
+        //execute the following when FBSDKLoginButton successfully logs out
+        //does nothing, only here for protocol conformity
+        println("logged out of facebook")
     }
     
     override func didReceiveMemoryWarning() {

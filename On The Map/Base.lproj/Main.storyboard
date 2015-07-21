@@ -129,12 +129,12 @@
                     <connections>
                         <outlet property="bottomView" destination="kH2-rR-eca" id="AZ6-5F-JAo"/>
                         <outlet property="debugLabel" destination="5hM-33-fjp" id="hJP-nP-cGj"/>
-                        <outlet property="loginButton" destination="zJ7-9U-Zxf" id="ET1-Uq-35J"/>
                         <outlet property="loginLabel" destination="EkT-4E-CL7" id="tBH-Qn-qHl"/>
                         <outlet property="passwordTextField" destination="DcQ-gF-itT" id="uea-5g-tJb"/>
                         <outlet property="signUpButton" destination="qz5-NS-vfa" id="1OH-5G-qhS"/>
                         <outlet property="topvView" destination="K8c-ti-hLF" id="th6-yQ-iqV"/>
                         <outlet property="udacityIconImageView" destination="42M-fw-Khc" id="THl-UT-bfI"/>
+                        <outlet property="udacityLoginButton" destination="zJ7-9U-Zxf" id="7pG-kU-c3I"/>
                         <outlet property="usernameTextField" destination="au8-W3-dMo" id="DAJ-o4-hKv"/>
                     </connections>
                 </viewController>

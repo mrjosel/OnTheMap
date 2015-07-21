@@ -21,13 +21,11 @@
 		B7510FF71B55326E00B29CD3 /* TabParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */; };
 		B7510FF91B554D1800B29CD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7510FF81B554D1800B29CD3 /* ListViewController.swift */; };
 		B75607691B585E57008ABCFF /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75607681B585E57008ABCFF /* ParseConvenience.swift */; };
-		B756076D1B5AB3A3008ABCFF /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756076C1B5AB3A3008ABCFF /* FacebookClient.swift */; };
 		B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */; };
 		B7ADE7141B5854710037435D /* GenericClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADE7131B5854710037435D /* GenericClient.swift */; };
-		B7E209201B5D5E080038754A /* FacebookConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2091F1B5D5E080038754A /* FacebookConstants.swift */; };
 		B7E209231B5D60CC0038754A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E209221B5D60CC0038754A /* FBSDKCoreKit.framework */; };
 		B7E209251B5D67FA0038754A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E209241B5D67FA0038754A /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		B7E209271B5D68060038754A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E209261B5D68060038754A /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		B7E2092B1B5ED1160038754A /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2092A1B5ED1160038754A /* FacebookClient.swift */; };
 		B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */; };
 		B7EF5C9A1B388D3E0090BBDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5C991B388D3E0090BBDF /* LoginViewController.swift */; };
 		B7EF5C9D1B388D3E0090BBDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7EF5C9B1B388D3E0090BBDF /* Main.storyboard */; };
@@ -67,13 +65,11 @@
 		B7510FF61B55326E00B29CD3 /* TabParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabParentViewController.swift; sourceTree = "<group>"; };
 		B7510FF81B554D1800B29CD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B75607681B585E57008ABCFF /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
-		B756076C1B5AB3A3008ABCFF /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		B7ADE70F1B5848E30037435D /* StoredPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredPlaceholderTextField.swift; sourceTree = "<group>"; };
 		B7ADE7131B5854710037435D /* GenericClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericClient.swift; sourceTree = "<group>"; };
-		B7E2091F1B5D5E080038754A /* FacebookConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookConstants.swift; sourceTree = "<group>"; };
 		B7E209221B5D60CC0038754A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B7E209241B5D67FA0038754A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		B7E209261B5D68060038754A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		B7E2092A1B5ED1160038754A /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		B7EF5C921B388D3E0090BBDF /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7EF5C961B388D3E0090BBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7EF5C971B388D3E0090BBDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7E209271B5D68060038754A /* FBSDKShareKit.framework in Frameworks */,
 				B7E209251B5D67FA0038754A /* FBSDKLoginKit.framework in Frameworks */,
 				B7E209231B5D60CC0038754A /* FBSDKCoreKit.framework in Frameworks */,
 			);
@@ -116,8 +111,8 @@
 		B71B679B1B39FA570010F2DD /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				B7E2092A1B5ED1160038754A /* FacebookClient.swift */,
 				B7ADE7131B5854710037435D /* GenericClient.swift */,
-				B756076E1B5AB3AC008ABCFF /* Facebook */,
 				B71B67A11B39FC540010F2DD /* Udacity */,
 				B71B679C1B39FA730010F2DD /* Parse */,
 			);
@@ -156,19 +151,9 @@
 			name = VCExtensions;
 			sourceTree = "<group>";
 		};
-		B756076E1B5AB3AC008ABCFF /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				B756076C1B5AB3A3008ABCFF /* FacebookClient.swift */,
-				B7E2091F1B5D5E080038754A /* FacebookConstants.swift */,
-			);
-			name = Facebook;
-			sourceTree = "<group>";
-		};
 		B7E209211B5D607D0038754A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B7E209261B5D68060038754A /* FBSDKShareKit.framework */,
 				B7E209241B5D67FA0038754A /* FBSDKLoginKit.framework */,
 				B7E209221B5D60CC0038754A /* FBSDKCoreKit.framework */,
 			);
@@ -398,7 +383,6 @@
 				B71C35511B51ABF4004C95D0 /* InfoPostVCExtensions.swift in Sources */,
 				B7EF5CC91B38A9500090BBDF /* LoginVCExtensions.swift in Sources */,
 				B71B67A01B39FAFF0010F2DD /* ParseConstants.swift in Sources */,
-				B7E209201B5D5E080038754A /* FacebookConstants.swift in Sources */,
 				B71B67AB1B3B3D980010F2DD /* UdacityConvenience.swift in Sources */,
 				B7F957A51B55BB1700B3A4E5 /* InfoPostBorderedButton.swift in Sources */,
 				B71C354F1B518FF9004C95D0 /* InformationPostingViewController.swift in Sources */,
@@ -411,7 +395,7 @@
 				B7EF5CC71B38A4A00090BBDF /* BorderedButton.swift in Sources */,
 				B71C354D1B502262004C95D0 /* ParseStudentLocation.swift in Sources */,
 				B7ADE7101B5848E30037435D /* StoredPlaceholderTextField.swift in Sources */,
-				B756076D1B5AB3A3008ABCFF /* FacebookClient.swift in Sources */,
+				B7E2092B1B5ED1160038754A /* FacebookClient.swift in Sources */,
 				B7EF5C981B388D3E0090BBDF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class TabParentViewController: UIViewController {
     //generic Parent VC for Tab and List VC since many functions are shared
@@ -68,6 +70,11 @@ class TabParentViewController: UIViewController {
         //Logout of Udacity Client
         //disable Logout button while logging out
         self.enableNavButtons(false)
+        
+        //if facebook token exists, logout of facebook
+        if let token = FacebookClient.sharedInstance().token {
+            FacebookClient.sharedInstance().manager.logOut()
+        }
         
         UdacityClient.sharedInstance().udacityLogout() { success, error in
             if success {
