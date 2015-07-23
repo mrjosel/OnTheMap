@@ -25,7 +25,6 @@ class ListViewController: TabParentViewController, UITableViewDelegate, UITableV
     //launch website of studentLocation mediaURL
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let app = UIApplication.sharedApplication()
-        println(ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL)
         let urlString = ParseClient.sharedInstance().studentLocations[indexPath.row].mediaURL
             //create URL and launch
         if let url = NSURL(string: urlString!) {
