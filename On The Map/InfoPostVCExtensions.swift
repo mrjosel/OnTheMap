@@ -22,6 +22,9 @@ extension InformationPostingViewController {
         //make blue color for use at various points
         let blue = makeColor(65, gVal: 117, bVal: 164)
         
+        //activityIndicator
+        self.activityIndicator.hidesWhenStopped = true
+        
         //search button
         self.findLocationButton.themeBorderedButton()
         

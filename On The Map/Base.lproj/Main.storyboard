@@ -420,6 +420,9 @@
                                     <constraint firstAttribute="centerX" secondItem="vfG-Sv-gFB" secondAttribute="centerX" id="v6j-TA-IUH"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aV8-eP-aft">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yn1-Po-tDG">
                                 <rect key="frame" x="0.0" y="204" width="600" height="396"/>
                             </mapView>
@@ -432,8 +435,10 @@
                             <constraint firstAttribute="centerX" secondItem="nXI-Bl-f59" secondAttribute="centerX" constant="-0.5" id="SwG-Cm-FVk"/>
                             <constraint firstItem="16F-eW-lCt" firstAttribute="top" secondItem="cuF-Y4-cos" secondAttribute="topMargin" id="T2v-sz-CVf"/>
                             <constraint firstItem="yn1-Po-tDG" firstAttribute="top" secondItem="F4B-c3-SBd" secondAttribute="bottom" constant="184" id="aE0-vN-kRS"/>
+                            <constraint firstAttribute="centerY" secondItem="aV8-eP-aft" secondAttribute="centerY" id="cCr-79-s7G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qct-Cb-Jv8" secondAttribute="trailing" constant="-16" id="eJg-z4-BZr"/>
                             <constraint firstItem="h6J-SO-1br" firstAttribute="top" secondItem="qct-Cb-Jv8" secondAttribute="bottom" id="mW6-xg-be2"/>
+                            <constraint firstAttribute="centerX" secondItem="aV8-eP-aft" secondAttribute="centerX" id="miI-gR-JGc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yn1-Po-tDG" secondAttribute="trailing" constant="-16" id="pZy-VU-rOc"/>
                             <constraint firstItem="yn1-Po-tDG" firstAttribute="leading" secondItem="qct-Cb-Jv8" secondAttribute="leading" id="snv-zi-US2"/>
                             <constraint firstItem="yn1-Po-tDG" firstAttribute="bottom" secondItem="h6J-SO-1br" secondAttribute="top" id="whp-ek-X2O"/>
@@ -441,6 +446,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="aV8-eP-aft" id="ePW-Na-oIy"/>
                         <outlet property="bottomLabel" destination="3gx-3j-rRg" id="mmk-6B-AJB"/>
                         <outlet property="bottomView" destination="qct-Cb-Jv8" id="jgH-y4-xEt"/>
                         <outlet property="cancelButton" destination="ku4-1h-URq" id="CQF-ji-zJJ"/>

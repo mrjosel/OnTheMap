@@ -23,6 +23,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBOutlet weak var findLocationButton: InfoPostBorderedButton!
     @IBOutlet weak var submitButton: InfoPostBorderedButton!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //for keyboard adjustments
     var keyboardAdjusted = false
@@ -73,6 +74,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
             //Create geocoder, start search
             let geoCoder = CLGeocoder()
             let searchString = self.searchField.text
+            self.activityIndicator.startAnimating()
             geoCoder.geocodeAddressString(searchString){ placemarks, error in
                     if let error = error {
                         //create alert
@@ -100,6 +102,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         //display map, make all UI changes
                         self.locationFoundMode(mapWindow)
                 }
+                self.activityIndicator.stopAnimating()
             }
         }
     }
